@@ -1,17 +1,6 @@
-# ethereum-vue-boilerplate
+# One
 
-Frameworks:
-- Vue 3
-- ant-design-vue
-
-TODO:
-- styling
-- more ethereum-react-boilerplate aquivalent components
-- more react-moralis aquivalent hooks
-- proper README
-- refactor
-- build npm package vue-moralis for modular project
-
+One App is the simplified front-end for ecosis Tokenomics usage
 
 ## Project setup
 ```
@@ -27,4 +16,3 @@ VUE_APP_MORALIS_APP_ID=YOUR_MORALIS_APP_ID
 ```
 yarn serve
 ```
-
