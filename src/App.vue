@@ -14,7 +14,7 @@
     </a-layout-content>
 
     <a-layout-footer>
-      <Coin :address="avaxAddress" chain="0x1"/>
+      <Coin :address="shibaInuAddress" chain="0x1"/>
     </a-layout-footer>
 
     </a-layout>
@@ -42,10 +42,10 @@ export default {
   },
   setup() {
     const  { chainId } = useMoralis()
-    const avaxAddress = "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
+    const shibaInuAddress = "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
     return {
       chainId,
-      avaxAddress
+      shibaInuAddress
     }
   }
 }

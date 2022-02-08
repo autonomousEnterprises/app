@@ -1,6 +1,7 @@
 # One
 
-One App is the simplified front-end for ecosis Tokenomics usage
+ecosis One is the simplified user interface for the usage of ecosis tokenomics
+
 
 ## Project setup
 ```
