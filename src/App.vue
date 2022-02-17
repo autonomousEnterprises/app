@@ -1,62 +1,179 @@
 <template>
-    <a-layout>
-
-    <a-layout-header style="display: flex">
-      <Authenticate />
-      <NativeBalance />
-      <Chain />
-    </a-layout-header>
-
-    <a-layout-content>
-      <ERC20Transfers />
-      <ERC20Balances />
-      <NativeTransactions />
-    </a-layout-content>
-
-    <a-layout-footer>
-      <Coin :address="shibaInuAddress" chain="0x1"/>
-    </a-layout-footer>
-
-    </a-layout>
+    <v-app>
+        <v-main>
+            <template>
+                <navbar v-show="isNavbar"></navbar>
+                <div class="main_cols" :wallet_view="!isNavbar">
+                    <UpgradeToAccountModal></UpgradeToAccountModal>
+                    <transition name="fade" mode="out-in">
+                        <router-view id="router_view" />
+                    </transition>
+                </div>
+            </template>
+        </v-main>
+        <LedgerBlock ref="ledger_block"></LedgerBlock>
+        <LedgerUpgrade></LedgerUpgrade>
+        <NetworkLoadingBlock></NetworkLoadingBlock>
+        <notifications></notifications>
+        <TestNetBanner></TestNetBanner>
+    </v-app>
 </template>
-
 <script>
-import Authenticate from './components/Authenticate.vue'
-import ERC20Transfers from './components/ERC20Transfers.vue'
-import ERC20Balances from './components/ERC20Balances.vue'
-import NativeBalance from './components/NativeBalance.vue'
-import NativeTransactions from './components/NativeTransactions.vue'
-import Chain from './components/Chain.vue'
-import Coin from './components/Coin.vue'
-import useMoralis from './composables/useMoralis'
+import Notifications from '@/components/Notifications'
+import Navbar from './components/Navbar'
+import SaveAccountModal from '@/components/modals/SaveAccount/SaveAccountModal'
+import LedgerBlock from '@/components/modals/LedgerBlock'
+import LedgerUpgrade from '@/components/modals/LedgerUpgrade'
+import TestNetBanner from '@/components/TestNetBanner'
+import NetworkLoadingBlock from '@/components/misc/NetworkLoadingBlock'
+import UpgradeToAccountModal from '@/components/modals/SaveAccount/UpgradeToAccountModal'
+
 export default {
-  name: 'App',
-  components: {
-    Authenticate,
-    ERC20Transfers,
-    ERC20Balances,
-    NativeBalance,
-    NativeTransactions,
-    Chain,
-    Coin
-  },
-  setup() {
-    const  { chainId } = useMoralis()
-    const shibaInuAddress = "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
-    return {
-      chainId,
-      shibaInuAddress
-    }
-  }
+    components: {
+        UpgradeToAccountModal,
+        NetworkLoadingBlock,
+        LedgerBlock,
+        LedgerUpgrade,
+        SaveAccountModal,
+        Navbar,
+        Notifications,
+        TestNetBanner,
+    },
+    async created() {
+        // Init language preference
+        let locale = localStorage.getItem('lang')
+        if (locale) {
+            this.$root.$i18n.locale = locale
+        }
+
+        await this.$store.dispatch('Network/init')
+        this.$store.commit('Accounts/loadAccounts')
+        this.$store.dispatch('Assets/initErc20List')
+        this.$store.dispatch('Assets/ERC721/init')
+        this.$store.dispatch('updateAvaxPrice')
+
+        if (this.$store.state.Accounts.accounts.length > 0) {
+            this.$router.push('/access')
+        }
+    },
+    computed: {
+        isNavbar() {
+            if (this.$route.path.includes('/wallet')) {
+                return false
+            }
+            return true
+        },
+    },
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+@use "./main";
+
+.main_cols {
+    &[wallet_view] {
+        height: 100vh;
+
+        #router_view {
+            overflow: auto;
+            padding: 0;
+            padding-bottom: 0px;
+        }
+    }
+
+    #router_view {
+        min-height: calc(100vh - 80px);
+        position: relative;
+        padding: main.$container_padding_m;
+    }
+}
+
+#router_view {
+    min-height: calc(100vh - 80px);
+    position: relative;
+    padding: main.$container_padding_m;
+    overflow: auto;
+}
+
+/*.panel {*/
+/*    background-color: #fff;*/
+/*    overflow: auto;*/
+/*    height: 100%;*/
+/*}*/
+</style>
+
+<style lang="scss">
+@use "./main";
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+p {
+    margin: 0px !important;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
+    color: var(--primary-color);
+    background-color: var(--bg) !important;
+    font-family: 'Rubik', sans-serif;
+    transition-duration: 0.2s;
+}
+
+#nav {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    padding: main.$container_padding_m;
+}
+
+@include main.mobile-device {
+    #router_view {
+        padding: 9px !important;
+    }
+
+    #nav {
+        padding: main.$container_padding_mobile;
+        display: flex !important;
+    }
+
+    /*.main_cols {*/
+    /*    grid-template-columns: 1fr !important;*/
+    /*    &[wallet_view] {*/
+    /*        height: auto !important;*/
+    /*    }*/
+    /*}*/
+    .panel {
+        display: none !important;
+    }
+}
+
+@include main.medium-device {
+    .main_cols {
+        &[wallet_view] {
+            grid-template-columns: 180px 1fr 240px !important;
+        }
+    }
+}
+
+@media only screen and (max-width: main.$width_s) {
+    #router_view {
+        padding: main.$container_padding_s;
+    }
+    #nav {
+        padding: main.$container_padding_s;
+    }
 }
 </style>
