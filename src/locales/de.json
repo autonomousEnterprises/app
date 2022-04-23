@@ -5,14 +5,14 @@
     "address": "Adresse",
     "add_pk": "Privaten Schlüssel hinzufügen",
     "home": {
-        "desc": "Avalanche Wallet ist eine einfache, sichere, \"ohne Aufsicht\" Wallet zur Aufbewahrung von Avalanche Vermögenswerten.",
+        "desc": "One ecosis Wallet ist eine einfache, sichere, \"ohne Aufsicht\" Wallet zur Aufbewahrung von Avalanche Vermögenswerten.",
         "access": {
             "title": "Willkommen zurück!",
-            "desc": "Hier auf dein bestehendes Avalanche Wallet zugreifen.",
+            "desc": "Hier auf dein bestehendes One ecosis Wallet zugreifen.",
             "submit": "Auf Wallet zugreifen"
         },
         "create": {
-            "title": "Neu bei Avalanche Wallet?",
+            "title": "Neu bei One ecosis Wallet?",
             "desc": "Erstelle eine neue Wallet zum Senden, Empfangen und Tauschen von Avalanche Vermögenswerten.",
             "submit": "Neue Wallet erstellen"
         }
@@ -63,13 +63,13 @@
         "submit": "Schlüsselphrase erstellen",
         "cancel": "Abbrechen",
         "mnemonic_title": "Dies ist Ihr Schlüsselsatz.",
-        "mnemonic_desc": "Verwende diese 24 Wörter in der Reihenfolge, um deine Avalanche Wallet wiederzuherstellen",
+        "mnemonic_desc": "Verwende diese 24 Wörter in der Reihenfolge, um deine One ecosis Wallet wiederzuherstellen",
         "attention": "Achtung!",
-        "warning": "Speichere diese Schlüsselphrase an einem sicheren Ort. Jeder mit dieser Schlüsselphrase kann auf deine Avalanche Wallet zugreifen. Es gibt keine Möglichkeit, verlorene Schlüsselphrasen wiederherzustellen.",
+        "warning": "Speichere diese Schlüsselphrase an einem sicheren Ort. Jeder mit dieser Schlüsselphrase kann auf deine One ecosis Wallet zugreifen. Es gibt keine Möglichkeit, verlorene Schlüsselphrasen wiederherzustellen.",
         "confirm": "Ich habe meine Schlüsselphrase an einem sicheren Ort notiert.",
         "regenerate": "Wiederherstellen",
         "success_title": "Herzlichen Glückwunsch!",
-        "success_desc": "Es ist an der Zeit, deine Avalanche Wallet zu öffnen.",
+        "success_desc": "Es ist an der Zeit, deine One ecosis Wallet zu öffnen.",
         "success_submit": "Auf Wallet zugreifen",
         "verify": "Verifizieren",
         "verifytitle": "Verifiziere Mnemonic",

@@ -5,14 +5,14 @@
     "address": "כתובת",
     "add_pk": "הוסף מפתח פרטי",
     "home": {
-        "desc": "Avalanche Wallet הוא ארנק פשוט, מאובטח ללא משמורת המיועד לאחסון נכסי Avalanche.",
+        "desc": "One ecosis Wallet הוא ארנק פשוט, מאובטח ללא משמורת המיועד לאחסון נכסי Avalanche.",
         "access": {
             "title": "ברוכים השבים!",
             "desc": "'גש' לארנק Avalanche הנוכחי שלך כאן.",
             "submit": "גש לארנק"
         },
         "create": {
-            "title": "משתמש חדש ב-Avalanche Wallet?",
+            "title": "משתמש חדש ב-One ecosis Wallet?",
             "desc": "'צור' ארנק חדש כדי לשלוח, לקבל ולהחליף נכסי Avalanche.",
             "submit": "צור ארנק חדש"
         }

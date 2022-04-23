@@ -32,7 +32,7 @@ import { Vue, Component } from 'vue-property-decorator'
                 {
                     vmid: 'og:title',
                     name: 'og:title',
-                    content: 'Access Stored Crypto Assets | Avalanche Wallet',
+                    content: 'Access Stored Crypto Assets | One ecosis Wallet',
                 },
             ],
             title: 'Access Stored Crypto Assets',

@@ -5,14 +5,14 @@
     "address": "العنوان",
     "add_pk": "أضف المفتاح الخاص",
     "home": {
-        "desc": "Avalanche Wallet هي محفظة بسيطة وآمنة بدون وصاية لحفظ أصول Avalanche.",
+        "desc": "One ecosis Wallet هي محفظة بسيطة وآمنة بدون وصاية لحفظ أصول Avalanche.",
         "access": {
             "title": "مرحبًا بعودتك!",
             "desc": "يمكنك 'الوصول' إلي محفظة Avalanche الخاص بك هنا.",
             "submit": "الوصول للمحفظة"
         },
         "create": {
-            "title": "هل أنت جديد على Avalanche Wallet؟",
+            "title": "هل أنت جديد على One ecosis Wallet؟",
             "desc": "'أنشىء' محفظة جديدة من أجل إرسال وإستقبال و تبادل أصول Avalanche.",
             "submit": "أنشىء محفظة جديدة"
         }
@@ -58,7 +58,7 @@
         }
     },
     "create": {
-        "generate": "قم بإنشاء عبارة مفتاحية جديدة لإعداد Avalanche Wallet.",
+        "generate": "قم بإنشاء عبارة مفتاحية جديدة لإعداد One ecosis Wallet.",
         "but_have": "لديك محفظة بالفعل؟",
         "submit": "توليد عبارة رئيسية",
         "cancel": "إلغاء",

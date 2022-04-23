@@ -31,7 +31,7 @@ import CreateWallet from '@/components/CreateWalletWorkflow/CreateWallet.vue'
                 {
                     vmid: 'og:title',
                     name: 'og:title',
-                    content: 'Create | Avalanche Wallet',
+                    content: 'Create | One ecosis Wallet',
                 },
             ],
             title: 'Create',

@@ -5,14 +5,14 @@
     "address": "Adresse",
     "add_pk": "Tilføj privat nøgle",
     "home": {
-        "desc": "Avalanche Wallet er en enkel, sikker, ikke-frihedsberøvende tegnebog til opbevaring af Avalanche aktiver.",
+        "desc": "One ecosis Wallet er en enkel, sikker, ikke-frihedsberøvende tegnebog til opbevaring af Avalanche aktiver.",
         "access": {
             "title": "Velkommen tilbage!",
             "desc": "Få adgang til din eksisterende Avalanche-tegnebog her.",
             "submit": "Adgang til tegnebogen"
         },
         "create": {
-            "title": "Ny på Avalanche Wallet?",
+            "title": "Ny på One ecosis Wallet?",
             "desc": "'Opret' en ny tegnebog til at sende, modtage og bytte Avalanche aktiver.",
             "submit": "Opret ny tegnebog"
         }
@@ -58,18 +58,18 @@
         }
     },
     "create": {
-        "generate": "Generer en ny nøglesætning for at opsætte din Avalanche Wallet.",
+        "generate": "Generer en ny nøglesætning for at opsætte din One ecosis Wallet.",
         "but_have": "Har du allerede en tegnebog?",
         "submit": "Genere nøglesætning",
         "cancel": "Annuller",
         "mnemonic_title": "Dette er din nøglesætning.",
-        "mnemonic_desc": "Brug disse 24 ord i rækkefølge for at gendanne din Avalanche Wallet",
+        "mnemonic_desc": "Brug disse 24 ord i rækkefølge for at gendanne din One ecosis Wallet",
         "attention": "Obs!",
-        "warning": "Gem denne nøglesætning et sikkert sted. Alle med denne nøglesætning kan have adgang til din Avalanche Wallet. Du kan ikke gendanne mistede nøglesætninger.",
+        "warning": "Gem denne nøglesætning et sikkert sted. Alle med denne nøglesætning kan have adgang til din One ecosis Wallet. Du kan ikke gendanne mistede nøglesætninger.",
         "confirm": "Jeg skrev min nøglesætning ned et sikkert sted.",
         "regenerate": "Regenere",
         "success_title": "Tillykke!",
-        "success_desc": "Det er tid til at få adgang til din Avalanche Wallet.",
+        "success_desc": "Det er tid til at få adgang til din One ecosis Wallet.",
         "success_submit": "Adgang til tegnebogen",
         "verify": "Bekræft",
         "verifytitle": "Bekræft Mnemonic",
