@@ -43,7 +43,7 @@ const hideSearchDropdown = () => {
         ]"
       >
         <img
-          alt="Enigma Tailwind HTML Admin Template"
+          alt="Eco"
           class="w-6"
           :src="logoUrl"
         />
@@ -68,7 +68,7 @@ const hideSearchDropdown = () => {
         ]"
       >
         <Breadcrumb.Link to="/">Application</Breadcrumb.Link>
-        <Breadcrumb.Link to="/" :active="true"> Dashboard </Breadcrumb.Link>
+        <Breadcrumb.Link to="/" :active="true"> Wallet </Breadcrumb.Link>
       </Breadcrumb>
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Search -->
