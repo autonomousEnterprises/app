@@ -1,117 +1,16 @@
-# Avalanche (AVAX) Wallet
+# Vue 3 + TypeScript + Vite
 
-This is the frontend Vue.js application for the Avalanche (AVAX) Wallet.
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Prerequisites
+## Recommended IDE Setup
 
--   Yarn (https://classic.yarnpkg.com/en/docs/install/)
--   Recent version of npm (7.4.0)
--   Node v15.6.0
--   Gecko, Avalanche client in Golang (https://github.com/ava-labs/avalanchego)
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-## Installation
+## Type Support For `.vue` Imports in TS
 
-1. Clone the repo `git clone https://github.com/ava-labs/avalanche-wallet.git`
-2. Go to root of the project `cd avalanche-wallet`
-3. Install javascript dependencies with `yarn install`.
+Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
 
-## Running The Project
+1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
+2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
-In order for the wallet to work, it needs the Avalanche network to operate on. By default the wallet will connect to the Avalanche mainnet.
-
-1. If you want to connect to a local network, make sure you have installed and able to run a AvlaancheGo node properly.
-2. Run the project with hot reloading `yarn serve`
-
-When you go to the website on your browser, you might get a warning saying
-"Site is not secure". This is because we are signing our own SSL Certificates. Please ignore and continue to the website.
-
-## Deployment
-
-1.  Compile and minify to have a production ready application with `yarn build`.
-2.  Serve from the `/dist` directory.
-
-## Releases
-
-1.  Generate a [personal access token](https://github.com/settings/tokens/new?scopes=repo&description=release-it)
-2.  Save it in your local env as RELEASE_IT_GITHUB_TOKEN
-3.  Run `yarn release`
-
-## Changing the Network
-
-By default the wallet will connect to the Avalanche tmainnet. You can change to another network by clicking the button labeled `TestNet` on the navigation bar and selecting another network, or add a custom network.
-
-## Explorer API
-
-A valid explorer API is required to correctly display balances for Mnemonic and Ledger type wallets.
-The wallet uses the Avalanche Explorer API to display wallet transaction history.
-
-WARNING: This history might be out of order and incomplete.
-
-## Browser Support
-
-We suggest using Google Chrome to view the Avalanche Wallet website.
-
-### Firefox and https
-
-Firefox does not allow https requests to localhost. But the Avalanche Wallet uses https by default, so we will need to change this to http. Make this switch by editing the `vue.config.js` file in the root directory and change
-
-```
-devServer: {
-    https: true
-},
-```
-
-to
-
-```
-devServer: {
-    https: false
-},
-```
-
-and run `yarn serve` to reflect the change.
-
-# Accounts
-
-The wallet can encrypt your private keys into a secure file encrypted by a password.
-
-```json
-{
-    "accounts": iUserAccountEncrypted[]
-}
-```
-
-# Language Setting
-
-Saved into local storage as a 2 letter code.
-
-```
-"lang": "en"
-```
-
-# Dependencies
-
-##### Avalanche Node (https://github.com/ava-labs/avalanchego)
-
-To get utxos and to send transactions.
-
-#### Explorer API Node (https://github.com/ava-labs/ortelius)
-
-To check if an address was used before, and to get activity history.
-
-# Default Connections
-
-The wallet needs to connect to an Avalanche node, and an explorer node to operate properly.
-
-By default, there are two network options to connect to: `Mainnet` and `Fuji`.
-
-##### Mainnet
-
--   Avalanche API: `https://api.avax.network:443`
--   Explorer API: `https://explorerapi.avax.network`
-
-##### Fuji (Testnet)
-
--   Avalanche API: `https://api.avax-test.network:443`
--   Explorer API: `https://explorerapi.avax-test.network`
-
+You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).

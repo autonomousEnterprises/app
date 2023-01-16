@@ -1,138 +1,67 @@
-import Vue from 'vue'
-import VueRouter, { Route } from 'vue-router'
-import Home from '../views/Home.vue'
-
-import Transfer from '@/views/wallet/Transfer.vue'
-import ManageKeys from '@/views/wallet/ManageKeys.vue'
-import Menu from '../views/access/Menu.vue'
-import Keystore from '../views/access/Keystore.vue'
-import Mnemonic from '@/views/access/Mnemonic.vue'
-import PrivateKey from '@/views/access/PrivateKey.vue'
-import Access from '../views/access/Access.vue'
-import Create from '@/views/Create.vue'
-import Wallet from '@/views/Wallet.vue'
-import WalletHome from '@/views/wallet/Portfolio.vue'
-import Earn from '@/views/wallet/Earn.vue'
-import Advanced from '@/views/wallet/Advanced.vue' // your vuex store
-import Activity from '@/views/wallet/Activity.vue' // your vuex store
-import Account from '@/views/access/Account.vue' // your vuex store
-import Legal from '@/views/Legal.vue'
-
-Vue.use(VueRouter)
-
-import store from '../store/index'
-import Studio from '@/views/wallet/Studio.vue'
-import Export from '@/views/wallet/CrossChain.vue'
-
-const ifNotAuthenticated = (to: Route, from: Route, next: Function) => {
-    if (!store.state.isAuth) {
-        next()
-        return
-    }
-    next('/wallet')
-}
-
-const ifAuthenticated = (to: Route, from: Route, next: Function) => {
-    if (store.state.isAuth) {
-        next()
-        return
-    }
-    next('/')
-}
+import { createRouter, createWebHistory } from "vue-router";
+import SideMenu from "../layouts/SideMenu/SideMenu.vue";
+import SimpleMenu from "../layouts/SimpleMenu/SimpleMenu.vue";
+import TopMenu from "../layouts/TopMenu/TopMenu.vue";
+import Wallet from "../pages/Wallet.vue";
+import Page2 from "../pages/Page2.vue";
 
 const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: Home,
-        beforeEnter: ifNotAuthenticated,
-    },
-    {
-        path: '/access',
-        children: [
-            {
-                path: '/',
-                name: 'access',
-                component: Menu,
-            },
-            {
-                path: 'keystore',
-                component: Keystore,
-            },
-            {
-                path: 'privatekey',
-                component: PrivateKey,
-            },
-            {
-                path: 'mnemonic',
-                component: Mnemonic,
-            },
-            {
-                path: 'account/:index',
-                component: Account,
-                name: 'Account',
-            },
-        ],
-        component: Access,
-        beforeEnter: ifNotAuthenticated,
-    },
-    {
-        path: '/legal',
-        name: 'legal',
-        component: Legal,
-    },
-    {
-        path: '/create',
-        name: 'create',
-        component: Create,
-        beforeEnter: ifNotAuthenticated,
-    },
-    {
-        path: '/wallet',
-        children: [
-            {
-                path: '/',
-                name: 'wallet',
-                component: WalletHome,
-            },
-            {
-                path: 'transfer',
-                component: Transfer,
-            },
-            {
-                path: 'cross_chain',
-                component: Export,
-            },
-            {
-                path: 'keys',
-                component: ManageKeys,
-            },
-            {
-                path: 'earn',
-                component: Earn,
-            },
-            {
-                path: 'studio',
-                component: Studio,
-            },
-            {
-                path: 'advanced',
-                component: Advanced,
-            },
-            {
-                path: 'activity',
-                component: Activity,
-            },
-        ],
+  {
+    path: "/",
+    component: SideMenu,
+    children: [
+      {
+        path: "/",
+        name: "side-menu-page-1",
         component: Wallet,
-        beforeEnter: ifAuthenticated,
-    },
-]
+      },
+      // {
+      //   path: "page-2",
+      //   name: "side-menu-page-2",
+      //   component: Page2,
+      // },
+    ],
+  },
+  {
+    path: "/simple-menu",
+    component: SimpleMenu,
+    children: [
+      {
+        path: "page-1",
+        name: "simple-menu-page-1",
+        component: Wallet,
+      },
+      // {
+      //   path: "page-2",
+      //   name: "simple-menu-page-2",
+      //   component: Page2,
+      // },
+    ],
+  },
+  {
+    path: "/top-menu",
+    component: TopMenu,
+    children: [
+      {
+        path: "page-1",
+        name: "top-menu-page-1",
+        component: Wallet,
+      },
+      // {
+      //   path: "page-2",
+      //   name: "top-menu-page-2",
+      //   component: Page2,
+      // },
+    ],
+  },
+];
 
-const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes,
-})
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || { left: 0, top: 0 };
+  },
+});
 
-export default router
+export default router;
