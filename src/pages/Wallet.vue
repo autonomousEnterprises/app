@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import _ from "lodash";
 import fakerData from "../utils/faker";
 import Button from "../base-components/Button";
@@ -10,12 +11,29 @@ import Tippy from "../base-components/Tippy";
 import { Menu, Tab } from "../base-components/Headless";
 import Table from "../base-components/Table";
 
+// Lisk Implementation TODO wrap into components
+import { passphrase, cryptography } from '@liskhq/lisk-client';
+
+const createWallet = () => {
+  const pass = passphrase.Mnemonic.generateMnemonic();
+  const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(pass);
+  credentials.value = {
+    address: cryptography.getBase32AddressFromPassphrase(pass),
+    binaryAddress: cryptography.getAddressFromPassphrase(pass).toString("hex"),
+    passphrase: pass,
+    publicKey: keys.publicKey.toString("hex"),
+    privateKey: keys.privateKey.toString("hex")
+  };
+  console.log(credentials);
+};
+
 // Wallet Data
 let walletCreated = false
-let fundsDeposited = 100
-let rewardRate = 14
+let fundsDeposited = 0
+let rewardRate = 0
 let nextReward = (rewardRate / 100) * fundsDeposited
-let nextRewardTime = 1
+let nextRewardTime = 0
+let credentials = ref()
 
 </script>
 
@@ -30,13 +48,23 @@ let nextRewardTime = 1
             class="flex items-center mb-6 box dark:border-darkmode-600"
             v-slot="{ dismiss }"
           >
-            <span>
+            <span v-if="!credentials">
               Very Welcome!
               <button
                 class="rounded-md bg-white bg-opacity-20 dark:bg-darkmode-300 hover:bg-opacity-30 py-0.5 px-2 -my-3 ml-2"
+                @click="createWallet()"
               >
                 Create your first Wallet!
               </button>
+            </span>
+            <span v-else>
+              <div class="flex flex-col justify-start">
+                <h1 class="text-2xl p-4">Address: <b>{{ credentials.address }}</b></h1>
+                <h1 class="text-2xl p-4">Binary Address: <b>{{ credentials.binaryAddress }}</b></h1>
+                <h1 class="text-2xl p-4">Passphrase: <b>{{ credentials.passphrase }}</b></h1>
+                <h1 class="text-2xl p-4">PrivateKey: <b>{{ credentials.privateKey }}</b></h1>
+                <h1 class="text-2xl p-4">PublicKey: <b>{{ credentials.publicKey }}</b></h1>
+              </div>
             </span>
             <Alert.DismissButton class="text-white" @Click="dismiss">
               <Lucide icon="X" class="w-4 h-4" />
