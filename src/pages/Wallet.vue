@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import _ from "lodash";
 import fakerData from "../utils/faker";
 import Button from "../base-components/Button";
@@ -10,22 +10,22 @@ import Lucide from "../base-components/Lucide";
 import Tippy from "../base-components/Tippy";
 import { Menu, Tab } from "../base-components/Headless";
 import Table from "../base-components/Table";
+import {
+  getClient,
+  fetchAccountInfo,
+  createWallet,
+  transfer,
+  convert
+} from "../utils/nomics";
 
-// Lisk Implementation TODO wrap into components
-import { passphrase, cryptography } from '@liskhq/lisk-client';
+const walletCreationData = () => {
+  credentials.value = createWallet()
+}
 
-const createWallet = () => {
-  const pass = passphrase.Mnemonic.generateMnemonic();
-  const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(pass);
-  credentials.value = {
-    address: cryptography.getBase32AddressFromPassphrase(pass),
-    binaryAddress: cryptography.getAddressFromPassphrase(pass).toString("hex"),
-    passphrase: pass,
-    publicKey: keys.publicKey.toString("hex"),
-    privateKey: keys.privateKey.toString("hex")
-  };
-  console.log(credentials);
-};
+const fetchAccount = async () => {
+  const res = await fetchAccountInfo(address.value)
+  account.value = JSON.parse(res)
+}
 
 // Wallet Data
 let walletCreated = false
@@ -33,7 +33,24 @@ let fundsDeposited = 0
 let rewardRate = 0
 let nextReward = (rewardRate / 100) * fundsDeposited
 let nextRewardTime = 0
-let credentials = ref()
+let credentials = ref() // TODO define a Store for Nomics Wallet
+
+// Tx Processor
+let buildTx = async () => {
+  await transfer(receiver.value, amount.value)
+}
+
+// User Account
+let address = ref()
+let account = ref()
+
+// Receiver
+let receiver = ref()
+let amount = ref()
+
+onMounted(() => {
+  address.value = 'lsk98t7mtpp48atp96npm294cesjmbpetha9am5oo'
+})
 
 </script>
 
@@ -52,9 +69,16 @@ let credentials = ref()
               Very Welcome!
               <button
                 class="rounded-md bg-white bg-opacity-20 dark:bg-darkmode-300 hover:bg-opacity-30 py-0.5 px-2 -my-3 ml-2"
-                @click="createWallet()"
+                @click="walletCreationData()"
               >
-                Create your first Wallet!
+                Create your Wallet
+              </button>
+              or
+              <button
+                class="rounded-md bg-white bg-opacity-20 dark:bg-darkmode-300 hover:bg-opacity-30 py-0.5 px-2 -my-3 ml-2"
+                @click="walletCreationData()"
+              >
+                Import an exisiting one!
               </button>
             </span>
             <span v-else>
@@ -162,6 +186,53 @@ let credentials = ref()
               </Menu.Button>
             </Menu>
           </div>
+
+          <div class="flex flex-col w-full">
+            <!-- Dummy Viewer -->
+            <div class="w-full p-4 m-2">
+
+              <!-- <div >
+                <input class="" autofocus v-model="address"/>
+                <button @click="fetchAccount">submit</button>
+              </div> -->
+
+              <div class="w-full flex" v-if="account">
+                Available Funds
+                <div
+                  class="pl-3 text-2xl font-medium leading-6 2xl:text-3xl 2xl:pl-4"
+                >
+                  {{ convert.BeddowsToLSK(account.token.balance) }} Nomics
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Dummy Transaction Builder-->
+            <div class="w-full p-4 m-2">
+
+              <input class="rounded-lg py-2 px-4 my-2" placeholder="Amount" v-model="amount">
+              <input class="rounded-lg py-2 px-4 my-2" placeholder="Address" v-model="receiver">
+
+              <Menu class="mt-14 2xl:mt-24 w-44 2xl:w-52">
+                <Menu.Button
+                  :as="Button"
+                  variant="primary"
+                  rounded
+                  class="relative justify-center w-full px-4"
+                >
+                  Transfer
+                  <button
+                    class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
+                    @click="buildTx"
+                  >
+                    <!-- <Lucide icon="Plus" class="w-6 h-6" /> -->
+                  </button>
+                </Menu.Button>
+              </Menu>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
