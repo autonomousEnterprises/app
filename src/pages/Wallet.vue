@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { storeToRefs } from 'pinia'
 import _ from "lodash";
 import fakerData from "../utils/faker";
 import Button from "../base-components/Button";
@@ -10,22 +11,7 @@ import Lucide from "../base-components/Lucide";
 import Tippy from "../base-components/Tippy";
 import { Menu, Tab } from "../base-components/Headless";
 import Table from "../base-components/Table";
-import {
-  getClient,
-  fetchAccountInfo,
-  createWallet,
-  transfer,
-  convert
-} from "../utils/nomics";
-
-const walletCreationData = () => {
-  credentials.value = createWallet()
-}
-
-const fetchAccount = async () => {
-  const res = await fetchAccountInfo(address.value)
-  account.value = JSON.parse(res)
-}
+import { eco } from "../stores/eco";
 
 // Wallet Data
 let walletCreated = false
@@ -33,23 +19,17 @@ let fundsDeposited = 0
 let rewardRate = 0
 let nextReward = (rewardRate / 100) * fundsDeposited
 let nextRewardTime = 0
-let credentials = ref() // TODO define a Store for Nomics Wallet
-
-// Tx Processor
-let buildTx = async () => {
-  await transfer(receiver.value, amount.value)
-}
-
-// User Account
-let address = ref()
-let account = ref()
 
 // Receiver
 let receiver = ref()
 let amount = ref()
+let balance = ref()
 
-onMounted(() => {
-  address.value = 'lsk98t7mtpp48atp96npm294cesjmbpetha9am5oo'
+onMounted(async () => {
+  eco.on('initialized', async () => {
+    await eco.importWallet('tell grunt spot mask kick save garden kind leopard empower smooth expand')
+    balance.value = await eco.fetchBalance()
+  })
 })
 
 </script>
@@ -58,7 +38,7 @@ onMounted(() => {
   <div class="relative">
     <div class="grid grid-cols-12 gap-6">
       <div class="z-20 col-span-12 xl:col-span-9 2xl:col-span-9">
-        <div class="mt-6 -mb-6 intro-y">
+        <!-- <div class="mt-6 -mb-6 intro-y">
           <Alert
             variant="primary"
             dismissible
@@ -94,7 +74,7 @@ onMounted(() => {
               <Lucide icon="X" class="w-4 h-4" />
             </Alert.DismissButton>
           </Alert>
-        </div>
+        </div> -->
         <div class="grid grid-cols-12 mb-3 mt-14 sm:gap-10 intro-y">
           <div
             class="relative col-span-12 py-6 text-center sm:col-span-6 md:col-span-4 sm:pl-5 md:pl-0 lg:pl-5 sm:text-left"
@@ -191,18 +171,20 @@ onMounted(() => {
             <!-- Dummy Viewer -->
             <div class="w-full p-4 m-2">
 
-              <!-- <div >
+              <!-- <div class="my-4">
                 <input class="" autofocus v-model="address"/>
                 <button @click="fetchAccount">submit</button>
               </div> -->
 
-              <div class="w-full flex" v-if="account">
+              <div class="w-full flex" v-if="eco">
                 Available Funds
-                <div
+                <h3
                   class="pl-3 text-2xl font-medium leading-6 2xl:text-3xl 2xl:pl-4"
                 >
-                  {{ convert.BeddowsToLSK(account.token.balance) }} Nomics
-                </div>
+                  {{ balance }} Nomics
+                </h3>
+
+                <!-- <h2>{{ eco.account.address }}</h2> -->
               </div>
 
             </div>
@@ -223,7 +205,7 @@ onMounted(() => {
                   Transfer
                   <button
                     class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
-                    @click="buildTx"
+                    @click="eco.transfer(receiver, amount)"
                   >
                     <!-- <Lucide icon="Plus" class="w-6 h-6" /> -->
                   </button>
