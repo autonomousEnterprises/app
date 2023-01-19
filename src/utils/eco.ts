@@ -130,7 +130,7 @@ export default class Eco extends AsyncConstructor {
     }
   }
 
-  async transfer(recipientAddress, amount) {
+  async transfer(recipientAddress: string, amount: string, message?: string) {
     try {
       const address = cryptography.getAddressFromBase32Address(recipientAddress)
 
@@ -141,7 +141,7 @@ export default class Eco extends AsyncConstructor {
         asset: {
             amount: BigInt(transactions.convertLSKToBeddows(amount)),
             recipientAddress: address,
-            data: ''
+            data: message || ''
         }
       }, this.client.account.passphrase)
 
