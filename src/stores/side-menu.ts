@@ -21,11 +21,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "Wallet",
         title: "Wallet",
       },
-      // {
-      //   icon: "Activity",
-      //   pageName: "side-menu-page-2",
-      //   title: "Page 2",
-      // },
+      {
+        icon: "Activity",
+        pageName: "Plugins",
+        title: "Plugins",
+      },
     ],
   }),
 });

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import SideMenu from "../layouts/SideMenu/SideMenu.vue";
-import SimpleMenu from "../layouts/SimpleMenu/SimpleMenu.vue";
-import TopMenu from "../layouts/TopMenu/TopMenu.vue";
+// import SimpleMenu from "../layouts/SimpleMenu/SimpleMenu.vue";
+// import TopMenu from "../layouts/TopMenu/TopMenu.vue";
 import Wallet from "../pages/Wallet.vue";
-import Page2 from "../pages/Page2.vue";
+import Login from "../pages/Login.vue";
 
 const routes = [
   {
@@ -12,48 +12,48 @@ const routes = [
     children: [
       {
         path: "/",
-        name: "side-menu-page-1",
+        name: "Wallet",
         component: Wallet,
       },
-      // {
-      //   path: "page-2",
-      //   name: "side-menu-page-2",
-      //   component: Page2,
-      // },
     ],
   },
   {
-    path: "/simple-menu",
-    component: SimpleMenu,
-    children: [
-      {
-        path: "page-1",
-        name: "simple-menu-page-1",
-        component: Wallet,
-      },
-      // {
-      //   path: "page-2",
-      //   name: "simple-menu-page-2",
-      //   component: Page2,
-      // },
-    ],
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
-  {
-    path: "/top-menu",
-    component: TopMenu,
-    children: [
-      {
-        path: "page-1",
-        name: "top-menu-page-1",
-        component: Wallet,
-      },
-      // {
-      //   path: "page-2",
-      //   name: "top-menu-page-2",
-      //   component: Page2,
-      // },
-    ],
-  },
+  // {
+  //   path: "/simple-menu",
+  //   component: SimpleMenu,
+  //   children: [
+  //     {
+  //       path: "Wallet",
+  //       name: "simple-menu-Wallet",
+  //       component: Wallet,
+  //     },
+  //     // {
+  //     //   path: "login",
+  //     //   name: "simple-menu-login",
+  //     //   component: Login,
+  //     // },
+  //   ],
+  // },
+  // {
+  //   path: "/top-menu",
+  //   component: TopMenu,
+  //   children: [
+  //     {
+  //       path: "Wallet",
+  //       name: "top-menu-Wallet",
+  //       component: Wallet,
+  //     },
+  //     // {
+  //     //   path: "login",
+  //     //   name: "top-menu-login",
+  //     //   component: Login,
+  //     // },
+  //   ],
+  // },
 ];
 
 const router = createRouter({
