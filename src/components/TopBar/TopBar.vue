@@ -34,7 +34,7 @@ const hideSearchDropdown = () => {
     <div class="flex items-center h-full">
       <!-- BEGIN: Logo -->
       <RouterLink
-        :to="{ name: 'side-menu-page-1' }"
+        :to="{ name: 'Wallet' }"
         :class="[
           '-intro-x hidden md:flex',
           props.layout == 'side-menu' && 'xl:w-[180px]',
@@ -255,7 +255,7 @@ const hideSearchDropdown = () => {
             <Lucide icon="HelpCircle" class="w-4 h-4 mr-2" /> Help
           </Menu.Item>
           <Menu.Divider class="bg-white/[0.08]" />
-          <Menu.Item class="hover:bg-white/5">
+          <Menu.Item class="hover:bg-white/5" @click="$router.push('/login')">
             <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> Logout
           </Menu.Item>
         </Menu.Items>
