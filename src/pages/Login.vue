@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useRouter } from 'vue-router'
 import DarkModeSwitcher from "../components/DarkModeSwitcher";
 import MainColorSwitcher from "../components/MainColorSwitcher";
 import logoUrl from "../assets/images/logo.svg";
@@ -8,15 +9,27 @@ import { FormInput, FormCheck } from "../base-components/Form";
 import Button from "../base-components/Button";
 import { eco } from "../stores/eco";
 
+const router = useRouter()
+
 const toggleImport = ref(false)
 const toggleCreate = ref(false)
 const walletData = ref({})
 const passphrase = ref('')
+const rememberLogin = ref(false)
 
 const importWallet = () => {
   toggleImport.value = true
   toggleCreate.value = false
 }
+
+const openWallet = async () => {
+  if (rememberLogin) {
+    localStorage.setItem('passphrase', passphrase) // TODO encode cryptographically
+  }
+  await eco.importWallet(passphrase.value)
+  router.push('/')
+}
+
 const createWallet = async () => {
   walletData.value = await eco.createWallet()
   toggleCreate.value = true
@@ -90,7 +103,7 @@ const createWallet = async () => {
               <Button
                 variant="primary"
                 class="w-full px-4 py-3 align-top xl:w-32 xl:mr-3 mt-4"
-                @click="eco.importWallet(passphrase) && $router.push('/')"
+                @click="openWallet()"
                 v-if="passphrase"
               >
                 Import
@@ -104,7 +117,7 @@ const createWallet = async () => {
             </div>
             <div class="" v-if="toggleCreate">
               <div class="">
-                <h1 class="text-2xl font-bold py-8">
+                <h1 class="text-2xl font-bold font-italic py-8">
                   Save these data secure! There is no way to recover the account!
                 </h1>
               </div>
@@ -131,6 +144,7 @@ const createWallet = async () => {
                   id="remember-me"
                   type="checkbox"
                   class="mr-2 border"
+                  v-model="rememberLogin"
                 />
                 <label class="cursor-pointer select-none" htmlFor="remember-me">
                   Remember me

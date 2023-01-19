@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeMount } from "vue";
 import { storeToRefs } from 'pinia'
 import _ from "lodash";
 import fakerData from "../utils/faker";
 import Button from "../base-components/Button";
 import Pagination from "../base-components/Pagination";
-import { FormInput, FormSelect } from "../base-components/Form";
+import { FormInput, FormSelect, FormCheck } from "../base-components/Form";
 import Alert from "../base-components/Alert";
 import Lucide from "../base-components/Lucide";
 import Tippy from "../base-components/Tippy";
@@ -23,13 +23,11 @@ let nextRewardTime = 0
 // Receiver
 let receiver = ref()
 let amount = ref()
-let balance = ref()
+let balance = ref(0)
+let inlcudeMessage = ref(false)
 
 onMounted(async () => {
-  eco.on('initialized', async () => {
-    await eco.importWallet('tell grunt spot mask kick save garden kind leopard empower smooth expand')
-    balance.value = await eco.fetchBalance()
-  })
+  if (eco.initialized) { balance.value = await eco.fetchBalance() }
 })
 
 </script>
@@ -75,9 +73,15 @@ onMounted(async () => {
             </Alert.DismissButton>
           </Alert>
         </div> -->
-        <div class="grid grid-cols-12 mb-3 mt-14 sm:gap-10 intro-y">
+        <div class="flex flex-wrap w-full mb-3 mt-14 sm:gap-10 intro-y">
+          <div class="-mb-1 text-sm font-medium 2xl:text-base">
+            Hi,
+            <span class="font-normal text-slate-600 dark:text-slate-300">
+              and very Welcome!
+            </span>
+          </div>
           <div
-            class="relative col-span-12 py-6 text-center sm:col-span-6 md:col-span-4 sm:pl-5 md:pl-0 lg:pl-5 sm:text-left"
+            class="relative w-full md:flex-1 py-6 text-center sm:pl-5 md:pl-0 lg:pl-5 sm:text-left"
           >
             <!-- <Menu class="absolute pt-0.5 2xl:pt-0 mt-5 2xl:mt-6 top-0 right-0">
               <Menu.Button as="a" class="block" href="#">
@@ -94,12 +98,6 @@ onMounted(async () => {
                 </Menu.Item>
               </Menu.Items>
             </Menu> -->
-            <div class="-mb-1 text-sm font-medium 2xl:text-base">
-              Hi,
-              <span class="font-normal text-slate-600 dark:text-slate-300">
-                and very Welcome!
-              </span>
-            </div>
             <div
               class="flex items-center justify-center text-base leading-3 2xl:text-lg sm:justify-start text-slate-600 dark:text-slate-300 mt-14 2xl:mt-24"
             >
@@ -118,7 +116,7 @@ onMounted(async () => {
                   >
                     $
                   </span>
-                  {{ fundsDeposited }}
+                  {{ balance }}
                 </div>
                 <a class="ml-4 text-slate-500 2xl:ml-16" href="">
                   <Lucide icon="RefreshCcw" class="w-4 h-4" />
@@ -149,68 +147,88 @@ onMounted(async () => {
                 ~${{ nextReward.toFixed() }}
               </span>
             </div>
-            <Menu class="mt-14 2xl:mt-24 w-44 2xl:w-52">
-              <Menu.Button
-                :as="Button"
-                variant="primary"
-                rounded
-                class="relative justify-center w-full px-4"
-              >
-                Deposit Funds
-                <button
-                  class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
-                  @click=""
-                >
-                  <Lucide icon="Plus" class="w-6 h-6" />
-                </button>
-              </Menu.Button>
-            </Menu>
-          </div>
-
-          <div class="flex flex-col w-full">
-            <!-- Dummy Viewer -->
-            <div class="w-full p-4 m-2">
-
-              <!-- <div class="my-4">
-                <input class="" autofocus v-model="address"/>
-                <button @click="fetchAccount">submit</button>
-              </div> -->
-
-              <div class="w-full flex" v-if="eco">
-                Available Funds
-                <h3
-                  class="pl-3 text-2xl font-medium leading-6 2xl:text-3xl 2xl:pl-4"
-                >
-                  {{ balance }} Nomics
-                </h3>
-
-                <!-- <h2>{{ eco.account.address }}</h2> -->
-              </div>
-
-            </div>
-
-            <!-- Dummy Transaction Builder-->
-            <div class="w-full p-4 m-2">
-
-              <input class="rounded-lg py-2 px-4 my-2" placeholder="Amount" v-model="amount">
-              <input class="rounded-lg py-2 px-4 my-2" placeholder="Address" v-model="receiver">
-
+            <div class="w-full flex justify-center md:justify-start">
               <Menu class="mt-14 2xl:mt-24 w-44 2xl:w-52">
                 <Menu.Button
                   :as="Button"
                   variant="primary"
                   rounded
                   class="relative justify-center w-full px-4"
-                >
-                  Transfer
-                  <button
-                    class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
-                    @click="eco.transfer(receiver, amount)"
                   >
-                    <!-- <Lucide icon="Plus" class="w-6 h-6" /> -->
+                    Deposit Funds
+                    <button
+                      class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
+                      @click=""
+                    >
+                    <Lucide icon="Plus" class="w-6 h-6" />
                   </button>
                 </Menu.Button>
               </Menu>
+            </div>
+          </div>
+
+          <div class="flex flex-col w-full md:flex-1">
+            <div class="flex flex-col w-full p-4 m-2">
+                <h2 class="pt-8 text-xl">Amount</h2>
+                <div class="flex">
+                    <!-- <span
+                      class="top-0 left-0 -mt-1 text-xl 2xl:text-2xl 2xl:mt-0 mr-2"
+                    >
+                      $
+                    </span> -->
+                    <FormInput
+                      type="number"
+                      class="block px-4 py-3 intro-x login__input min-w-full xl:min-w-[350px] my-2 text-2xl text-center"
+                      placeholder="Amount"
+                      v-model="amount"
+                    />
+                </div>
+                <h2 class="pt-8 text-xl">Receiver</h2>
+                <FormInput
+                  type="text"
+                  class="block px-4 py-3 intro-x login__input min-w-full xl:min-w-[350px] my-2"
+                  placeholder="Receiver"
+                  v-model="receiver"
+                />
+                <div class="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
+
+                  <div class="flex items-center mr-auto my-4 pl-2">
+                    <FormCheck.Input
+                    id="remember-me"
+                    type="checkbox"
+                    class="mr-2 border"
+                    v-model="inlcudeMessage"
+                    />
+                    <label class="cursor-pointer select-none" htmlFor="remember-me">
+                      Include Message
+                    </label>
+                  </div>
+                </div>
+                <FormInput
+                  type="text"
+                  class="block px-4 py-3 intro-x login__input min-w-full xl:min-w-[350px] my-2"
+                  placeholder="Write any Text here"
+                  v-model="message"
+                  v-if="inlcudeMessage"
+                />
+                <div class="w-full flex justify-center">
+                  <Menu class="mt-4 2xl:mt-24 w-44 2xl:w-52">
+                    <Menu.Button
+                      :as="Button"
+                      variant="primary"
+                      rounded
+                      class="justify-center w-full px-4"
+                      @click="eco.transfer(receiver, amount)"
+                      >
+                        Transfer
+                        <button
+                        class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
+                        >
+                        <Lucide icon="Send" class="w-6 h-6" />
+                      </button>
+                    </Menu.Button>
+                  </Menu>
+                </div>
 
             </div>
           </div>
