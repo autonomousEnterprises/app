@@ -32,22 +32,21 @@ export default class Eco extends AsyncConstructor {
   nomics: any // TODO Nomics Interface
   events: any = new EventEmitter()
 
-  constructor(endpoint?: string, prefix?: string) {
+  constructor(config?: object) {
     super(async () => {
 
-      if (endpoint) { this.endpoint = endpoint }
-      if (prefix) { this.prefix = prefix }
+      if (config && config.endpoint) { this.endpoint = config.endpoint }
+      if (config && config.prefix) { this.prefix = config.prefix }
       try {
         this.client = await apiClient.createWSClient(this.endpoint)
       } catch (error) {
-        throw new Error(error)
+        this.emit('error', error)
       }
 
       const passphrase = localStorage.getItem('passphrase') || null
       if (passphrase) {
         await this.importWallet(passphrase)
         await this.fetchBalance()
-        this.emit('balanced-fetched')
       }
 
       this.emit('connected')
@@ -58,9 +57,17 @@ export default class Eco extends AsyncConstructor {
       this.initialized = true
     })
 
+    // this.on('balance-fetched', async () => {
+    //   await this.fetchBalance()
+    // })
+
     this.on('transferred', async (tx: any) => {
       console.log(tx);
       await this.fetchBalance()
+    })
+
+    this.on('error', (err) => {
+      console.log(err);
     })
   }
 
@@ -77,7 +84,7 @@ export default class Eco extends AsyncConstructor {
       const res = await this.client.account.get(cryptography.getAddressFromBase32Address(address))
       return JSON.parse(JSON.stringify(res, (_, v) => typeof v === 'bigint' ? v.toString() : v))
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
@@ -85,7 +92,7 @@ export default class Eco extends AsyncConstructor {
     try {
       return cryptography.validateLisk32Address(address, this.prefix)
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
@@ -103,7 +110,7 @@ export default class Eco extends AsyncConstructor {
         transactions: []
       }
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
@@ -122,7 +129,7 @@ export default class Eco extends AsyncConstructor {
         transactions: []
       }
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
@@ -131,12 +138,15 @@ export default class Eco extends AsyncConstructor {
       const res = await this.fetchAccount(address || this.account.address)
 
       if (res.token.balance !== 0) {
-        return this.account.balance = this.convertBeddowsToLSK(res.token.balance)
+        const balance = this.convertBeddowsToLSK(res.token.balance)
+        this.emit('balance-fetched', balance)
+
+        return balance
       } else {
         return 0
       }
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
@@ -144,7 +154,7 @@ export default class Eco extends AsyncConstructor {
     try {
       return // TODO
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
@@ -166,9 +176,10 @@ export default class Eco extends AsyncConstructor {
       const res = await this.client.transaction.send(tx)
 
       this.emit('transferred', res)
+      await this.fetchBalance()
       return res
     } catch (error) {
-      throw new Error(error)
+      this.emit('error', error)
     }
   }
 
