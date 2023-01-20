@@ -19,7 +19,7 @@ let fundsDeposited = 0
 let rewardRate = 0
 let nextReward = (rewardRate / 100) * fundsDeposited
 let nextRewardTime = 0
-let account = ref({})
+let accountBalance = ref(0)
 
 // Receiver
 let receiver = ref('')
@@ -28,9 +28,8 @@ let inlcudeMessage = ref(false)
 let message = ref('')
 
 onMounted(async () => {
-  eco.on('balance-fetched', () => {
-    console.log(eco.account);
-
+  eco.on('balance-fetched', (balance) => {
+    accountBalance.value = balance
   })
 })
 
@@ -120,7 +119,7 @@ onMounted(async () => {
                   >
                     $
                   </span>
-                  {{ account.balance || 0 }}
+                  {{ accountBalance }}
                 </div>
                 <a class="ml-4 text-slate-500 2xl:ml-16" href="">
                   <Lucide icon="RefreshCcw" class="w-4 h-4" />
@@ -152,7 +151,7 @@ onMounted(async () => {
               </span>
             </div>
             <div class="py-4">
-              {{ account.address }}
+              <!-- {{ account.address }} -->
             </div>
             <div class="w-full flex justify-center md:justify-start">
               <Menu class="mt-14 2xl:mt-24 w-44 2xl:w-52">
