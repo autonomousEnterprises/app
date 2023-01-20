@@ -23,8 +23,8 @@ const importWallet = () => {
 }
 
 const openWallet = async () => {
-  if (rememberLogin) {
-    localStorage.setItem('passphrase', passphrase) // TODO encode cryptographically
+  if (rememberLogin.value) {
+    localStorage.setItem('passphrase', passphrase.value) // TODO encode cryptographically
   }
   await eco.importWallet(passphrase.value)
   router.push('/')
@@ -117,7 +117,7 @@ const createWallet = async () => {
             </div>
             <div class="" v-if="toggleCreate">
               <div class="">
-                <h1 class="text-2xl font-bold font-italic py-8">
+                <h1 class="text-xl font-bold italic pt-8 pb-2">
                   Save these data secure! There is no way to recover the account!
                 </h1>
               </div>
@@ -134,6 +134,16 @@ const createWallet = async () => {
                 <h3 class="text-2xl py-2">
                   {{ walletData.passphrase }}
                 </h3>
+              </div>
+
+              <div class="">
+                <h1 class="text-xl italic py-8">
+                  Click now on
+                  <a class="underline" @click="importWallet()">
+                    Import Wallet
+                  </a>
+                  to login into your new Account.
+                </h1>
               </div>
             </div>
             <div
