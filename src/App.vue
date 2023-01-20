@@ -5,11 +5,14 @@ import { eco } from "./stores/eco";
 
 const router = useRouter()
 
-onBeforeMount(() => { // TODO Facelift
+onBeforeMount(() => {
   eco.on('connected', () => {
     if (!eco.account) {
       router.push('login')
     }
+  })
+  eco.on('error', (e) => {
+    alert(e)
   })
 })
 </script>
