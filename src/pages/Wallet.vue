@@ -19,15 +19,19 @@ let fundsDeposited = 0
 let rewardRate = 0
 let nextReward = (rewardRate / 100) * fundsDeposited
 let nextRewardTime = 0
+let account = ref({})
 
 // Receiver
-let receiver = ref()
-let amount = ref()
-let balance = ref(0)
+let receiver = ref('')
+let amount = ref(0)
 let inlcudeMessage = ref(false)
+let message = ref('')
 
 onMounted(async () => {
-  if (eco.initialized) { balance.value = await eco.fetchBalance() }
+  eco.on('balance-fetched', () => {
+    console.log(eco.account);
+
+  })
 })
 
 </script>
@@ -116,7 +120,7 @@ onMounted(async () => {
                   >
                     $
                   </span>
-                  {{ balance }}
+                  {{ account.balance || 0 }}
                 </div>
                 <a class="ml-4 text-slate-500 2xl:ml-16" href="">
                   <Lucide icon="RefreshCcw" class="w-4 h-4" />
@@ -146,6 +150,9 @@ onMounted(async () => {
               >
                 ~${{ nextReward.toFixed() }}
               </span>
+            </div>
+            <div class="py-4">
+              {{ account.address }}
             </div>
             <div class="w-full flex justify-center md:justify-start">
               <Menu class="mt-14 2xl:mt-24 w-44 2xl:w-52">
@@ -183,6 +190,7 @@ onMounted(async () => {
                       v-model="amount"
                     />
                 </div>
+
                 <h2 class="pt-8 text-xl">Receiver</h2>
                 <FormInput
                   type="text"
@@ -190,8 +198,8 @@ onMounted(async () => {
                   placeholder="Receiver"
                   v-model="receiver"
                 />
-                <div class="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
 
+                <div class="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm">
                   <div class="flex items-center mr-auto my-4 pl-2">
                     <FormCheck.Input
                     id="remember-me"
@@ -204,6 +212,7 @@ onMounted(async () => {
                     </label>
                   </div>
                 </div>
+
                 <FormInput
                   type="text"
                   class="block px-4 py-3 intro-x login__input min-w-full xl:min-w-[350px] my-2"
@@ -211,18 +220,19 @@ onMounted(async () => {
                   v-model="message"
                   v-if="inlcudeMessage"
                 />
-                <div class="w-full flex justify-center">
+                <div class=
+                "w-full flex justify-center">
                   <Menu class="mt-4 2xl:mt-24 w-44 2xl:w-52">
                     <Menu.Button
                       :as="Button"
                       variant="primary"
                       rounded
                       class="justify-center w-full px-4"
-                      @click="eco.transfer(receiver, amount)"
+                      @click="eco.transfer(receiver, amount.toString(), message || undefined)"
                       >
                         Transfer
                         <button
-                        class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
+                          class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
                         >
                         <Lucide icon="Send" class="w-6 h-6" />
                       </button>
