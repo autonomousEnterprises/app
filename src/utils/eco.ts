@@ -34,15 +34,33 @@ export default class Eco extends AsyncConstructor {
 
   constructor(endpoint?: string, prefix?: string) {
     super(async () => {
+
       if (endpoint) { this.endpoint = endpoint }
       if (prefix) { this.prefix = prefix }
       try {
         this.client = await apiClient.createWSClient(this.endpoint)
-        this.initialized = true
-        this.emit('initialized')
       } catch (error) {
         throw new Error(error)
       }
+
+      const passphrase = localStorage.getItem('passphrase') || null
+      if (passphrase) {
+        await this.importWallet(passphrase)
+        await this.fetchBalance()
+        this.emit('balanced-fetched')
+      }
+
+      this.emit('connected')
+    })
+
+    this.on('connected', () => {
+      console.log(`Connected with '${this.endpoint}'`);
+      this.initialized = true
+    })
+
+    this.on('transferred', async (tx: any) => {
+      console.log(tx);
+      await this.fetchBalance()
     })
   }
 
@@ -143,9 +161,12 @@ export default class Eco extends AsyncConstructor {
             recipientAddress: address,
             data: message || ''
         }
-      }, this.client.account.passphrase)
+      }, this.account.passphrase)
 
-      return await this.client.transaction.send(tx)
+      const res = await this.client.transaction.send(tx)
+
+      this.emit('transferred', res)
+      return res
     } catch (error) {
       throw new Error(error)
     }
