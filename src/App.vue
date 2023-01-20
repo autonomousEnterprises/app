@@ -6,12 +6,11 @@ import { eco } from "./stores/eco";
 const router = useRouter()
 
 onBeforeMount(() => { // TODO Facelift
-  if (!eco.initialized && !eco.account) {
-    router.push('login')
-  }
-  if (localStorage.getItem('passphrase')) {
-    eco.importWallet(localStorage.getItem('passphrase'))
-  }
+  eco.on('connected', () => {
+    if (!eco.account) {
+      router.push('login')
+    }
+  })
 })
 </script>
 
