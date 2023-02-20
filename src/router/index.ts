@@ -4,6 +4,7 @@ import SideMenu from "../layouts/SideMenu/SideMenu.vue";
 // import TopMenu from "../layouts/TopMenu/TopMenu.vue";
 import Wallet from "../pages/Wallet.vue";
 import Login from "../pages/Login.vue";
+import Transaction from "../pages/Transaction.vue";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/transaction",
+    name: "Transaction",
+    component: Transaction,
   },
   // {
   //   path: "/simple-menu",
