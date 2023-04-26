@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { authGuard } from '@auth0/auth0-vue';
 import SideMenu from "../layouts/SideMenu/SideMenu.vue";
 // import SimpleMenu from "../layouts/SimpleMenu/SimpleMenu.vue";
 // import TopMenu from "../layouts/TopMenu/TopMenu.vue";
 import Wallet from "../pages/Wallet.vue";
+import Calculator from "../pages/Calculator.vue";
 import Login from "../pages/Login.vue";
 import Transaction from "../pages/Transaction.vue";
 
@@ -15,6 +17,13 @@ const routes = [
         path: "/",
         name: "Wallet",
         component: Wallet,
+        // beforeEnter: authGuard
+      },
+      {
+        path: "/calc",
+        name: "Calculator",
+        component: Calculator,
+        // beforeEnter: authGuard
       },
     ],
   },
@@ -27,6 +36,7 @@ const routes = [
     path: "/transaction",
     name: "Transaction",
     component: Transaction,
+    // beforeEnter: authGuard
   },
   // {
   //   path: "/simple-menu",

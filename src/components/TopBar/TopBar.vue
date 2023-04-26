@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Lucide from "../../base-components/Lucide";
-import logoUrl from "../../assets/images/logo.svg";
+// import logoUrl from "../../assets/images/logo.svg";
 import Breadcrumb from "../../base-components/Breadcrumb";
 import { FormInput } from "../../base-components/Form";
 import { Menu, Popover } from "../../base-components/Headless";
 import fakerData from "../../utils/faker";
 import _ from "lodash";
 import { TransitionRoot } from "@headlessui/vue";
+
+import { useAuth0 } from '@auth0/auth0-vue'
+const { logout } = useAuth0();;
+
+const signOut = () => {
+  logout({ logoutParams: { returnTo: window.location.origin } })
+}
 
 const props = defineProps<{
   layout?: "side-menu" | "simple-menu" | "top-menu";
@@ -45,7 +52,7 @@ const hideSearchDropdown = () => {
         <img
           alt="Eco"
           class="w-6"
-          :src="logoUrl"
+          src="../../assets/logos/eco.png"
         />
         <span
           :class="[
@@ -72,7 +79,7 @@ const hideSearchDropdown = () => {
       </Breadcrumb>
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Search -->
-      <div class="relative mr-3 intro-x sm:mr-6">
+      <!-- <div class="relative mr-3 intro-x sm:mr-6">
         <div class="relative hidden sm:block">
           <FormInput
             type="text"
@@ -176,10 +183,10 @@ const hideSearchDropdown = () => {
             </div>
           </div>
         </TransitionRoot>
-      </div>
+      </div> -->
       <!-- END: Search -->
       <!-- BEGIN: Notifications -->
-      <Popover class="mr-4 intro-x sm:mr-6">
+      <!-- <Popover class="mr-4 intro-x sm:mr-6">
         <Popover.Button
           class="relative text-white/70 outline-none block before:content-[''] before:w-[8px] before:h-[8px] before:rounded-full before:absolute before:top-[-2px] before:right-0 before:bg-danger"
         >
@@ -220,29 +227,30 @@ const hideSearchDropdown = () => {
             </div>
           </div>
         </Popover.Panel>
-      </Popover>
+      </Popover> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
       <Menu>
         <Menu.Button
           class="block w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in intro-x"
         >
-          <img
+          <!-- <img
             alt="Midone Tailwind HTML Admin Template"
             :src="fakerData[9].photos[0]"
-          />
+          /> -->
+          <!-- <VueGravatar hash="f3ada405ce890b6f8204094deb12d8a8" :size="150" /> -->
         </Menu.Button>
         <Menu.Items
           class="w-56 mt-px relative bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white"
         >
-          <Menu.Header class="font-normal">
+          <!-- <Menu.Header class="font-normal">
             <div class="font-medium">{{ fakerData[0].users[0].name }}</div>
             <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">
               {{ fakerData[0].jobs[0] }}
             </div>
-          </Menu.Header>
-          <Menu.Divider class="bg-white/[0.08]" />
-          <Menu.Item class="hover:bg-white/5">
+          </Menu.Header> -->
+          <!-- <Menu.Divider class="bg-white/[0.08]" /> -->
+          <!-- <Menu.Item class="hover:bg-white/5">
             <Lucide icon="User" class="w-4 h-4 mr-2" /> Profile
           </Menu.Item>
           <Menu.Item class="hover:bg-white/5">
@@ -253,9 +261,9 @@ const hideSearchDropdown = () => {
           </Menu.Item>
           <Menu.Item class="hover:bg-white/5">
             <Lucide icon="HelpCircle" class="w-4 h-4 mr-2" /> Help
-          </Menu.Item>
+          </Menu.Item> -->
           <Menu.Divider class="bg-white/[0.08]" />
-          <Menu.Item class="hover:bg-white/5" @click="$router.push('/login')">
+          <Menu.Item class="hover:bg-white/5" @click="signOut()">
             <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> Logout
           </Menu.Item>
         </Menu.Items>

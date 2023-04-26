@@ -23,6 +23,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "Activity",
+        pageName: "Calculator",
+        title: "Calculator",
+      },
+      {
+        icon: "Activity",
         pageName: "Plugins",
         title: "Plugins",
       },
