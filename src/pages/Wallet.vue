@@ -12,11 +12,11 @@ import Tippy from "../base-components/Tippy";
 import { Menu, Tab } from "../base-components/Headless";
 import Table from "../base-components/Table";
 // import { useAuth0 } from '@auth0/auth0-vue';
-import { auth0 } from '../utils/auth0';
+// import { auth0 } from '../utils/auth0';
 // import { eco } from "../stores/eco";
 
 // Auth0
-const { isLoading, isAuthenticated } = auth0
+// const { isLoading, isAuthenticated } = auth0
 
 // Wallet Data
 let walletCreated = false
@@ -55,7 +55,7 @@ onMounted(async () => {
             v-slot="{ dismiss }"
           >
             <span>
-              Please be aware of it's an MVP Alpha Version running on a testnet.
+              Please note that this is an MVP Alpha Version currently running on a testnet.
               <!-- <button
                 class="rounded-md bg-white bg-opacity-20 dark:bg-darkmode-300 hover:bg-opacity-30 py-0.5 px-2 -my-3 ml-2"
                 @click="walletCreationData()"

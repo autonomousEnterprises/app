@@ -14,6 +14,6 @@ import { auth0 } from './utils/auth0';
 createApp(App)
   .use(router)
   .use(createPinia())
-  // .use(auth0)
+  .use(auth0)
   // .use(VueGravatar)
   .mount('#app')

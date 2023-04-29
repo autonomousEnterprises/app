@@ -9,8 +9,8 @@ const router = useRouter()
 const { isLoading, isAuthenticated } = auth0
 
 onBeforeMount(() => {
-  if (!isAuthenticated) {
-    router.push('/login')
+  if (!isAuthenticated.value) {
+    // router.push('/login')
   }
   // eco.on('connected', () => {
   //   if (!eco.account) {

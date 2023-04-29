@@ -11,7 +11,7 @@ import Button from "../base-components/Button";
 
 // import { useAuth0 } from '@auth0/auth0-vue';
 import { auth0 } from '../utils/auth0';
-const { loginWithPopup } = auth0
+const { loginWithRedirect } = auth0
 
 const router = useRouter()
 
@@ -78,7 +78,7 @@ const createWallet = async () => {
             <div
               class="mt-5 text-lg text-white -intro-x text-opacity-70 dark:text-slate-400"
             >
-              Signin, deposit funds and explore <br>the most sustainable payment experience
+              Signin, deposit funds and explore <br>the most rewarding payments experience
             </div>
           </div>
         </div>
@@ -169,7 +169,7 @@ const createWallet = async () => {
               <Button
                 variant="primary"
                 class="w-full px-4 py-3 align-top xl:w-32 xl:mr-3"
-                @click="loginWithPopup()"
+                @click="loginWithRedirect()"
               >
                 Login
               </Button>
@@ -189,7 +189,7 @@ const createWallet = async () => {
                 Create Wallet
               </Button> -->
             </div>
-            <div
+            <!-- <div
               class="mt-10 text-center intro-x xl:mt-24 text-slate-600 dark:text-slate-500 xl:text-left"
             >
               By signin up, you agree to our
@@ -200,7 +200,7 @@ const createWallet = async () => {
               <a class="text-primary dark:text-slate-200" href="">
                 Privacy Policy
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- END: Login Form -->

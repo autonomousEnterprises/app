@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { twMerge } from "tailwind-merge";
-import logoUrl from "../../assets/images/logo.svg";
+import logoUrl from "../../assets/logos/eco.png";
 import Divider from "./Divider.vue";
 import Menu from "./Menu.vue";
 import Lucide from "../../base-components/Lucide";
@@ -63,7 +63,7 @@ onMounted(() => {
           :src="logoUrl"
         />
       </a>
-      <a href="#" @click="(e) => e.preventDefault()">
+      <!-- <a href="#" @click="(e) => e.preventDefault()">
         <Lucide
           icon="BarChart2"
           class="w-8 h-8 text-white transform -rotate-90"
@@ -73,7 +73,7 @@ onMounted(() => {
             }
           "
         />
-      </a>
+      </a> -->
     </div>
     <div
       ref="scrollableRef"
@@ -85,7 +85,7 @@ onMounted(() => {
         ])
       "
     >
-      <a
+      <!-- <a
         href="#"
         @click="(e) => e.preventDefault()"
         :class="[
@@ -103,7 +103,7 @@ onMounted(() => {
             }
           "
         />
-      </a>
+      </a> -->
       <ul class="py-2">
         <!-- BEGIN: First Child -->
         <template v-for="(menu, menuKey) in formattedMenu">
