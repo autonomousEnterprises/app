@@ -37,6 +37,7 @@ let maxWarning = ref(false)
 const calculate = () => {
   if (individualTransactionVolume.value > individualDepositVolume.value) {
     maxWarning.value = true;
+    toTop();
     setTimeout(() => {
       maxWarning.value = false;
     }, 10000);
@@ -126,7 +127,7 @@ onMounted(() => {
           v-slot="{ dismiss }"
         >
           <span>
-            Your Transaction Volume can not be higher than your Deposit!
+            Your Spent Amount can not be higher than your Deposit!
           </span>
           <Alert.DismissButton class="text-white" @Click="dismiss">
             <Lucide icon="X" class="w-4 h-4" />
@@ -195,15 +196,15 @@ onMounted(() => {
                 </Tippy> -->
               </div>
             </div>
-            <div class="text-slate-500">Rewards payout Monday</div>
+            <div class="text-slate-500">Rewards payout on Monday</div>
             <!-- <div class="text-slate-500">Rewards payout in {{ nextRewardTime }} Days</div> -->
             <div
-              class="mt-6 -mb-1 2xl:text-base text-slate-600 dark:text-slate-300"
+              class="mt-6 -mb-1 2xl:text-base text-slate-600 dark:text-slate-300 bg-gray-300 dark:bg-gray-700 py-4 px-2 rounded"
             >
               Estimated Rewards
               <span
                 href=""
-                class="decoration-dotted underline-offset-4 text-primary dark:text-slate-400"
+                class="decoration-dotted underline-offset-4 text-primary dark:text-slate-400 bold text-xl"
               >
                 ~${{ reward.toFixed(2) }}
               </span>
