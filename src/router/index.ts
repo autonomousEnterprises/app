@@ -21,7 +21,7 @@ const routes = [
         path: "/",
         name: "Wallet",
         component: Calculator,
-        // beforeEnter: authGuard
+        beforeEnter: authGuard
       },
       // {
       //   path: "/calculator",
