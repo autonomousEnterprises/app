@@ -8,7 +8,7 @@ export const auth0 = createAuth0(
     domain,
     clientId,
     authorizationParams: {
-      redirect_uri: 'https://eco.ecosis.network/' // window.location.origin
+      redirect_uri: 'https://ecosis.app/' // window.location.origin
     },
     // useFormData: res?.useFormData || true
   },

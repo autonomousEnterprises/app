@@ -13,7 +13,7 @@ import { auth0 } from '../../utils/auth0';
 const { logout } = auth0;;
 
 const signOut = () => {
-  logout({ logoutParams: { returnTo: 'https://eco.ecosis.network/login' } })
+  logout({ logoutParams: { returnTo: 'https://ecosis.app/login' } })
 }
 
 const props = defineProps<{
