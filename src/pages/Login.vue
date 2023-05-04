@@ -189,18 +189,18 @@ const createWallet = async () => {
                 Create Wallet
               </Button> -->
             </div>
-            <!-- <div
+            <div
               class="mt-10 text-center intro-x xl:mt-24 text-slate-600 dark:text-slate-500 xl:text-left"
             >
               By signin up, you agree to our
-              <a class="text-primary dark:text-slate-200" href="">
+              <a class="text-primary dark:text-slate-200" href="https://www.termsofusegenerator.net/live.php?token=4txL1cVZsI7DgYbgkrXjmrg4SoStkwTq" target="_blank">
                 Terms and Conditions
               </a>
-              &
+              <!-- &
               <a class="text-primary dark:text-slate-200" href="">
                 Privacy Policy
-              </a>
-            </div> -->
+              </a> -->
+            </div>
           </div>
         </div>
         <!-- END: Login Form -->

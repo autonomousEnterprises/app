@@ -35,6 +35,9 @@ let rewardRate = ref(0);
 let maxWarning = ref(false)
 
 const calculate = () => {
+  totalDepositVolume.value = 4211657.24
+  totalTransactionVolume.value = 2623739.54
+
   if (individualTransactionVolume.value > individualDepositVolume.value) {
     maxWarning.value = true;
     toTop();
@@ -43,6 +46,10 @@ const calculate = () => {
     }, 10000);
     return;
   }
+
+  totalDepositVolume.value = totalDepositVolume.value + individualDepositVolume.value;
+  totalTransactionVolume.value = totalTransactionVolume.value + individualTransactionVolume.value;
+
   let individualRanking = (individualTransactionVolume.value + individualDepositVolume.value) / totalDepositVolume.value;
   accountBalance.value = individualDepositVolume.value - individualTransactionVolume.value;
   reward.value = individualRanking * rewardPool.value;
