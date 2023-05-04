@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
 import vue from '@vitejs/plugin-vue'
 import path from "path";
 import nodePolyfills from 'vite-plugin-node-stdlib-browser'
@@ -42,7 +43,29 @@ export default defineConfig({
   plugins: [
     vue(),
     nodePolyfills(),
-    mkcert()
+    mkcert(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico'],
+      manifest: {
+        name: 'Eco',
+        short_name: 'Eco',
+        description: 'ecosis Network Wallet',
+        theme_color: 'rgb(var(--color-primary) / <alpha-value>)',
+        icons: [
+          {
+            src: 'eco.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'eco.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      }
+    })
   ],
   resolve: {
     alias: {
