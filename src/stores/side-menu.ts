@@ -22,9 +22,19 @@ export const useSideMenuStore = defineStore("sideMenu", {
       //   title: "Wallet",
       // },
       {
-        icon: "Activity",
+        icon: "Calculator",
         pageName: "Calculator",
         title: "Calculator",
+      },
+      {
+        icon: "Coins",
+        pageName: "Exchange",
+        title: "Exchange",
+      },
+      {
+        icon: "LayoutGrid",
+        pageName: "Businesses",
+        title: "Businesses",
       },
       // {
       //   icon: "Activity",
