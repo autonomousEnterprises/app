@@ -6,6 +6,8 @@ import SideMenu from "../layouts/SideMenu/SideMenu.vue";
 // import TopMenu from "../layouts/TopMenu/TopMenu.vue";
 import Wallet from "../pages/Wallet.vue";
 import Calculator from "../pages/Calculator.vue";
+import Businesses from "../pages/Businesses.vue";
+import Exchange from "../pages/Exchange.vue";
 import Login from "../pages/Login.vue";
 import Transaction from "../pages/Transaction.vue";
 import { auth0 } from '../utils/auth0';
@@ -18,17 +20,29 @@ const routes = [
     component: SideMenu,
     children: [
       {
-        path: "/",
+        path: "/wallet",
         name: "Wallet",
         component: Calculator,
         beforeEnter: authGuard
       },
-      // {
-      //   path: "/calculator",
-      //   name: "Calculator",
-      //   component: Calculator,
-      //   beforeEnter: auth0.authGuard
-      // },
+      {
+        path: "/businesses",
+        name: "Businesses",
+        component: Businesses,
+        beforeEnter: authGuard
+      },
+      {
+        path: "/",
+        name: "Exchange",
+        component: Exchange,
+        beforeEnter: authGuard
+      },
+      {
+        path: "/calculator",
+        name: "Calculator",
+        component: Calculator,
+        beforeEnter: authGuard
+      },
     ],
   },
   {
