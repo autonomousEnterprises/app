@@ -9,6 +9,9 @@ import fakerData from "../../utils/faker";
 import _ from "lodash";
 import { TransitionRoot } from "@headlessui/vue";
 
+import { useDarkModeStore } from "../../stores/dark-mode";
+import { computed } from "vue";
+
 import { auth0 } from '../../utils/auth0';
 const { logout } = auth0;;
 
@@ -27,6 +30,21 @@ const showSearchDropdown = () => {
 const hideSearchDropdown = () => {
   searchDropdown.value = false;
 };
+
+// Dark Mode
+const darkMode = computed(() => useDarkModeStore().darkMode);
+
+const setDarkModeClass = () => {
+  const el = document.querySelectorAll("html")[0];
+  darkMode.value ? el.classList.add("dark") : el.classList.remove("dark");
+};
+
+const switchMode = () => {
+  useDarkModeStore().setDarkMode(!darkMode.value);
+  setDarkModeClass();
+};
+
+setDarkModeClass();
 </script>
 
 <template>
@@ -61,7 +79,7 @@ const hideSearchDropdown = () => {
             props.layout == 'simple-menu' && 'hidden',
           ]"
         >
-          Eco
+          ecosis
         </span>
       </RouterLink>
       <!-- END: Logo -->
@@ -74,8 +92,8 @@ const hideSearchDropdown = () => {
           props.layout == 'top-menu' && 'md:pl-10',
         ]"
       >
-        <Breadcrumb.Link to="/">Application</Breadcrumb.Link>
-        <Breadcrumb.Link to="/" :active="true"> Wallet </Breadcrumb.Link>
+        <!-- <Breadcrumb.Link to="/">Application</Breadcrumb.Link>
+        <Breadcrumb.Link to="/" :active="true"> Wallet </Breadcrumb.Link> -->
       </Breadcrumb>
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Search -->
@@ -230,7 +248,14 @@ const hideSearchDropdown = () => {
       </Popover> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
-      <Menu>
+      <Menu class="flex">
+        <Menu.Button
+          class="block flex overflow-hidden text-white shadow-lg image-fit zoom-in intro-x px-4"
+          @click="switchMode()"
+        >
+
+          <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> <p>Dark Mode</p>
+        </Menu.Button>
         <Menu.Button
           class="block flex overflow-hidden text-white shadow-lg image-fit zoom-in intro-x"
           @click="logout()"
@@ -241,7 +266,6 @@ const hideSearchDropdown = () => {
           /> -->
           <!-- <VueGravatar hash="f3ada405ce890b6f8204094deb12d8a8" :size="150" /> -->
 
-            <DarkModeSwitcher />
             <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> <p>Logout</p>
         </Menu.Button>
         <!-- <Menu.Items

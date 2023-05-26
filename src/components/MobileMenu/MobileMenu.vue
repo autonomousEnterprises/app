@@ -63,7 +63,7 @@ onMounted(() => {
           :src="logoUrl"
         />
       </a>
-      <!-- <a href="#" @click="(e) => e.preventDefault()">
+      <a href="#" @click="(e) => e.preventDefault()">
         <Lucide
           icon="BarChart2"
           class="w-8 h-8 text-white transform -rotate-90"
@@ -73,7 +73,7 @@ onMounted(() => {
             }
           "
         />
-      </a> -->
+      </a>
     </div>
     <div
       ref="scrollableRef"
