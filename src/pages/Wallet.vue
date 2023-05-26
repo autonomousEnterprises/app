@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import { storeToRefs } from 'pinia'
 import _ from "lodash";
 import fakerData from "../utils/faker";
@@ -11,7 +11,12 @@ import Lucide from "../base-components/Lucide";
 import Tippy from "../base-components/Tippy";
 import { Menu, Tab } from "../base-components/Headless";
 import Table from "../base-components/Table";
-import { eco } from "../stores/eco";
+// import { useAuth0 } from '@auth0/auth0-vue';
+// import { auth0 } from '../utils/auth0';
+// import { eco } from "../stores/eco";
+
+// Auth0
+// const { isLoading, isAuthenticated } = auth0
 
 // Wallet Data
 let walletCreated = false
@@ -28,9 +33,12 @@ let inlcudeMessage = ref(false)
 let message = ref('')
 
 onMounted(async () => {
-  eco.on('balance-fetched', (balance) => {
-    accountBalance.value = balance
-  })
+  // await eco.fetchBalance()
+  // eco.on('balance-fetched', (balance: any) => {
+  //   accountBalance.value = balance
+  // })
+
+  // console.log(await eco.fetchAccount('lsknanun6s584dw49mtczchmbq3zwzcy8n3u2xwrj'));
 })
 
 </script>
@@ -39,16 +47,16 @@ onMounted(async () => {
   <div class="relative">
     <div class="grid grid-cols-12 gap-6">
       <div class="z-20 col-span-12 xl:col-span-9 2xl:col-span-9">
-        <!-- <div class="mt-6 -mb-6 intro-y">
+        <div class="mt-6 -mb-6 intro-y">
           <Alert
-            variant="primary"
+            variant="warning"
             dismissible
-            class="flex items-center mb-6 box dark:border-darkmode-600"
+            class="flex items-center mb-6 box dark:border-darkmode-600 text-black dark:text-white"
             v-slot="{ dismiss }"
           >
-            <span v-if="!credentials">
-              Very Welcome!
-              <button
+            <span>
+              Please note that this is an MVP Alpha Version currently running on a testnet.
+              <!-- <button
                 class="rounded-md bg-white bg-opacity-20 dark:bg-darkmode-300 hover:bg-opacity-30 py-0.5 px-2 -my-3 ml-2"
                 @click="walletCreationData()"
               >
@@ -60,9 +68,9 @@ onMounted(async () => {
                 @click="walletCreationData()"
               >
                 Import an exisiting one!
-              </button>
+              </button> -->
             </span>
-            <span v-else>
+            <!-- <span v-else>
               <div class="flex flex-col justify-start">
                 <h1 class="text-2xl p-4">Address: <b>{{ credentials.address }}</b></h1>
                 <h1 class="text-2xl p-4">Binary Address: <b>{{ credentials.binaryAddress }}</b></h1>
@@ -70,12 +78,12 @@ onMounted(async () => {
                 <h1 class="text-2xl p-4">PrivateKey: <b>{{ credentials.privateKey }}</b></h1>
                 <h1 class="text-2xl p-4">PublicKey: <b>{{ credentials.publicKey }}</b></h1>
               </div>
-            </span>
+            </span> -->
             <Alert.DismissButton class="text-white" @Click="dismiss">
               <Lucide icon="X" class="w-4 h-4" />
             </Alert.DismissButton>
           </Alert>
-        </div> -->
+        </div>
         <div class="flex flex-wrap w-full mb-3 mt-14 sm:gap-10 intro-y">
           <div class="-mb-1 text-sm font-medium 2xl:text-base">
             Hi,
@@ -83,6 +91,7 @@ onMounted(async () => {
               and very Welcome!
             </span>
           </div>
+
           <div
             class="relative w-full md:flex-1 py-6 text-center sm:pl-5 md:pl-0 lg:pl-5 sm:text-left"
           >
@@ -119,11 +128,11 @@ onMounted(async () => {
                   >
                     $
                   </span>
-                  {{ accountBalance }}
+                  {{ Number(accountBalance).toFixed(3) }}
                 </div>
-                <a class="ml-4 text-slate-500 2xl:ml-16" href="">
+                <!-- <button class="ml-4 text-slate-500 2xl:ml-16" @click="eco.fetchBalance()">
                   <Lucide icon="RefreshCcw" class="w-4 h-4" />
-                </a>
+                </button> -->
               </div>
               <div
                 class="mt-5 2xl:flex 2xl:justify-center 2xl:mt-0 2xl:-ml-20 2xl:w-14 2xl:flex-none 2xl:pl-2.5"
@@ -227,7 +236,6 @@ onMounted(async () => {
                       variant="primary"
                       rounded
                       class="justify-center w-full px-4"
-                      @click="eco.transfer(receiver, amount.toString(), message || undefined)"
                       >
                         Transfer
                         <button
@@ -236,6 +244,20 @@ onMounted(async () => {
                         <Lucide icon="Send" class="w-6 h-6" />
                       </button>
                     </Menu.Button>
+                    <!-- <Menu.Button
+                      :as="Button"
+                      variant="primary"
+                      rounded
+                      class="justify-center w-full px-4"
+                      @click="eco.transfer(receiver, amount.toString(), message || undefined, true)"
+                      >
+                        Transfer
+                        <button
+                          class="flex items-center justify-center w-12 h-12 text-white bg-white rounded-full dark:bg-darkmode-300 bg-opacity-20 hover:bg-opacity-30 ml-4"
+                        >
+                        <Lucide icon="Send" class="w-6 h-6" />
+                      </button>
+                    </Menu.Button> -->
                   </Menu>
                 </div>
 

@@ -6,19 +6,19 @@ import {
   LitepickerEmit,
 } from "./Litepicker.vue";
 
-interface Picker extends Litepicker {
-  on?: (
-    event: string,
-    cb: (
-      startDate: {
-        dateInstance: Date;
-      },
-      endDate: {
-        dateInstance: Date;
-      }
-    ) => void
-  ) => {};
-}
+// interface Picker extends Litepicker {
+//   on?: (
+//     event: string,
+//     cb: (
+//       startDate: {
+//         dateInstance: Date;
+//       },
+//       endDate: {
+//         dateInstance: Date;
+//       }
+//     ) => void
+//   ) => {};
+// }
 
 const getDateFormat = (format: string | undefined) => {
   return format !== undefined ? format : "D MMM, YYYY";
@@ -46,9 +46,9 @@ const init = (
     ...props.options,
     element: el,
     format: format,
-    setup: (picker: Picker) => {
+    setup: (picker: any) => {
       if (picker.on) {
-        picker.on("selected", (startDate, endDate) => {
+        picker.on("selected", (startDate: any, endDate: any) => {
           let date = dayjs(startDate.dateInstance).format(format);
           date +=
             endDate !== undefined

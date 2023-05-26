@@ -16,16 +16,31 @@ export interface SideMenuState {
 export const useSideMenuStore = defineStore("sideMenu", {
   state: (): SideMenuState => ({
     menu: [
+      // {
+      //   icon: "Activity",
+      //   pageName: "Wallet",
+      //   title: "Wallet",
+      // },
       {
-        icon: "Activity",
-        pageName: "Wallet",
-        title: "Wallet",
+        icon: "Calculator",
+        pageName: "Calculator",
+        title: "Calculator",
       },
       {
-        icon: "Activity",
-        pageName: "Plugins",
-        title: "Plugins",
+        icon: "Coins",
+        pageName: "Exchange",
+        title: "Exchange",
       },
+      {
+        icon: "LayoutGrid",
+        pageName: "Businesses",
+        title: "Businesses",
+      },
+      // {
+      //   icon: "Activity",
+      //   pageName: "Plugins",
+      //   title: "Plugins",
+      // },
     ],
   }),
 });

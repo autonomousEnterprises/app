@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Lucide from "../../base-components/Lucide";
-import logoUrl from "../../assets/images/logo.svg";
+// import logoUrl from "../../assets/images/logo.svg";
 import Breadcrumb from "../../base-components/Breadcrumb";
 import { FormInput } from "../../base-components/Form";
 import { Menu, Popover } from "../../base-components/Headless";
 import fakerData from "../../utils/faker";
 import _ from "lodash";
 import { TransitionRoot } from "@headlessui/vue";
+
+import { useDarkModeStore } from "../../stores/dark-mode";
+import { computed } from "vue";
+
+import { auth0 } from '../../utils/auth0';
+const { logout } = auth0;;
+
+const signOut = () => {
+  logout({ logoutParams: { returnTo: 'https://ecosis.app/login' } })
+}
 
 const props = defineProps<{
   layout?: "side-menu" | "simple-menu" | "top-menu";
@@ -20,6 +30,21 @@ const showSearchDropdown = () => {
 const hideSearchDropdown = () => {
   searchDropdown.value = false;
 };
+
+// Dark Mode
+const darkMode = computed(() => useDarkModeStore().darkMode);
+
+const setDarkModeClass = () => {
+  const el = document.querySelectorAll("html")[0];
+  darkMode.value ? el.classList.add("dark") : el.classList.remove("dark");
+};
+
+const switchMode = () => {
+  useDarkModeStore().setDarkMode(!darkMode.value);
+  setDarkModeClass();
+};
+
+setDarkModeClass();
 </script>
 
 <template>
@@ -45,7 +70,7 @@ const hideSearchDropdown = () => {
         <img
           alt="Eco"
           class="w-6"
-          :src="logoUrl"
+          src="../../assets/logos/eco.png"
         />
         <span
           :class="[
@@ -54,7 +79,7 @@ const hideSearchDropdown = () => {
             props.layout == 'simple-menu' && 'hidden',
           ]"
         >
-          Eco
+          ecosis
         </span>
       </RouterLink>
       <!-- END: Logo -->
@@ -67,12 +92,12 @@ const hideSearchDropdown = () => {
           props.layout == 'top-menu' && 'md:pl-10',
         ]"
       >
-        <Breadcrumb.Link to="/">Application</Breadcrumb.Link>
-        <Breadcrumb.Link to="/" :active="true"> Wallet </Breadcrumb.Link>
+        <!-- <Breadcrumb.Link to="/">Application</Breadcrumb.Link>
+        <Breadcrumb.Link to="/" :active="true"> Wallet </Breadcrumb.Link> -->
       </Breadcrumb>
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Search -->
-      <div class="relative mr-3 intro-x sm:mr-6">
+      <!-- <div class="relative mr-3 intro-x sm:mr-6">
         <div class="relative hidden sm:block">
           <FormInput
             type="text"
@@ -176,10 +201,10 @@ const hideSearchDropdown = () => {
             </div>
           </div>
         </TransitionRoot>
-      </div>
+      </div> -->
       <!-- END: Search -->
       <!-- BEGIN: Notifications -->
-      <Popover class="mr-4 intro-x sm:mr-6">
+      <!-- <Popover class="mr-4 intro-x sm:mr-6">
         <Popover.Button
           class="relative text-white/70 outline-none block before:content-[''] before:w-[8px] before:h-[8px] before:rounded-full before:absolute before:top-[-2px] before:right-0 before:bg-danger"
         >
@@ -220,19 +245,30 @@ const hideSearchDropdown = () => {
             </div>
           </div>
         </Popover.Panel>
-      </Popover>
+      </Popover> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
-      <Menu>
+      <Menu class="flex">
         <Menu.Button
-          class="block w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in intro-x"
+          class="block flex overflow-hidden text-white shadow-lg image-fit zoom-in intro-x px-4"
+          @click="switchMode()"
         >
-          <img
+
+          <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> <p>Dark Mode</p>
+        </Menu.Button>
+        <Menu.Button
+          class="block flex overflow-hidden text-white shadow-lg image-fit zoom-in intro-x"
+          @click="logout()"
+        >
+          <!-- <img
             alt="Midone Tailwind HTML Admin Template"
             :src="fakerData[9].photos[0]"
-          />
+          /> -->
+          <!-- <VueGravatar hash="f3ada405ce890b6f8204094deb12d8a8" :size="150" /> -->
+
+            <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> <p>Logout</p>
         </Menu.Button>
-        <Menu.Items
+        <!-- <Menu.Items
           class="w-56 mt-px relative bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white"
         >
           <Menu.Header class="font-normal">
@@ -255,10 +291,10 @@ const hideSearchDropdown = () => {
             <Lucide icon="HelpCircle" class="w-4 h-4 mr-2" /> Help
           </Menu.Item>
           <Menu.Divider class="bg-white/[0.08]" />
-          <Menu.Item class="hover:bg-white/5" @click="$router.push('/login')">
+          <Menu.Item class="hover:bg-white/5" @click="signOut()">
             <Lucide icon="ToggleRight" class="w-4 h-4 mr-2" /> Logout
           </Menu.Item>
-        </Menu.Items>
+        </Menu.Items> -->
       </Menu>
       <!-- END: Account Menu -->
     </div>

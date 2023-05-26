@@ -3,17 +3,21 @@ import { ref, onMounted } from "vue";
 import { useRouter } from 'vue-router'
 import DarkModeSwitcher from "../components/DarkModeSwitcher";
 import MainColorSwitcher from "../components/MainColorSwitcher";
-import logoUrl from "../assets/images/logo.svg";
+// import logoUrl from "../assets/images/logo.svg";
 import illustrationUrl from "../assets/images/illustration.svg";
 import { FormInput, FormCheck } from "../base-components/Form";
 import Button from "../base-components/Button";
-import { eco } from "../stores/eco";
+// import { eco } from "../stores/eco";
+
+// import { useAuth0 } from '@auth0/auth0-vue';
+import { auth0 } from '../utils/auth0';
+const { loginWithRedirect } = auth0
 
 const router = useRouter()
 
 const toggleImport = ref(false)
 const toggleCreate = ref(false)
-const walletData = ref({})
+const walletData = ref()
 const passphrase = ref('')
 const rememberLogin = ref(false)
 
@@ -23,15 +27,15 @@ const importWallet = () => {
 }
 
 const openWallet = async () => {
-  if (rememberLogin.value) {
-    localStorage.setItem('passphrase', passphrase.value) // TODO encode cryptographically
-  }
-  await eco.importWallet(passphrase.value)
-  router.push('/')
+  // if (rememberLogin.value) {
+  //   localStorage.setItem('passphrase', passphrase.value) // TODO encode cryptographically
+  // }
+  // // await eco.importWallet(passphrase.value)
+  // router.push('/')
 }
 
 const createWallet = async () => {
-  walletData.value = await eco.createWallet()
+  // walletData.value = await eco.createWallet()
   toggleCreate.value = true
   toggleImport.value = false
 }
@@ -55,7 +59,7 @@ const createWallet = async () => {
             <img
               alt="Midone Tailwind HTML Admin Template"
               class="w-6"
-              :src="logoUrl"
+              src="../assets/logos/eco.png"
             />
             <span class="ml-3 text-lg text-white"> Eco </span>
           </a>
@@ -69,12 +73,12 @@ const createWallet = async () => {
               class="mt-10 text-4xl font-medium leading-tight text-white -intro-x"
             >
               A few more clicks to <br />
-              sign in to your account.
+              signin to your account.
             </div>
             <div
               class="mt-5 text-lg text-white -intro-x text-opacity-70 dark:text-slate-400"
             >
-              Sign in, deposit funds and explore <br>the most sustainable payment experience
+              Signin, deposit funds and explore <br>the most rewarding payments experience
             </div>
           </div>
         </div>
@@ -89,10 +93,9 @@ const createWallet = async () => {
             >
               Sign In
             </h2>
-            <!-- <div class="mt-2 text-center intro-x text-slate-400 xl:hidden">
-              A few more clicks to sign in to your account. Manage all your
-              e-commerce accounts in one place
-            </div> -->
+            <p class="mt-2 text-center md:text-left intro-x">
+              Login with your social media account or e-mail-address.
+            </p>
             <div class="mt-8 intro-x" v-if="toggleImport">
               <FormInput
                 type="text"
@@ -149,7 +152,7 @@ const createWallet = async () => {
             <div
               class="flex mt-4 text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm"
             >
-              <div class="flex items-center mr-auto">
+              <!-- <div class="flex items-center mr-auto">
                 <FormCheck.Input
                   id="remember-me"
                   type="checkbox"
@@ -159,11 +162,19 @@ const createWallet = async () => {
                 <label class="cursor-pointer select-none" htmlFor="remember-me">
                   Remember me
                 </label>
-              </div>
+              </div> -->
               <!-- <a href="">Forgot Password?</a> -->
             </div>
             <div class="mt-5 text-center intro-x xl:mt-8 xl:text-left">
               <Button
+                variant="primary"
+                class="w-full px-4 py-3 align-top xl:w-32 xl:mr-3"
+                @click="loginWithRedirect()"
+              >
+                Login
+              </Button>
+
+              <!-- <Button
                 variant="primary"
                 class="w-full px-4 py-3 align-top xl:w-32 xl:mr-3"
                 @click="importWallet()"
@@ -176,19 +187,19 @@ const createWallet = async () => {
                 @click="createWallet()"
               >
                 Create Wallet
-              </Button>
+              </Button> -->
             </div>
             <div
               class="mt-10 text-center intro-x xl:mt-24 text-slate-600 dark:text-slate-500 xl:text-left"
             >
               By signin up, you agree to our
-              <a class="text-primary dark:text-slate-200" href="">
+              <a class="text-primary dark:text-slate-200" href="https://www.termsofusegenerator.net/live.php?token=4txL1cVZsI7DgYbgkrXjmrg4SoStkwTq" target="_blank">
                 Terms and Conditions
               </a>
-              &
+              <!-- &
               <a class="text-primary dark:text-slate-200" href="">
                 Privacy Policy
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
