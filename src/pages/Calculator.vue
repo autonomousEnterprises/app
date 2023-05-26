@@ -24,8 +24,8 @@ let nextRewardTime = 2;
 // Receiver
 let individualTransactionVolume = ref(0);
 let individualDepositVolume = ref(0);
-let totalDepositVolume = ref(4211657.24);
-let totalTransactionVolume = ref(2623739.54);
+let totalDepositVolume = ref(6987375.32);
+let totalTransactionVolume = ref(4822681.54);
 let rewardPool = ref(totalTransactionVolume.value * 0.008)
 
 let accountBalance = ref(0);
@@ -98,7 +98,7 @@ onMounted(() => {
           v-slot="{ dismiss }"
         >
           <span>
-            Please note that this is an MVP Alpha Version currently running on a testnet
+            Please note that this caclulator is a simulation based on testnet data and will be enabled once the finance feature is released soon.
             <!-- <button
               class="rounded-md bg-white bg-opacity-20 dark:bg-darkmode-300 hover:bg-opacity-30 py-0.5 px-2 -my-3 ml-2"
               @click="walletCreationData()"
