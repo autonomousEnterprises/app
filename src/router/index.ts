@@ -4,12 +4,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import SideMenu from "../layouts/SideMenu/SideMenu.vue";
 // import SimpleMenu from "../layouts/SimpleMenu/SimpleMenu.vue";
 // import TopMenu from "../layouts/TopMenu/TopMenu.vue";
+import AI from "../pages/AI.vue";
 import Wallet from "../pages/Wallet.vue";
 import Calculator from "../pages/Calculator.vue";
 import Businesses from "../pages/Businesses.vue";
 import Exchange from "../pages/Exchange.vue";
 import Login from "../pages/Login.vue";
 import Transaction from "../pages/Transaction.vue";
+import Hub from "../pages/Hub.vue";
+import Pro from "../pages/Pro.vue";
 import { auth0 } from '../utils/auth0';
 
 const { authGuard } = auth0
@@ -19,6 +22,12 @@ const routes = [
     path: "/",
     component: SideMenu,
     children: [
+      {
+        path: "/ai",
+        name: "AI",
+        component: AI,
+        beforeEnter: authGuard
+      },
       {
         path: "/wallet",
         name: "Wallet",
@@ -41,6 +50,18 @@ const routes = [
         path: "/calculator",
         name: "Calculator",
         component: Calculator,
+        beforeEnter: authGuard
+      },
+      {
+        path: "/hub",
+        name: "Hub",
+        component: Hub,
+        beforeEnter: authGuard
+      },
+      {
+        path: "/pro",
+        name: "Pro",
+        component: Pro,
         beforeEnter: authGuard
       },
     ],
