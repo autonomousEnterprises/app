@@ -23,7 +23,7 @@ const marketplaceStore = useMarketplaceStore()
         </tr>
       </thead>
       <tbody>
-          <tr v-for="business in marketplaceStore.businesses">
+          <tr class="hover:bg-base-200" v-for="business in marketplaceStore.businesses">
             <th>
               <!-- <label>
                 <input type="checkbox" class="checkbox" />
