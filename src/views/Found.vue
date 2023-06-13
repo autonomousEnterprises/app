@@ -11,6 +11,7 @@ const autoBranding = ref(false)
 const autoMarketNiche = ref(false)
 const autoBusinessModel = ref(false)
 const autoProductDesign = ref(false)
+const autoSmartContract = ref(false)
 const autopilot = ref(false)
 
 const branding = ref({
@@ -76,7 +77,28 @@ const router = useRouter()
                 <input type="checkbox" class="toggle" v-model="autoProductDesign" disabled />
               </label>
             </div>
+
+            <div class="form-control tooltip w-full" data-tip="Available in Pro">
+              <label class="label cursor-pointe">
+                <span class="label-text">Auto Smart Contract Code</span>
+                <input type="checkbox" class="toggle" v-model="autoSmartContract" disabled />
+              </label>
+            </div>
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Objective</span>
+              </label>
+              <textarea class="textarea textarea-bordered h-36   bg-base-300" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
+              <label class="label">
+                <span class="label-text-alt">Define goal</span>
+              </label>
+            </div>
+
+            <div class="divider"></div>
+            <RouterLink class="btn btn-wide btn-neutral w-full" to="create" disabled>Generate</RouterLink>
           </div>
+
         </section>
         <section class="card w-96 bg-base-100 p-4 m-2">
           <div class="form-control tooltip w-full" data-tip="Available soon">
@@ -133,8 +155,10 @@ const router = useRouter()
           <select class="select select-bordered w-full max-w-xs bg-base-300" v-model="category">
             <option selected>Community Pool</option>
             <option>Agency</option>
+            <option>R&D</option>
             <option disabled>E-Commerce</option>
             <option disabled>Bond</option>
+            <option disabled>Exchange</option>
             <option disabled>Treasury</option>
             <option disabled>Investment</option>
           </select>
@@ -142,11 +166,11 @@ const router = useRouter()
 
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Objective</span>
+            <span class="label-text">Solution</span>
           </label>
-          <textarea class="textarea textarea-bordered h-64 bg-base-300" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
+          <textarea class="textarea textarea-bordered h-64 bg-base-300" placeholder="eg: A decentralised funding pool for open source projects" v-model="model"></textarea>
           <label class="label">
-            <span class="label-text-alt">Define 'Business' Model</span>
+            <span class="label-text-alt">What do you want to solve?</span>
           </label>
         </div>
 
@@ -195,6 +219,27 @@ const router = useRouter()
                 <span class="label-text">Transaction Fee</span>
               </label>
               <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" />
+            </div>
+
+            <div class="form-control">
+              <label class="label cursor-pointer">
+                <span class="label-text">Mintable</span>
+                <input type="checkbox" class="checkbox checkbox-secondary" />
+              </label>
+            </div>
+
+            <div class="form-control">
+              <label class="label cursor-pointer">
+                <span class="label-text">Stakable</span>
+                <input type="checkbox" class="checkbox checkbox-secondary" />
+              </label>
+            </div>
+
+            <div class="form-control">
+              <label class="label cursor-pointer">
+                <span class="label-text">Burnable</span>
+                <input type="checkbox" class="checkbox checkbox-secondary" />
+              </label>
             </div>
           </div>
         </section>
