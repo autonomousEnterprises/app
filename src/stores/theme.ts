@@ -34,11 +34,14 @@ export const useThemeStore = defineStore('theme', () => {
     "winter",
   ]
 
-  const theme = ref('light')
+  const storage = localStorage.getItem('theme')
+
+  const theme = ref(storage)
   // const doubleCount = computed(() => count.value * 2)
-  function changeTheme() {
-    theme.value = themeParam
+  function setTheme(param) {
+    localStorage.setItem('theme', param)
+    theme.value = param
   }
 
-  return { theme, themes, changeTheme }
+  return { theme, themes, setTheme }
 })

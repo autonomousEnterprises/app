@@ -10,7 +10,7 @@ const themeStore = useThemeStore()
       <span class="label-text">Theme</span>
     </label>
     <select class="select select-bordered" v-model="themeStore.theme">
-      <option v-for="theme in themeStore.themes">{{ theme }}</option>
+      <option v-for="theme in themeStore.themes" @click="themeStore.setTheme(theme)">{{ theme }}</option>
     </select>
   </div>
 </template>
