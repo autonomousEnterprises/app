@@ -42,7 +42,7 @@ const getNotifcationType = (notificationType) => {
           <div class="flex-none hidden lg:block">
             <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
               <li><RouterLink to="/">Hub</RouterLink></li>
-              <li><RouterLink to="/create">Create</RouterLink></li>
+              <li><RouterLink to="/found">Found</RouterLink></li>
               <li><RouterLink to="/wallet">Wallet</RouterLink></li>
             </ul>
             <ul class="menu menu-horizontal">
@@ -63,7 +63,7 @@ const getNotifcationType = (notificationType) => {
         <ul class="menu p-4 w-80 h-full bg-base-200">
           <!-- Sidebar content here -->
             <li><RouterLink to="/">Hub</RouterLink></li>
-            <li><RouterLink to="/create">Create</RouterLink></li>
+            <li><RouterLink to="/found">Found</RouterLink></li>
             <li><RouterLink to="/wallet">Wallet</RouterLink></li>
             <div class="divider"></div>
             <ThemeSelect/>
