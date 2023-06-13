@@ -38,10 +38,10 @@ const getNotifcationType = (notificationType) => {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2">Navbar Title</div>
+          <div class="flex-1 px-2 mx-2">ecosis</div>
           <div class="flex-none hidden lg:block">
             <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
-              <li><RouterLink to="/">Dashboard</RouterLink></li>
+              <li><RouterLink to="/">Hub</RouterLink></li>
               <li><RouterLink to="/create">Create</RouterLink></li>
               <li><RouterLink to="/wallet">Wallet</RouterLink></li>
             </ul>
@@ -62,7 +62,7 @@ const getNotifcationType = (notificationType) => {
         <label for="my-drawer-3" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 h-full bg-base-200">
           <!-- Sidebar content here -->
-            <li><RouterLink to="/">Dashboard</RouterLink></li>
+            <li><RouterLink to="/">Hub</RouterLink></li>
             <li><RouterLink to="/create">Create</RouterLink></li>
             <li><RouterLink to="/wallet">Wallet</RouterLink></li>
             <div class="divider"></div>
