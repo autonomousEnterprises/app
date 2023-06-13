@@ -57,8 +57,8 @@ const listing = ref(false)
 
         <div class="stat place-items-center">
           <div class="stat-title">Users</div>
-          <div class="stat-value text-secondary">4,200</div>
-          <div class="stat-desc text-secondary">↗︎ 40 (2%)</div>
+          <div class="stat-value text-success">4,200</div>
+          <div class="stat-desc text-success">↗︎ 40 (2%)</div>
         </div>
 
         <div class="stat place-items-center">

@@ -91,7 +91,7 @@ const router = useRouter()
               <label class="label">
                 <span class="label-text">Token Name</span>
               </label>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs bg-base-300" />
             </div>
           </div>
         </section>
@@ -102,14 +102,14 @@ const router = useRouter()
           <label class="label">
             <span class="label-text">Name</span>
           </label>
-          <input type="text" placeholder="Cyber Org Ltd" class="input input-bordered w-full max-w-xs" v-model="name"/>
+          <input type="text" placeholder="Cyber Org Ltd" class="input input-bordered w-full max-w-xs bg-base-300" v-model="name"/>
         </div>
 
         <div class="form-control w-full max-w-xs">
           <label class="label">
             <span class="label-text">Tagline</span>
           </label>
-          <input type="text" placeholder="Overtaking the world" class="input input-bordered w-full max-w-xs" v-model="tagline"/>
+          <input type="text" placeholder="Overtaking the world" class="input input-bordered w-full max-w-xs bg-base-300" v-model="tagline"/>
         </div>
 
         <div class="form-control w-full max-w-xs">
@@ -123,14 +123,14 @@ const router = useRouter()
           <label class="label">
             <span class="label-text">Domain</span>
           </label>
-          <input type="text" placeholder="cyber.org" class="input input-bordered w-full max-w-xs" v-model="url"/>
+          <input type="text" placeholder="cyber.org" class="input input-bordered w-full max-w-xs bg-base-300" v-model="url"/>
         </div>
 
         <div class="">
           <label class="label">
             <span class="label-text">Category</span>
           </label>
-          <select class="select select-bordered w-full max-w-xs" v-model="category">
+          <select class="select select-bordered w-full max-w-xs bg-base-300" v-model="category">
             <option selected>Community Pool</option>
             <option>Agency</option>
             <option disabled>E-Commerce</option>
@@ -144,7 +144,7 @@ const router = useRouter()
           <label class="label">
             <span class="label-text">Objective</span>
           </label>
-          <textarea class="textarea textarea-bordered h-64" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
+          <textarea class="textarea textarea-bordered h-64 bg-base-300" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
           <label class="label">
             <span class="label-text-alt">Define 'Business' Model</span>
           </label>
@@ -173,28 +173,28 @@ const router = useRouter()
               <label class="label">
                 <span class="label-text">Token Name</span>
               </label>
-              <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs" />
+              <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" />
             </div>
 
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Token Symbol</span>
               </label>
-              <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs" />
+              <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" />
             </div>
 
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Token Supply</span>
               </label>
-              <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs" />
+              <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" />
             </div>
 
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Transaction Fee</span>
               </label>
-              <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs" />
+              <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" />
             </div>
           </div>
         </section>
@@ -212,13 +212,13 @@ const router = useRouter()
               <label class="label">
                 <span class="label-text">Token Name</span>
               </label>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs bg-base-300" />
             </div>
           </div>
         </section>
       </div>
       <div class="flex justify-center p-4 w-full">
-        <RouterLink class="btn btn-wide btn-neutral" to="create">Deploy</RouterLink>
+        <RouterLink class="btn btn-wide btn-neutral" to="create" disabled>Deploy</RouterLink>
       </div>
     </div>
 
