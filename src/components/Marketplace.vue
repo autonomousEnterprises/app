@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useMarketplaceStore } from '../stores/marketplace';
+
+const marketplaceStore = useMarketplaceStore()
+</script>
+
 <template>
   <div class="overflow-x-auto">
     <table class="table">
@@ -5,9 +12,9 @@
       <thead>
         <tr>
           <th>
-            <label>
+            <!-- <label>
               <input type="checkbox" class="checkbox" />
-            </label>
+            </label> -->
           </th>
           <th>Name</th>
           <th>Model</th>
@@ -16,11 +23,11 @@
         </tr>
       </thead>
       <tbody>
-          <tr>
+          <tr v-for="business in marketplaceStore.businesses">
             <th>
-              <label>
+              <!-- <label>
                 <input type="checkbox" class="checkbox" />
-              </label>
+              </label> -->
             </th>
             <td>
               <div class="flex items-center space-x-3">
@@ -30,17 +37,17 @@
                   </div>
                 </div>
                 <div>
-                  <div class="font-bold">Hart Hagerty</div>
-                  <div class="text-sm opacity-50">United States</div>
+                  <div class="font-bold">{{ business.name }}</div>
+                  <div class="text-sm opacity-50">{{ business.tagline }}</div>
                 </div>
               </div>
             </td>
             <td>
-              Zemlak, Daniel and Leannon
+              {{ business.solution }}
               <br/>
-              <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+              <span class="badge badge-ghost badge-sm">{{ business.model }}</span>
             </td>
-            <td>Purple</td>
+            <td>{{ business.token }}</td>
             <th>
               <button class="btn btn-ghost btn-xs">details</button>
             </th>
@@ -60,11 +67,3 @@
     </table>
   </div>
 </template>
-
-<script>
-export default {
-}
-</script>
-
-<style lang="css" scoped>
-</style>
