@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import {
+  CandlestickChart,
+  Building2
+} from 'lucide-vue-next';
 import Marketplace from '../components/Marketplace.vue'
 import { useNotificationStore } from '../stores/notifications';
 import { useMarketplaceStore } from '../stores/marketplace';
@@ -31,10 +35,11 @@ const listing = ref(false)
 
 <template>
   <main class="flex flex-wrap justify-center overflow-scroll">
-    <div class="text-center p-4 w-full">
-      <h1 class="text-2xl font-bold text-center pb-8">Network Performance</h1>
+    <div class="text-center p-4 w-full flex justify-center">
+      <CandlestickChart class="mr-2 mt-5"/>
+      <h1>Network Performance</h1>
     </div>
-    <div class="stats stats-vertical lg:stats-horizontal hadow m-4 card w-96 bg-base-100 p-4 m-2">
+    <div class="stats shadow stats-vertical lg:stats-horizontal hadow m-4 card w-96 bg-base-100 p-4 m-2">
       <div class="stat place-items-center">
         <div class="stat-title">Users</div>
         <div class="stat-value text-success">70</div>
@@ -58,7 +63,7 @@ const listing = ref(false)
     </div>
 
     <div class="flex justify-center p-4 w-full">
-      <RouterLink class="btn btn-wide btn-neutral" to="found">Create an Organisation</RouterLink>
+      <RouterLink class="btn btn-wide btn-neutral" to="create">Create an Organisation</RouterLink>
     </div>
 
 
@@ -70,8 +75,11 @@ const listing = ref(false)
       </div>
     </div> -->
 
-    <div class="flex flex-col justify-center p-4 w-full card bg-base-100">
-      <h2 class="text-2xl font-bold text-center pb-8">Marketplace</h2>
+    <div class="flex flex-col justify-center p-4 w-full card bg-base-100 shadow">
+      <div class="text-center p-4 w-full flex justify-center">
+        <Building2 class="mr-2 mt-4"/>
+        <h2>Marketplace</h2>
+      </div>
       <Marketplace/>
     </div>
   </main>
