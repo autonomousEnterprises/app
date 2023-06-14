@@ -33,7 +33,7 @@ const marketplaceStore = useMarketplaceStore()
               <div class="flex items-center space-x-3">
                 <div class="avatar">
                   <div class="mask mask-squircle w-12 h-12">
-                    <img src="/tailwind-css-component-profile-2@56w.png" alt="Logo" />
+                    <img :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${business.name}`" alt="Logo" />
                   </div>
                 </div>
                 <div>
