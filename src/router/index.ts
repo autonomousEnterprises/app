@@ -8,9 +8,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/found',
-    name: 'found',
-    component: () => import('../views/Found.vue')
+    path: '/create',
+    name: 'create',
+    component: () => import('../views/Create.vue')
   },
   {
     path: '/wallet',
