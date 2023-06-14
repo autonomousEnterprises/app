@@ -1,10 +1,12 @@
 <template>
-  <prism-editor
-    class="my-editor bg-gray-900 rounded"
-    v-model="code"
-    :highlight="highlighter"
-    line-numbers
-  ></prism-editor>
+  <div class=" bg-gray-900 rounded py-4 shadow-inner">
+    <prism-editor
+      class="my-editor"
+      v-model="code"
+      :highlight="highlighter"
+      line-numbers
+    ></prism-editor>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,7 +25,7 @@ export default {
     PrismEditor,
   },
   data: () => ({
-    code: "import { Blockchain } from `./blockchain`; /n const token = new Blockchain('TKN', 'Token', 21000000, 0.1)",
+    code: "import { Token } from `./token`; \n\nnew Token('TKN', 'Token', 21000000, 0.1)", // /\r?\n|\r/ https://bobbyhadz.com/blog/javascript-remove-all-line-breaks-from-string
   }),
   methods: {
     highlighter(code) {
