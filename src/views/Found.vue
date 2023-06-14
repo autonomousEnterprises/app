@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import BusinessList from '../components/BusinessList.vue'
+import CodeEditor from '../components/CodeEditor.vue'
 
 const createBusiness = ref(false)
 const tokenise = ref(false)
@@ -248,7 +249,7 @@ const router = useRouter()
           <div class="form-control tooltip w-full" data-tip="Available in Pro">
             <label class="label cursor-pointer">
               <span class="label-text">Dedicated Virtual Machine</span>
-              <input type="checkbox" class="toggle" v-model="autopilot" disabled/>
+              <input type="checkbox" class="toggle" v-model="enableVM"/>
             </label>
           </div>
 
@@ -257,7 +258,7 @@ const router = useRouter()
               <label class="label">
                 <span class="label-text">Token Name</span>
               </label>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs bg-base-300" />
+              <CodeEditor/>
             </div>
           </div>
         </section>
