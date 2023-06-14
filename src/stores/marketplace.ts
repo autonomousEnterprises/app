@@ -41,7 +41,7 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     },
     {
       name: 'ecosis Capital',
-      tagline: 'Asset Management',
+      tagline: 'Intrinsic Autonomous Portfolio',
       url: 'https://ecosis.capital',
       logo: '',
       model: 'Performance-based',
