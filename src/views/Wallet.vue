@@ -28,7 +28,7 @@ const formatCurrency = (number: number) => {
 <template>
   <main class="flex">
     <section class="flex flex-col justify-start">
-      <div class="stats stats-vertical lg:stats-horizontal bg-base-100 card text-primary-content shadow h-1/3">
+      <div class="stats stats-vertical lg:stats-horizontal bg-base-100 card text-primary-content shadow h-auto">
 
         <div class="stat flex flex-col justify-center">
           <div class="stat-title">Total balance</div>
@@ -44,7 +44,7 @@ const formatCurrency = (number: number) => {
 
           <div class="stat" v-for="wallet in walletStore.wallets">
             <div class="stat-title">Current balance</div>
-            <div class="stat-value">{{ formatCurrency(wallet.balance) }}</div>
+            <div class="stat-value"><span>{{ wallet.tokenSymbol }}</span>{{ formatCurrency(wallet.balance) }}</div>
             <div class="stat-actions">
               <button class="btn btn-sm">Withdrawal</button>
               <button class="btn btn-sm">deposit</button>

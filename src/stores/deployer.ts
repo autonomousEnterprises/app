@@ -47,7 +47,12 @@ export const useDeployerStore = defineStore('deployer', () => {
         msg: 'Successfully deployed!'
       })
 
-      walletStore.addWallet(res.data.genesisWallet)
+      walletStore.addWallet({
+        tokenName: res.data.genesisWallet.tokenName,
+        tokenSymbol: res.data.genesisWallet.tokenSymbol,
+        address: res.data.genesisWallet.address,
+        balance: res.data.genesisWallet.balance
+      })
     } catch (error) {
       console.log(error);
 
