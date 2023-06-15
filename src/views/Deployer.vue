@@ -9,9 +9,9 @@ import {
 } from 'lucide-vue-next';
 import BusinessList from '../components/BusinessList.vue'
 import CodeEditor from '../components/CodeEditor.vue'
-import { useCreateBusinessStore } from '../stores/createBusiness';
+import { useDeployerStore } from '../stores/deployer';
 
-const createBusinessStore = useCreateBusinessStore()
+const deployerStore = useDeployerStore()
 
 const createBusiness = ref(false)
 const tokenise = ref(false)
@@ -104,7 +104,7 @@ const router = useRouter()
             </div>
 
             <div class="divider"></div>
-            <RouterLink class="btn btn-wide btn-neutral w-full" to="create" disabled>Generate</RouterLink>
+            <button class="btn btn-wide btn-neutral w-full" disabled>Generate</button>
           </div>
 
         </section>
@@ -137,14 +137,14 @@ const router = useRouter()
             <label class="label">
               <span class="label-text">Name</span>
             </label>
-            <input type="text" placeholder="Cyber Org Ltd" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.branding.name"/>
+            <input type="text" placeholder="Cyber Org Ltd" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.branding.name"/>
           </div>
 
           <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text">Tagline</span>
             </label>
-            <input type="text" placeholder="Overtaking the world" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.branding.tagline"/>
+            <input type="text" placeholder="Overtaking the world" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.branding.tagline"/>
           </div>
 
           <div class="form-control w-full max-w-xs">
@@ -158,18 +158,19 @@ const router = useRouter()
             <label class="label">
               <span class="label-text">Domain</span>
             </label>
-            <input type="text" placeholder="cyber.org" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.branding.url"/>
+            <input type="text" placeholder="cyber.org" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.branding.url"/>
           </div>
 
           <div class="">
             <label class="label">
               <span class="label-text">Category</span>
             </label>
-            <select class="select select-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.branding.category">
+            <select class="select select-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.branding.category">
               <option selected>Community Pool</option>
               <option>Agency</option>
               <option>R&D</option>
               <option disabled>E-Commerce</option>
+              <option disabled>SaaS</option>
               <option disabled>Bond</option>
               <option disabled>Exchange</option>
               <option disabled>Treasury</option>
@@ -203,40 +204,33 @@ const router = useRouter()
           <h2>Token</h2>
         </div>
         <section class="card shadow w-96 bg-base-100 p-4 m-2">
-          <div class="form-control">
-            <label class="label cursor-pointer">
-              <span class="label-text">Tokenise</span>
-              <input type="checkbox" class="toggle" v-model="tokenise" />
-            </label>
-          </div>
-
-          <div class="" v-if="tokenise">
+          <div class="">
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Token Name</span>
               </label>
-              <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.token.name" />
+              <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.name" />
             </div>
 
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Token Symbol</span>
               </label>
-              <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.token.symbol" />
+              <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.symbol" />
             </div>
 
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Token Supply</span>
               </label>
-              <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.token.supply" />
+              <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.supply" />
             </div>
 
             <div class="form-control w-full max-w-xs">
               <label class="label">
                 <span class="label-text">Transaction Fee</span>
               </label>
-              <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" v-model="createBusinessStore.token.fee" />
+              <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.fee" />
             </div>
 
             <div class="form-control tooltip w-full" data-tip="Available in Pro">
@@ -260,15 +254,16 @@ const router = useRouter()
               </label>
             </div>
           </div>
-        </section>
 
-        <section class="card shadow w-96 bg-base-100 p-4 m-2">
           <div class="form-control tooltip w-full" data-tip="Available in Pro">
             <label class="label cursor-pointer">
               <span class="label-text">Custom Smart Contract</span>
               <input type="checkbox" class="toggle" v-model="customSmartContract"/>
             </label>
           </div>
+        </section>
+
+        <section class="card shadow w-96 bg-base-100 p-4 m-2">
 
           <div class="form-control tooltip w-full" data-tip="Available in Pro">
             <label class="label cursor-pointer">
@@ -288,7 +283,7 @@ const router = useRouter()
       <CodeEditor/>
     </div>
     <div class="flex justify-center p-4 w-full">
-      <button class="btn btn-wide btn-neutral" to="create" @click="createBusinessStore.deploy()">Deploy</button>
+      <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()">Deploy</button>
     </div>
     <!-- <div class="flex justify-center p-4 w-full">
       <BusinessList/>
