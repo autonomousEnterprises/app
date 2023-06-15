@@ -63,7 +63,7 @@ const listing = ref(false)
     </div>
 
     <div class="flex justify-center p-4 w-full">
-      <RouterLink class="btn btn-wide btn-neutral" to="create">Create an Organisation</RouterLink>
+      <RouterLink class="btn btn-wide btn-neutral" to="deployer">Create an Organisation</RouterLink>
     </div>
 
 
