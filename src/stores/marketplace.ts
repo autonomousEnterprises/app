@@ -12,6 +12,15 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
       solution: 'R&D',
       token: 'ELABS'
     },
+      {
+        name: 'ecosis Network',
+        tagline: 'Awesome Ecosystem',
+        url: 'https://ecosis.Network',
+        logo: '',
+        model: 'SaaS',
+        solution: 'Ecosystem Index',
+        token: 'NOMICS'
+      },
     {
       name: 'ecosis Pro',
       tagline: 'ecosis on Steriods',
