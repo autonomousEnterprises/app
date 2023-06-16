@@ -75,7 +75,7 @@ const listing = ref(false)
       </div>
     </div> -->
 
-    <div class="flex flex-col justify-center p-4 w-full card bg-base-100 shadow">
+    <div class="flex flex-col justify-center w-full card bg-base-100 shadow">
       <div class="text-center p-4 w-full flex justify-center">
         <Building2 class="mr-2 mt-4"/>
         <h2>Marketplace</h2>
