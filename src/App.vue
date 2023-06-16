@@ -59,7 +59,7 @@ const getNotifcationType = (notificationType) => {
           </div>
         </div>
         <!-- Page content here -->
-        <section class="container mx-auto py-16 flex justify-center overflow md:mt-12 z-0">
+        <section class="flex justify-center overflow md:mt-12 z-0">
           <RouterView/>
         </section>
       </div>
