@@ -8,6 +8,11 @@ const routes = [
     component: Home
   },
   {
+    path: '/b/:business',
+    name: 'business',
+    component: () => import('../views/b/Business.vue')
+  },
+  {
     path: '/deployer',
     name: 'deployer',
     component: () => import('../views/Deployer.vue')
