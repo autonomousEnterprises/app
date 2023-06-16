@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useMarketplaceStore } from '../stores/marketplace';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const marketplaceStore = useMarketplaceStore()
 </script>
 
 <template>
   <div class="overflow-x-auto">
-    <table class="table">
+    <table class="table table-xs table-pin-rows table-pin-cols">
       <!-- head -->
       <thead>
         <tr>
@@ -29,7 +31,7 @@ const marketplaceStore = useMarketplaceStore()
                 <input type="checkbox" class="checkbox" />
               </label> -->
             </th>
-            <td>
+            <td @click="router.push(`/b/${business.id}`)">
               <div class="flex items-center space-x-3">
                 <div class="avatar">
                   <div class="mask mask-squircle w-12 h-12">
@@ -48,9 +50,6 @@ const marketplaceStore = useMarketplaceStore()
               <span class="badge badge-ghost badge-sm">{{ business.model }}</span>
             </td>
             <td>{{ business.token }}</td>
-            <th>
-              <button class="btn btn-ghost btn-xs">details</button>
-            </th>
           </tr>
       </tbody>
       <!-- foot -->
