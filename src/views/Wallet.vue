@@ -26,8 +26,8 @@ const formatCurrency = (number: number) => {
 </script>
 
 <template>
-  <main class="flex">
-    <section class="flex flex-col justify-start">
+  <main>
+    <section class="flex flex-col justify-start h-auto">
       <div class="stats stats-vertical lg:stats-horizontal bg-base-100 card text-primary-content shadow h-auto">
 
         <div class="stat flex flex-col justify-center">
@@ -49,7 +49,7 @@ const formatCurrency = (number: number) => {
               <button class="btn btn-sm">Withdrawal</button>
               <button class="btn btn-sm">deposit</button>
               <div class="stat-actions">
-                <button class="btn btn-sm btn-primary w-full">Send</button>
+                <button class="btn btn-sm btn-primary w-full" onclick="my_modal_5.showModal()">Send</button>
               </div>
             </div>
           </div>
@@ -58,5 +58,26 @@ const formatCurrency = (number: number) => {
 
       </div>
     </section>
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+      <form method="dialog" class="modal-box">
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text">Amount</span>
+          </label>
+          <input type="number" placeholder="20" class="input input-bordered w-full bg-base-300"/>
+        </div>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text">Receiver</span>
+          </label>
+          <input type="text" placeholder="Enter wallet address, @username or e-mail address " class="input input-bordered w-full bg-base-300"/>
+        </div>
+        <div class="modal-action">
+          <button class="btn btn-success">Send</button>
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn">Close</button>
+        </div>
+      </form>
+    </dialog>
   </main>
 </template>
