@@ -20,12 +20,16 @@ import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism-tomorrow.css"; // import syntax highlighting styles
 
+import { useDeployerStore } from '../stores/deployer';
+
+const deployerStore = useDeployerStore()
+
 export default {
   components: {
     PrismEditor,
   },
   data: () => ({
-    code: "import { Token } from `./token`; \n\nnew Token('TKN', 'Token', 21000000, 0.1)", // /\r?\n|\r/ https://bobbyhadz.com/blog/javascript-remove-all-line-breaks-from-string
+    code: `import { Token } from './token'; \n\nnew Token('${deployerStore.token.symbol}', '${deployerStore.token.name}', ${deployerStore.token.supply}, ${deployerStore.token.fee})`, // /\r?\n|\r/ https://bobbyhadz.com/blog/javascript-remove-all-line-breaks-from-string
   }),
   methods: {
     highlighter(code) {
