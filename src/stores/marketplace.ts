@@ -1,7 +1,9 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { instance } from '../session';
 
 export const useMarketplaceStore = defineStore('marketplace', () => {
+
   const businesses = ref([
     {
       id: 'elabs',
@@ -71,8 +73,14 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
     },
   ])
 
+  const tokens = ref([])
+
   function addbusiness(business) {
     businesses.value.push(business)
+  }
+
+  async function fetchTokens() {
+
   }
 
   return { businesses, addbusiness }

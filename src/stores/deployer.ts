@@ -1,17 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import axios from 'axios';
 import { useNotificationStore } from './notifications';
 import { useWalletStore } from './wallet';
+import { instance } from '../session';
 
 const notificationStore = useNotificationStore()
 const walletStore = useWalletStore()
-
-const instance = axios.create({
-  baseURL: 'http://localhost:3000',
-  timeout: 20000,
-  // headers: {'X-Custom-Header': 'foobar'}
-});
 
 export const useDeployerStore = defineStore('deployer', () => {
   const branding = ref({
