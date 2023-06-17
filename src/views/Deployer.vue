@@ -16,6 +16,7 @@ const deployerStore = useDeployerStore()
 const createBusiness = ref(false)
 const tokenise = ref(false)
 const customSmartContract = ref(false)
+const enableGPT = ref(false)
 const enableVM = ref(false)
 const assistance = ref(false)
 const autoBranding = ref(false)
@@ -56,56 +57,60 @@ const router = useRouter()
             </label>
           </div>
 
-          <div class="flex flex-wrap" v-if="assistance">
-            <div class="flex flex-wrap justify-start md:w-1/2">
-              <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                <label class="label cursor-pointer justify-start">
-                  <input type="checkbox" class="toggle mr-2" v-model="autoMarketNiche" disabled />
-                  <span class="label-text">Auto Market Niche</span>
-                </label>
-              </div>
-
-              <div class="form-control md:w-1/2">
-                <label class="label cursor-pointer justify-start">
-                  <input type="checkbox" class="toggle mr-2" v-model="autoBranding"/>
-                  <span class="label-text">Auto Branding</span>
-                </label>
-              </div>
-
-              <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                <label class="label cursor-pointer justify-start">
-                  <input type="checkbox" class="toggle mr-2" v-model="autoBusinessModel" disabled/>
-                  <span class="label-text">Auto Business Model</span>
-                </label>
-              </div>
-
-              <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                <label class="label cursor-pointe justify-start">
-                  <input type="checkbox" class="toggle mr-2" v-model="autoProductDesign" disabled />
-                  <span class="label-text">Auto Product Design</span>
-                </label>
-              </div>
-
-              <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                <label class="label cursor-pointe justify-start">
-                  <input type="checkbox" class="toggle mr-2" v-model="autoSmartContract" disabled />
-                  <span class="label-text">Auto Smart Contract Code</span>
-                </label>
-              </div>
+          <div class="" v-if="assistance">
+            <div class="divider">
             </div>
+            <div class="flex flex-wrap">
+              <div class="flex flex-wrap justify-start md:w-1/2">
+                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" v-model="autoMarketNiche" disabled />
+                    <span class="label-text">Auto Market Niche</span>
+                  </label>
+                </div>
 
-            <div class="form-control md:1/2">
-              <label class="label">
-                <span class="label-text">Objective</span>
-              </label>
-              <textarea class="textarea textarea-bordered h-36 w-full bg-base-300" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
-              <label class="label">
-                <span class="label-text-alt">Define goal</span>
-              </label>
+                <div class="form-control md:w-1/2">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" v-model="autoBranding"/>
+                    <span class="label-text">Auto Branding</span>
+                  </label>
+                </div>
+
+                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" v-model="autoBusinessModel" disabled/>
+                    <span class="label-text">Auto Business Model</span>
+                  </label>
+                </div>
+
+                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
+                  <label class="label cursor-pointe justify-start">
+                    <input type="checkbox" class="toggle mr-2" v-model="autoProductDesign" disabled />
+                    <span class="label-text">Auto Product Design</span>
+                  </label>
+                </div>
+
+                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
+                  <label class="label cursor-pointe justify-start">
+                    <input type="checkbox" class="toggle mr-2" v-model="autoSmartContract" disabled />
+                    <span class="label-text">Auto Smart Contract Code</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-control md:1/2">
+                <label class="label">
+                  <span class="label-text">Objective</span>
+                </label>
+                <textarea class="textarea textarea-bordered h-36 w-full bg-base-300" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
+                <label class="label">
+                  <span class="label-text-alt">Define goal</span>
+                </label>
+              </div>
+
+              <div class="divider w-full"></div>
+              <button class="btn btn-wide btn-neutral w-full" disabled>Generate</button>
             </div>
-
-            <div class="divider w-full"></div>
-            <button class="btn btn-wide btn-neutral w-full" disabled>Generate</button>
           </div>
 
         </div>
@@ -194,7 +199,6 @@ const router = useRouter()
                 </label>
               </div>
             </div>
-
           </div>
 
 
@@ -265,6 +269,64 @@ const router = useRouter()
                   <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
                 </label>
               </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                <label class="label cursor-pointer">
+                  <span class="label-text">Governance</span>
+                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
+                </label>
+              </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                <label class="label cursor-pointer">
+                  <span class="label-text">Treasury</span>
+                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
+                </label>
+              </div>
+            </div>
+
+            <div class="md:w-1/3">
+              <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Enable GPT in Smart Contract</span>
+                  <input type="checkbox" class="toggle" v-model="enableGPT" />
+                </label>
+              </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Enable AI Engineer</span>
+                  <input type="checkbox" class="toggle" disabled />
+                </label>
+              </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Enable AI Operator</span>
+                  <input type="checkbox" class="toggle" disabled />
+                </label>
+              </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Enable AI Researcher</span>
+                  <input type="checkbox" class="toggle" disabled />
+                </label>
+              </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Enable AI Marketer</span>
+                  <input type="checkbox" class="toggle" disabled />
+                </label>
+              </div>
+
+              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Enable AI Designer</span>
+                  <input type="checkbox" class="toggle" disabled />
+                </label>
+              </div>
             </div>
           </div>
 
@@ -272,13 +334,6 @@ const router = useRouter()
             <label class="label cursor-pointer">
               <span class="label-text">Custom Smart Contract</span>
               <input type="checkbox" class="toggle" v-model="customSmartContract"/>
-            </label>
-          </div>
-
-          <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="customSmartContract">
-            <label class="label cursor-pointe">
-              <span class="label-text">Enable GPT in Smart Contract</span>
-              <input type="checkbox" class="toggle" v-model="autoSmartContract" disabled />
             </label>
           </div>
         </div>
