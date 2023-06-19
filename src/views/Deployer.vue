@@ -52,7 +52,7 @@ const router = useRouter()
         <div class="card shadow bg-base-100 p-4 m-2 flex flex-wrap">
           <div class="form-control">
             <label class="label cursor-pointer">
-              <span class="label-text">Assistance</span>
+              <span class="label-text">Deployer Assistance</span>
               <input type="checkbox" class="toggle" v-model="assistance"/>
             </label>
           </div>
@@ -118,18 +118,9 @@ const router = useRouter()
         <div class="card shadow bg-base-100 p-4 m-2">
           <div class="form-control tooltip w-full" data-tip="Available soon">
             <label class="label cursor-pointer">
-              <span class="label-text">Autopilot</span>
-              <input type="checkbox" class="toggle" v-model="autopilot" disabled/>
+              <span class="label-text">Business Operation Autopilot</span>
+              <input type="checkbox" class="toggle" v-model="autopilot"/>
             </label>
-          </div>
-
-          <div class="" v-if="autopilot">
-            <div class="form-control w-full max-w-xs">
-              <label class="label">
-                <span class="label-text">Token Name</span>
-              </label>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs bg-base-300" />
-            </div>
           </div>
         </div>
       </section>
@@ -168,6 +159,12 @@ const router = useRouter()
                   <span class="label-text">Domain</span>
                 </label>
                 <input type="text" placeholder="cyber.org" class="input input-bordered w-full bg-base-300" v-model="deployerStore.branding.url"/>
+              </div>
+              <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                <label class="label cursor-pointe">
+                  <span class="label-text">External Landingpage</span>
+                  <input type="checkbox" class="toggle" v-model="tokenise" />
+                </label>
               </div>
             </div>
 
@@ -218,74 +215,87 @@ const router = useRouter()
         </div>
         <div class="card shadow bg-base-100 p-4 m-2">
           <div class="flex flex-wrap" v-if="!customSmartContract">
-            <div class="md:w-1/3">
-              <div class="form-control w-full max-w-xs">
-                <label class="label">
-                  <span class="label-text">Token Name</span>
+            <div class="flex flex-col" :class="{ 'md:w-2/3': autopilot, 'w-full': !autopilot }">
+              <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                <label class="label cursor-pointe">
+                  <span class="label-text">Tokenise</span>
+                  <input type="checkbox" class="toggle" v-model="tokenise" />
                 </label>
-                <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.name" />
               </div>
+              <div class="" v-if="tokenise">
+                <div class="divider"></div>
+                <div class="flex flex-wrap">
+                  <div class="md:w-1/2">
+                    <div class="form-control w-full max-w-xs">
+                      <label class="label">
+                        <span class="label-text">Token Name</span>
+                      </label>
+                      <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.name" />
+                    </div>
 
-              <div class="form-control w-full max-w-xs">
-                <label class="label">
-                  <span class="label-text">Token Symbol</span>
-                </label>
-                <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.symbol" />
-              </div>
+                    <div class="form-control w-full max-w-xs">
+                      <label class="label">
+                        <span class="label-text">Token Symbol</span>
+                      </label>
+                      <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.symbol" />
+                    </div>
 
-              <div class="form-control w-full max-w-xs">
-                <label class="label">
-                  <span class="label-text">Token Supply</span>
-                </label>
-                <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.supply" />
-              </div>
+                    <div class="form-control w-full max-w-xs">
+                      <label class="label">
+                        <span class="label-text">Token Supply</span>
+                      </label>
+                      <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.supply" />
+                    </div>
 
-              <div class="form-control w-full max-w-xs">
-                <label class="label">
-                  <span class="label-text">Transaction Fee</span>
-                </label>
-                <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.fee" />
+                    <div class="form-control w-full max-w-xs">
+                      <label class="label">
+                        <span class="label-text">Transaction Fee</span>
+                      </label>
+                      <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.fee" />
+                    </div>
+                  </div>
+
+                  <div class="md:w-1/2">
+                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                      <label class="label cursor-pointer justify-start">
+                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                        <span class="label-text">Mintable</span>
+                      </label>
+                    </div>
+
+                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                      <label class="label cursor-pointer justify-start">
+                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                        <span class="label-text">Stakeable</span>
+                      </label>
+                    </div>
+
+                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                      <label class="label cursor-pointer justify-start">
+                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                        <span class="label-text">Burnable</span>
+                      </label>
+                    </div>
+
+                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                      <label class="label cursor-pointer justify-start">
+                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                        <span class="label-text">Governance</span>
+                      </label>
+                    </div>
+
+                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                      <label class="label cursor-pointer justify-start">
+                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                        <span class="label-text">Treasury</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="md:w-1/3">
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointer">
-                  <span class="label-text">Mintable</span>
-                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
-                </label>
-              </div>
-
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointer">
-                  <span class="label-text">Stakable</span>
-                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
-                </label>
-              </div>
-
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointer">
-                  <span class="label-text">Burnable</span>
-                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
-                </label>
-              </div>
-
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointer">
-                  <span class="label-text">Governance</span>
-                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
-                </label>
-              </div>
-
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointer">
-                  <span class="label-text">Treasury</span>
-                  <input type="checkbox" class="checkbox checkbox-secondary" disabled/>
-                </label>
-              </div>
-            </div>
-
-            <div class="md:w-1/3">
+            <div class="md:w-1/3" v-if="autopilot">
               <div class="form-control tooltip w-full" data-tip="Available in Pro">
                 <label class="label cursor-pointe">
                   <span class="label-text">Enable GPT in Smart Contract</span>
@@ -293,44 +303,48 @@ const router = useRouter()
                 </label>
               </div>
 
-              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Enable AI Engineer</span>
-                  <input type="checkbox" class="toggle" disabled />
-                </label>
-              </div>
+              <div class="" v-if="enableGPT">
+                <div class="divider"></div>
+                <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" disabled />
+                    <span class="label-text">Enable AI Engineer</span>
+                  </label>
+                </div>
 
-              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Enable AI Operator</span>
-                  <input type="checkbox" class="toggle" disabled />
-                </label>
-              </div>
+                <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" disabled />
+                    <span class="label-text">Enable AI Operator</span>
+                  </label>
+                </div>
 
-              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Enable AI Researcher</span>
-                  <input type="checkbox" class="toggle" disabled />
-                </label>
-              </div>
+                <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" disabled />
+                    <span class="label-text">Enable AI Researcher</span>
+                  </label>
+                </div>
 
-              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Enable AI Marketer</span>
-                  <input type="checkbox" class="toggle" disabled />
-                </label>
-              </div>
+                <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" disabled />
+                    <span class="label-text">Enable AI Marketer</span>
+                  </label>
+                </div>
 
-              <div class="form-control tooltip w-full" data-tip="Available in Pro" v-if="enableGPT">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Enable AI Designer</span>
-                  <input type="checkbox" class="toggle" disabled />
-                </label>
+                <div class="form-control tooltip w-full" data-tip="Available in Pro">
+                  <label class="label cursor-pointer justify-start">
+                    <input type="checkbox" class="toggle mr-2" disabled />
+                    <span class="label-text">Enable AI Designer</span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="form-control tooltip w-full" data-tip="Available in Pro">
+            <div class="divider" v-if="!customSmartContract"></div>
             <label class="label cursor-pointer">
               <span class="label-text">Custom Smart Contract</span>
               <input type="checkbox" class="toggle" v-model="customSmartContract"/>
@@ -342,7 +356,7 @@ const router = useRouter()
           <div class="form-control tooltip w-full" data-tip="Available in Pro">
             <label class="label cursor-pointer">
               <span class="label-text">Dedicated Virtual Machine</span>
-              <input type="checkbox" class="toggle" v-model="enableVM"/>
+              <input type="checkbox" class="toggle" v-model="enableVM" disabled/>
             </label>
           </div>
         </div>
