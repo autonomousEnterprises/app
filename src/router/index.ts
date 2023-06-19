@@ -23,6 +23,11 @@ const routes = [
     component: () => import('../views/Wallet.vue')
   },
   {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/Settings.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     // route level code-splitting
