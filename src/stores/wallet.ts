@@ -16,7 +16,7 @@ export const useWalletStore = defineStore('wallet', () => {
     wallets.value.push(wallet)
     notificationStore.addNotification({
       type: 'info',
-      msg: 'New Wallet added'
+      msg: 'New wallet added'
     })
   }
 
