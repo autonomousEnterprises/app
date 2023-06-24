@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import { RouterLink, RouterView, useRoute } from 'vue-router';
-import { computed, ref } from 'vue';
+import { RouterLink, RouterView, useRouter } from 'vue-router';
+import { ref, onBeforeMount } from 'vue';
 import {
   LayoutDashboard,
   PlusSquare,
   Wallet,
-  Settings
+  Settings,
+  LogOut
 } from 'lucide-vue-next';
 import { useThemeStore } from './stores/theme';
 import { useNotificationStore } from './stores/notifications';
 import { useUserStore } from './stores/user';
 
-const route = useRoute()
-const path = computed(() =>route.path)
+const router = useRouter()
 const themeStore = useThemeStore()
 const notificationStore = useNotificationStore()
 const userStore = useUserStore()
 
-const authenticated = ref(false)
+const logout = () => {
+  userStore.logout()
+  router.push('/login')
+}
 
 const getNotifcationType = (notificationType) => {
   if (notificationType === 'standard') {
@@ -33,6 +36,12 @@ const getNotifcationType = (notificationType) => {
     return 'alert-error';
   };
 }
+
+onBeforeMount(() => {
+  if (!userStore.authenticated) {
+    router.push('/login')
+  }
+})
 </script>
 
 <template>
@@ -54,6 +63,7 @@ const getNotifcationType = (notificationType) => {
               <li><RouterLink to="/deployer"><PlusSquare/>Deploy</RouterLink></li>
               <li><RouterLink to="/wallet"><Wallet/>Wallet</RouterLink></li>
               <li><RouterLink to="/settings"><Settings/>Settings</RouterLink></li>
+              <li class="tooltip tooltip-bottom" data-tip="Logout"><button @click="logout()"><LogOut/></button></li>
             </ul>
           </div>
         </div>
@@ -71,7 +81,7 @@ const getNotifcationType = (notificationType) => {
             <li><RouterLink to="/wallet"><Wallet/>Wallet</RouterLink></li>
             <li><RouterLink to="/settings"><Settings/>Settings</RouterLink></li>
             <div class="divider"></div>
-            <button class="btn btn-warning" @click="userStore.logout()" v-if="userStore.authenticated">Logout</button>
+            <button class="btn btn-warning" @click="userStore.logout()" v-if="userStore.authenticated"><LogOut/>Logout</button>
         </ul>
       </div>
 

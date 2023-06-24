@@ -1,11 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+// import { useUserStore } from '../stores/user'
+
+// const userStore = useUserStore()
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    // beforeEnter: () => {
+    //   if (!userStore.authenticated) {
+    //     return false
+    //   }
+    // }
   },
   {
     path: '/b/:business',

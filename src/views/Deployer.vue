@@ -13,20 +13,15 @@ import { useDeployerStore } from '../stores/deployer';
 
 const deployerStore = useDeployerStore()
 
-const createBusiness = ref(false)
-const tokenise = ref(false)
+const nft = ref(false)
+const mintable = ref(false)
+const burnable = ref(false)
+const stakeable = ref(false)
+const governance = ref(false)
+const treasury = ref(false)
+
 const customSmartContract = ref(false)
-const enableGPT = ref(false)
-const enableVM = ref(false)
-const assistance = ref(false)
-const autoBranding = ref(false)
-const autoMarketNiche = ref(false)
-const autoBusinessModel = ref(false)
-const autoProductDesign = ref(false)
-const autoSmartContract = ref(false)
-const autopilot = ref(false)
-
-
+const dedicatedVirtualMachine = ref(false)
 const listing = ref(false)
 
 const router = useRouter()
@@ -34,346 +29,141 @@ const router = useRouter()
 
 <template>
   <main>
-    <!-- <div class="mb-12">
-      <ul class="steps w-[400px]">
-        <li class="step step-primary">Assistant</li>
-        <li class="step" :class="{ 'step-primary': branding.name && branding.tagline }">Branding</li>
-        <li class="step" :class="{ 'step-primary': branding.category }">Category</li>
-        <li class="step" :class="{ 'step-primary': branding.model }">Model</li>
-        <li class="step" :class="{ 'step-primary': branding.name && branding.tagline }">Publish</li>
-      </ul>
-    </div> -->
-    <div class="flex flex-wrap justify-around w-full">
-      <section class="w-full">
-        <div class="w-full flex justify-center">
-          <BrainCircuit class="mr-2 mt-4"/>
-          <h2>Artificial Intelligence</h2>
-        </div>
-        <div class="card shadow bg-base-100 p-4 m-2 flex flex-wrap">
-          <div class="form-control">
-            <label class="label cursor-pointer">
-              <span class="label-text">Deployer Assistance</span>
-              <input type="checkbox" class="toggle" v-model="assistance"/>
-            </label>
-          </div>
-
-          <div class="" v-if="assistance">
-            <div class="divider">
-            </div>
-            <div class="flex flex-wrap">
-              <div class="flex flex-wrap justify-start md:w-1/2">
-                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" v-model="autoMarketNiche" disabled />
-                    <span class="label-text">Auto Market Niche</span>
-                  </label>
-                </div>
-
-                <div class="form-control md:w-1/2">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" v-model="autoBranding"/>
-                    <span class="label-text">Auto Branding</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" v-model="autoBusinessModel" disabled/>
-                    <span class="label-text">Auto Business Model</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                  <label class="label cursor-pointe justify-start">
-                    <input type="checkbox" class="toggle mr-2" v-model="autoProductDesign" disabled />
-                    <span class="label-text">Auto Product Design</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip md:w-1/2" data-tip="Available in Pro">
-                  <label class="label cursor-pointe justify-start">
-                    <input type="checkbox" class="toggle mr-2" v-model="autoSmartContract" disabled />
-                    <span class="label-text">Auto Smart Contract Code</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="form-control md:1/2">
-                <label class="label">
-                  <span class="label-text">Objective</span>
-                </label>
-                <textarea class="textarea textarea-bordered h-36 w-full bg-base-300" placeholder="eg: Earn passive income for all community members" v-model="model"></textarea>
-                <label class="label">
-                  <span class="label-text-alt">Define goal</span>
-                </label>
-              </div>
-
-              <div class="divider w-full"></div>
-              <button class="btn btn-wide btn-neutral w-full" disabled>Generate</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="card shadow bg-base-100 p-4 m-2">
-          <div class="form-control tooltip w-full" data-tip="Available soon">
-            <label class="label cursor-pointer">
-              <span class="label-text">Business Operation Autopilot</span>
-              <input type="checkbox" class="toggle" v-model="autopilot"/>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <section class="w-full">
-        <div class="w-full flex justify-center">
-          <Component class="mr-2 mt-4"/>
-          <h2>Branding</h2>
-        </div>
-        <div class="card shadow bg-base-100 p-4 m-2">
-          <div class="flex flex-wrap">
-            <div class="md:w-1/3 flex flex-wrap p-4">
-              <div class="form-control w-full">
-                <label class="label">
-                  <span class="label-text">Name</span>
-                </label>
-                <input type="text" placeholder="Cyber Org Ltd" class="input input-bordered w-full bg-base-300" v-model="deployerStore.branding.name"/>
-              </div>
-
-              <div class="form-control w-full">
-                <label class="label">
-                  <span class="label-text">Tagline</span>
-                </label>
-                <input type="text" placeholder="Overtaking the world" class="input input-bordered w-full bg-base-300" v-model="deployerStore.branding.tagline"/>
-              </div>
-
-              <div class="form-control w-full">
-                <label class="label">
-                  <span class="label-text">Logo</span>
-                </label>
-                <input type="file" placeholder="Logo" class="file-input file-input-bordered w-full" disabled />
-              </div>
-
-              <div class="form-control w-full">
-                <label class="label">
-                  <span class="label-text">Domain</span>
-                </label>
-                <input type="text" placeholder="cyber.org" class="input input-bordered w-full bg-base-300" v-model="deployerStore.branding.url"/>
-              </div>
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointe">
-                  <span class="label-text">External Landingpage</span>
-                  <input type="checkbox" class="toggle" v-model="tokenise" />
-                </label>
-              </div>
-            </div>
-
-            <div class="md:w-1/3 flex flex-col p-4">
-              <label class="label">
-                <span class="label-text">Category</span>
-              </label>
-              <select class="select select-bordered w-full bg-base-300" v-model="deployerStore.branding.category">
-                <option selected>Community Pool</option>
-                <option>Agency</option>
-                <option>R&D</option>
-                <option disabled>E-Commerce</option>
-                <option disabled>SaaS</option>
-                <option disabled>Bond</option>
-                <option disabled>Exchange</option>
-                <option disabled>Treasury</option>
-                <option disabled>Investment</option>
-              </select>
-            </div>
-
-            <div class="md:w-1/3 flex flex-wrap p-4">
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Solution</span>
-                </label>
-                <textarea class="textarea textarea-bordered h-64 bg-base-300" placeholder="eg: A decentralised funding pool for open source projects" v-model="model"></textarea>
-                <label class="label">
-                  <span class="label-text-alt">What do you want to solve?</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="form-control tooltip w-full" data-tip="Available in Pro">
-            <label class="label cursor-pointer">
-              <span class="label-text">List on the Marketplace</span>
-              <input type="checkbox" class="toggle" v-model="listing" disabled/>
-            </label>
-          </div>
-        </div>
-      </section>
-
+    <div class="flex flex-col justify-center items-center w-full">
       <section class="w-full">
         <div class="w-full flex justify-center">
           <FileCode class="mr-2 mt-4"/>
           <h2>Smart Contract</h2>
         </div>
-        <div class="card shadow bg-base-100 p-4 m-2">
-          <div class="flex flex-wrap" v-if="!customSmartContract">
-            <div class="flex flex-col" :class="{ 'md:w-2/3': autopilot, 'w-full': !autopilot }">
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Tokenise</span>
-                  <input type="checkbox" class="toggle" v-model="tokenise" />
-                </label>
-              </div>
-              <div class="" v-if="tokenise">
-                <div class="divider"></div>
-                <div class="flex flex-wrap">
-                  <div class="md:w-1/2">
-                    <div class="form-control w-full max-w-xs">
-                      <label class="label">
-                        <span class="label-text">Token Name</span>
-                      </label>
-                      <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.name" />
+        <div class="w-full flex justify-center">
+          <div class="card shadow bg-base-100 p-4 m-2">
+            <div class="flex flex-wrap" v-if="!customSmartContract">
+              <div class="flex flex-col">
+                <div class="">
+                  <div class="flex flex-wrap">
+                    <div class="md:w-1/2">
+                      <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Project URL</span>
+                        </label>
+                        <input type="text" placeholder="https://yourproject.url" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.url" />
+                      </div>
+
+                      <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Token Name</span>
+                        </label>
+                        <input type="text" placeholder="Cyber" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.name" />
+                      </div>
+
+                      <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Token Symbol</span>
+                        </label>
+                        <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.symbol" />
+                      </div>
+
+                      <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Token Supply</span>
+                        </label>
+                        <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.supply" />
+                      </div>
+
+                      <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Transaction Fee</span>
+                        </label>
+                        <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.fee" />
+                      </div>
                     </div>
 
-                    <div class="form-control w-full max-w-xs">
-                      <label class="label">
-                        <span class="label-text">Token Symbol</span>
-                      </label>
-                      <input type="text" placeholder="CBR" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.symbol" />
-                    </div>
+                    <div class="md:w-1/2">
 
-                    <div class="form-control w-full max-w-xs">
-                      <label class="label">
-                        <span class="label-text">Token Supply</span>
-                      </label>
-                      <input type="number" placeholder="21,000,000" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.supply" />
-                    </div>
+                      <div class="form-control tooltip" data-tip="Coming soon">
+                        <label class="label cursor-pointer">
+                          <input type="checkbox" class="toggle mr-2" v-model="nft" disabled/>
+                          <span class="label-text">Fungible / NFT</span>
+                        </label>
+                      </div>
 
-                    <div class="form-control w-full max-w-xs">
-                      <label class="label">
-                        <span class="label-text">Transaction Fee</span>
-                      </label>
-                      <input type="number" placeholder="0.1" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.fee" />
+                      <div class="form-control tooltip w-full" data-tip="Coming soon">
+                        <label class="label cursor-pointer justify-start">
+                          <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                          <span class="label-text">Mintable</span>
+                        </label>
+                      </div>
+
+                      <div class="form-control tooltip w-full" data-tip="Coming soon">
+                        <label class="label cursor-pointer justify-start">
+                          <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                          <span class="label-text">Stakeable</span>
+                        </label>
+                      </div>
+
+                      <div class="form-control tooltip w-full" data-tip="Coming soon">
+                        <label class="label cursor-pointer justify-start">
+                          <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                          <span class="label-text">Burnable</span>
+                        </label>
+                      </div>
+
+                      <div class="form-control tooltip w-full" data-tip="Coming soon">
+                        <label class="label cursor-pointer justify-start">
+                          <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                          <span class="label-text">Governance</span>
+                        </label>
+                      </div>
+
+                      <div class="form-control tooltip w-full" data-tip="Coming soon">
+                        <label class="label cursor-pointer justify-start">
+                          <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                          <span class="label-text">Treasury</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
-
-                  <div class="md:w-1/2">
-                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                      <label class="label cursor-pointer justify-start">
-                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
-                        <span class="label-text">Mintable</span>
-                      </label>
-                    </div>
-
-                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                      <label class="label cursor-pointer justify-start">
-                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
-                        <span class="label-text">Stakeable</span>
-                      </label>
-                    </div>
-
-                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                      <label class="label cursor-pointer justify-start">
-                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
-                        <span class="label-text">Burnable</span>
-                      </label>
-                    </div>
-
-                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                      <label class="label cursor-pointer justify-start">
-                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
-                        <span class="label-text">Governance</span>
-                      </label>
-                    </div>
-
-                    <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                      <label class="label cursor-pointer justify-start">
-                        <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
-                        <span class="label-text">Treasury</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="md:w-1/3" v-if="autopilot">
-              <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                <label class="label cursor-pointe">
-                  <span class="label-text">Enable GPT in Smart Contract</span>
-                  <input type="checkbox" class="toggle" v-model="enableGPT" />
-                </label>
-              </div>
-
-              <div class="" v-if="enableGPT">
-                <div class="divider"></div>
-                <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" disabled />
-                    <span class="label-text">Enable AI Engineer</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" disabled />
-                    <span class="label-text">Enable AI Operator</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" disabled />
-                    <span class="label-text">Enable AI Researcher</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" disabled />
-                    <span class="label-text">Enable AI Marketer</span>
-                  </label>
-                </div>
-
-                <div class="form-control tooltip w-full" data-tip="Available in Pro">
-                  <label class="label cursor-pointer justify-start">
-                    <input type="checkbox" class="toggle mr-2" disabled />
-                    <span class="label-text">Enable AI Designer</span>
-                  </label>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="form-control tooltip w-full" data-tip="Available in Pro">
-            <div class="divider" v-if="!customSmartContract"></div>
+      </section>
+
+      <div class="w-full flex flex-wrap justify-center">
+        <div class="card shadow bg-base-100 p-4 m-2">
+          <div class="form-control tooltip w-full" data-tip="Coming soon">
             <label class="label cursor-pointer">
               <span class="label-text">Custom Smart Contract</span>
-              <input type="checkbox" class="toggle" v-model="customSmartContract"/>
+              <input type="checkbox" class="toggle ml-2" v-model="customSmartContract" disabled/>
             </label>
           </div>
         </div>
 
         <div class="card shadow bg-base-100 p-4 m-2">
-          <div class="form-control tooltip w-full" data-tip="Available in Pro">
+          <div class="form-control tooltip w-full" data-tip="You need to have at least 10 Nomics in your Wallet">
             <label class="label cursor-pointer">
-              <span class="label-text">Dedicated Virtual Machine</span>
-              <input type="checkbox" class="toggle" v-model="enableVM" disabled/>
+              <span class="label-text">List at the Marketplace</span>
+              <input type="checkbox" class="toggle ml-2" v-model="listing" disabled/>
             </label>
           </div>
         </div>
-      </section>
+
+      </div>
     </div>
-    <div class="w-full pt-8" v-if="customSmartContract">
+
+
+    <!-- <div class="w-full pt-8" v-if="customSmartContract">
       <div class="w-full flex justify-center">
         <FileEdit class="mr-2 mt-4"/>
         <h2>Smart Contract Code Editor</h2>
       </div>
       <CodeEditor/>
-    </div>
+    </div> -->
+
     <div class="flex justify-center p-4 w-full">
       <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()">Deploy</button>
     </div>
-    <!-- <div class="flex justify-center p-4 w-full">
-      <BusinessList/>
-    </div> -->
   </main>
 </template>

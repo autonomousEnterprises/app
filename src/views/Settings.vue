@@ -31,7 +31,7 @@ const notificationStore = useNotificationStore()
         <h1>Give Feedback</h1>
       </div>
       <div class="stats shadow stats-vertical lg:stats-horizontal hadow m-4 card w-96 bg-base-100 p-4 m-2 flex">
-        <textarea class="textarea textarea-ghost h-64" placeholder="Bio"></textarea>
+        <textarea class="textarea textarea-ghost h-64 mb-4" placeholder="Type here..."></textarea>
         <button class="btn btn-primary">Send</button>
       </div>
   </main>

@@ -54,9 +54,9 @@ const business = marketplaceStore.businesses.find(b => b.id === route.params.bus
             <span class="stat-title">Network (VM): {{ business.vm }}</span>
           </div>
           <div class="join join-horizontal mt-2">
-            <button class="btn join-item">Follow</button>
-            <button class="btn join-item">Swap</button>
-            <button class="btn join-item">Buy</button>
+            <button class="btn join-item" disabled>Follow</button>
+            <button class="btn join-item" disabled>Swap</button>
+            <button class="btn join-item" disabled>Buy</button>
           </div>
         </div>
       </div>
@@ -193,7 +193,7 @@ const business = marketplaceStore.businesses.find(b => b.id === route.params.bus
         </p>
       </div>
       <div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end flex items-center">
-        <p>Access benefitials from this business</p>
+        <p>Access benefitials from this business and the whole ecosystem</p>
         <button class="btn btn-warning" @click="userStore.login()" v-if="!userStore.authenticated">Login</button>
         <button class="btn btn-warning" @click="userStore.logout()" v-if="userStore.authenticated">Logout</button>
       </div>

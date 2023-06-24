@@ -1,18 +1,21 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios';
-// import { useNotificationStore } from './notifications';  
+// import { useNotificationStore } from './notifications';
 
-// const notificationStore = useNotificationStore() 
+// const notificationStore = useNotificationStore()
 
 export const useUserStore = defineStore('user', () => {
   const authenticated = ref(false)
+
+  const user = ref('')
 
   function fetchUserData() {
     // TODO
   }
 
-  function login(wallet) {
+  function login(mail) {
+    user.value = mail
     authenticated.value = true
   }
 
@@ -20,5 +23,5 @@ export const useUserStore = defineStore('user', () => {
     authenticated.value = false
   }
 
-  return { authenticated, fetchUserData, login, logout }
+  return { authenticated, fetchUserData, login, logout, user }
 })

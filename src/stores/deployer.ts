@@ -30,7 +30,7 @@ export const useDeployerStore = defineStore('deployer', () => {
 
   async function deployToken() {
     try {
-      if (!token.value.name && !token.value.symbol && !token.value.supply && !token.value.fee) {
+      if (!token.url, !token.value.name && !token.value.symbol && !token.value.supply && !token.value.fee) {
         throw new Error('Please fill all token parameter!')
       }
 
