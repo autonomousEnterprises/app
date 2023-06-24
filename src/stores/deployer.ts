@@ -8,27 +8,15 @@ const notificationStore = useNotificationStore()
 const walletStore = useWalletStore()
 
 export const useDeployerStore = defineStore('deployer', () => {
-  const branding = ref({
-
-  })
-
   const token = ref({
+    // url: '',
     // name: '',
     // symbol: '',
     // supply: '',
     // fee: '',
   })
 
-  function deployBusiness() {
-    try {
-
-    } catch (error) {
-      throw new Error(error)
-    }
-    // brandinges.value.push(branding)
-  }
-
-  async function deployToken() {
+  async function deploy() {
     try {
       if (!token.url, !token.value.name && !token.value.symbol && !token.value.supply && !token.value.fee) {
         throw new Error('Please fill all token parameter!')
@@ -63,11 +51,6 @@ export const useDeployerStore = defineStore('deployer', () => {
       })
     }
   }
-
-  function deploy() {
-    deployBusiness()
-    deployToken()
-  }
-
+  
   return { branding, token, deployBusiness, deployToken, deploy }
 })
