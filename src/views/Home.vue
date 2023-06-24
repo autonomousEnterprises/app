@@ -18,7 +18,9 @@ const notificationStore = useNotificationStore()
   <main class="flex flex-col justify-center overflow-scroll">
 
     <div class="flex justify-center p-4 w-full">
-      <RouterLink class="btn btn-wide btn-neutral" to="deployer">Deploy Token</RouterLink>
+      <transition name="slide">
+        <RouterLink class="btn btn-wide btn-neutral" to="deployer">Deploy Token</RouterLink>
+      </transition>
     </div>
 
 
