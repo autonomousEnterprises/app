@@ -5,15 +5,32 @@ import {
   LogIn
 } from 'lucide-vue-next';
 import { useUserStore } from '../stores/user';
+import { useNotificationStore } from '../stores/notifications';
 
 const router = useRouter()
 const userStore = useUserStore()
+const notificationStore = useNotificationStore()
 
 const mail = ref('')
 
+const validEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
 const login = (data) => {
-  userStore.login(data)
-  router.push('/')
+  if (validEmail(data)) {
+    console.log('valid');
+
+    userStore.login(data)
+    router.push('/')
+  } else {
+    notificationStore.addNotification({
+      type: 'error',
+      msg: 'Not a valid e-mail-address!'
+    })
+  }
 }
 </script>
 
