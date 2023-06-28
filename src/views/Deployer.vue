@@ -121,6 +121,13 @@ const router = useRouter()
                           <span class="label-text">Treasury</span>
                         </label>
                       </div>
+
+                      <div class="form-control tooltip w-full" data-tip="Coming soon">
+                        <label class="label cursor-pointer justify-start">
+                          <input type="checkbox" class="checkbox checkbox-secondary mr-2" disabled/>
+                          <span class="label-text">Exchange</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -11,7 +11,9 @@ const router = useRouter()
 const userStore = useUserStore()
 const notificationStore = useNotificationStore()
 
-const mail = ref('')
+const email = ref('')
+const password = ref('')
+const registration = ref(false)
 
 const validEmail = (email) => {
   return email.match(
@@ -19,16 +21,40 @@ const validEmail = (email) => {
   );
 };
 
-const login = (data) => {
-  if (validEmail(data)) {
-    console.log('valid');
-
-    userStore.login(data)
-    router.push('/')
-  } else {
+const login = async () => {
+  try {
+    if (validEmail(email.value)) {
+      await userStore.login(email.value, password.value)
+      router.push('/')
+    } else {
+      notificationStore.addNotification({
+        type: 'error',
+        msg: 'Not a valid e-mail-address!'
+      })
+    }
+  } catch (error) {
     notificationStore.addNotification({
       type: 'error',
-      msg: 'Not a valid e-mail-address!'
+      msg: error
+    })
+  }
+}
+
+const register = async () => {
+  try {
+    if (validEmail(email.value)) {
+      await userStore.register(email.value, password.value)
+      router.push('/')
+    } else {
+      notificationStore.addNotification({
+        type: 'error',
+        msg: 'Not a valid e-mail-address!'
+      })
+    }
+  } catch (error) {
+    notificationStore.addNotification({
+      type: 'error',
+      msg: error
     })
   }
 }
@@ -40,11 +66,35 @@ const login = (data) => {
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">ecosis</h1>
         <p class="py-6">Welcome</p>
-        <input type="email" placeholder="Type E-Mail here" class="input input-bordered w-full my-4"
-          v-model="mail"
-          @keydown.enter="login(mail)"
-        />
-        <button class="btn btn-primary" @click="login(mail)"><LogIn/>Get Started</button>
+        <div class="divider"></div>
+        <div class="" v-if="!registration">
+          <button class="w-full hover:bg-neutral rounded pb-4" @click="registration = true">
+            <h1>Login</h1>
+            <p class="underline">Register</p>
+          </button>
+          <input type="email" placeholder="E-Mail" class="input input-bordered w-full my-4"
+            v-model="email"
+          />
+          <input type="email" placeholder="Password" class="input input-bordered w-full my-4"
+            v-model="password"
+            @keydown.enter="login()"
+          />
+          <button class="btn btn-primary" @click="login()"><LogIn/>Login</button>
+        </div>
+        <div class="" v-else>
+          <button class="w-full hover:bg-neutral rounded pb-4" @click="registration = false">
+            <h1>Register</h1>
+            <p class="underline">Login</p>
+          </button>
+          <input type="email" placeholder="E-Mail" class="input input-bordered w-full my-4"
+            v-model="email"
+          />
+          <input type="email" placeholder="Password" class="input input-bordered w-full my-4"
+            v-model="password"
+            @keydown.enter="register()"
+          />
+          <button class="btn btn-primary" @click="register()"><LogIn/>Signup</button>
+        </div>
       </div>
     </div>
   </div>

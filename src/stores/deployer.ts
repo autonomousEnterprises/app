@@ -2,10 +2,12 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useNotificationStore } from './notifications';
 import { useWalletStore } from './wallet';
-import { instance } from '../session';
+import { useUserStore } from './user';
+import { deployToken } from '../session';
 
 const notificationStore = useNotificationStore()
 const walletStore = useWalletStore()
+const userStore = useUserStore()
 
 export const useDeployerStore = defineStore('deployer', () => {
   const token = ref({
@@ -22,7 +24,7 @@ export const useDeployerStore = defineStore('deployer', () => {
         throw new Error('Please fill all token parameter!')
       }
 
-      const res = await instance.post('/deploy', token)
+      const res = await deployToken(token.value.name, token.value.symbol, token.value.totalSupply, token.value.transactionFee)
 
       notificationStore.addNotification({
         type: 'success',
@@ -30,10 +32,11 @@ export const useDeployerStore = defineStore('deployer', () => {
       })
 
       walletStore.addWallet({
-        tokenName: res.data.genesisWallet.tokenName,
-        tokenSymbol: res.data.genesisWallet.tokenSymbol,
-        address: res.data.genesisWallet.address,
-        balance: res.data.genesisWallet.balance
+        tokenName: res.data.tokenName,
+        tokenSymbol: res.data.tokenSymbol,
+        balance: res.data.balance,
+        address: res.data.publicKey,
+        key: res.data.privateKey,
       })
     } catch (error) {
       console.log(error);
@@ -51,6 +54,6 @@ export const useDeployerStore = defineStore('deployer', () => {
       })
     }
   }
-  
-  return { branding, token, deployBusiness, deployToken, deploy }
+
+  return { token, deploy }
 })

@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import axios from 'axios';
 import { useNotificationStore } from './notifications';
 
 const notificationStore = useNotificationStore()
@@ -18,6 +17,14 @@ export const useWalletStore = defineStore('wallet', () => {
       type: 'info',
       msg: 'New wallet added'
     })
+  }
+
+  function exportWallet(password: string) {
+    // TODO
+  }
+
+  function importWallet(token: string) {
+    // TODO
   }
 
   return { wallets, addWallet }
