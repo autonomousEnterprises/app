@@ -13,6 +13,9 @@ const userStore = useUserStore()
 const walletStore = useWalletStore()
 const notificationStore = useNotificationStore()
 
+import { auth0 } from '../utils/auth';
+const { loginWithRedirect } = auth0
+
 const email = ref('')
 const password = ref('')
 const registration = ref(false)
@@ -61,6 +64,8 @@ const register = async () => {
     })
   }
 }
+
+
 </script>
 
 <template>
@@ -70,7 +75,7 @@ const register = async () => {
         <h1 class="text-5xl font-bold">ecosis</h1>
         <p class="py-6">Welcome</p>
         <div class="divider"></div>
-        <div class="" v-if="!registration">
+        <!-- <div class="" v-if="!registration">
           <button class="w-full rounded pb-4" @click="registration = true">
             <h1>Login</h1>
             <p class="underline">Register</p>
@@ -97,7 +102,20 @@ const register = async () => {
             @keydown.enter="register()"
           />
           <button class="btn btn-primary" @click="register()"><LogIn/>Signup</button>
+        </div> -->
+        <div class="flex flex-col">
+          <div class="">
+            <button class="btn btn-success" @click="loginWithRedirect()"><LogIn/>Signin</button>
+          </div>
+          <div
+          class="mt-10 text-center intro-x xl:mt-24 xl:text-left"
+          >
+          By signin up, you agree to our
+          <a class="underline" href="https://www.termsofusegenerator.net/live.php?token=4txL1cVZsI7DgYbgkrXjmrg4SoStkwTq" target="_blank">
+            Terms and Conditions
+          </a>
         </div>
+      </div>
       </div>
     </div>
   </div>

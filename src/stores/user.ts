@@ -6,6 +6,8 @@ import { signup, signin } from '../session';
 // const notificationStore = useNotificationStore()
 
 export const useUserStore = defineStore('user', () => {
+
+  // const authenticated = ref(false)
   const authenticated = ref(false)
   const user = ref('')
 

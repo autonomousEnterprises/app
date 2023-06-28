@@ -7,6 +7,19 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
+"@auth0/auth0-spa-js@^2.0.4":
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-2.0.8.tgz#42a8e5aad043e66dbba2a8fadc086a46bf0d021f"
+  integrity sha512-qCgWZS58S69WCg2ybd+SDiaw3ahBVJ4/tSFWMtIpc//Fq8kRHGwMOmgpNKVAFrpHG0ck2oWFGrpylxoto8Z0mA==
+
+"@auth0/auth0-vue@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-vue/-/auth0-vue-2.2.0.tgz#5bf8265b12f1fb210b41abae75e72b0a0b0f4e91"
+  integrity sha512-a8kNj9wF/hJFD/izAZojOTNlny/sq3qvuV8KLUreoQ92uMQBYiHtuclVHbRqoYxl2bwCtFJccttEmyYW3gzHDA==
+  dependencies:
+    "@auth0/auth0-spa-js" "^2.0.4"
+    vue "^3.2.41"
+
 "@babel/parser@^7.20.15", "@babel/parser@^7.21.3":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.22.5.tgz#721fd042f3ce1896238cf1b341c77eb7dee7dbea"
@@ -4241,7 +4254,7 @@ vue-tsc@^1.6.5:
     "@volar/vue-typescript" "1.6.5"
     semver "^7.3.8"
 
-vue@^3.3.4:
+vue@^3.2.41, vue@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.3.4.tgz#8ed945d3873667df1d0fcf3b2463ada028f88bd6"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==

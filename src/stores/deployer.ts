@@ -4,12 +4,17 @@ import { useNotificationStore } from './notifications';
 import { useWalletStore } from './wallet';
 import { useUserStore } from './user';
 import { deployToken } from '../session';
+import { useAuth0 } from '@auth0/auth0-vue';
 
 const notificationStore = useNotificationStore()
 const walletStore = useWalletStore()
-const userStore = useUserStore()
+// const userStore = useUserStore()
+
 
 export const useDeployerStore = defineStore('deployer', () => {
+
+  const { user } = useAuth0();
+
   const token = ref({
     // url: '',
     // name: '',
@@ -24,7 +29,7 @@ export const useDeployerStore = defineStore('deployer', () => {
         throw new Error('Please fill all token parameter!')
       }
 
-      const data = await deployToken(userStore.user, token.value.name, token.value.symbol, token.value.supply, token.value.fee)
+      const data = await deployToken(user.value.email, token.value.name, token.value.symbol, token.value.supply, token.value.fee)
       console.log(data);
 
       notificationStore.addNotification({

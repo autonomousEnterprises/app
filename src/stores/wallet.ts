@@ -2,16 +2,28 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useNotificationStore } from './notifications';
 // import { useUserStore } from './user';
-import { getTokens } from '../session';
+import { getTokens, sendTokens } from '../session';
+
+import { useAuth0 } from '@auth0/auth0-vue';
 
 const notificationStore = useNotificationStore()
 // const userStore = useUserStore()
 
 export const useWalletStore = defineStore('wallet', () => {
+
+  const { user } = useAuth0();
+
   const tokens = ref([])
 
-  async function fetchWallets(user) {
-    tokens.value = await getTokens(user)
+  async function fetchWallets() {
+    try {
+      tokens.value = await getTokens(user.value.email)
+    } catch (error) {
+      notificationStore.addNotification({
+        type: 'error',
+        msg: error
+      })
+    }
   }
 
   function addWallet(wallet) {
@@ -30,5 +42,20 @@ export const useWalletStore = defineStore('wallet', () => {
     // TODO
   }
 
-  return { tokens, addWallet, fetchWallets }
+  async function transfer(email: string, amount: number) {
+    try {
+      return await sendTokens(user.value.email, email, amount)
+      notificationStore.addNotification({
+        type: 'success',
+        msg: `Token transferred to ${email}`
+      })
+    } catch (error) {
+      notificationStore.addNotification({
+        type: 'error',
+        msg: error
+      })
+    }
+  }
+
+  return { tokens, addWallet, fetchWallets, transfer }
 })

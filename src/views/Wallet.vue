@@ -1,9 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useWalletStore } from '../stores/wallet';
 
+const amount = ref(0)
+const receiver = ref('')
+const token = ref('')
+
+const validEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+
 const walletStore = useWalletStore()
+
+const transfer = (token) => {
+  if (validEmail(receiver.value)) {
+    walletStore.transfer(receiver.value, amount, token)
+  }
+}
 
 const formatCurrency = (number: number) => {
   if (number) {
@@ -23,6 +40,10 @@ const formatCurrency = (number: number) => {
     return "";
   }
 };
+
+onBeforeMount(async () => {
+  await walletStore.fetchWallets()
+})
 </script>
 
 <template>
@@ -64,16 +85,16 @@ const formatCurrency = (number: number) => {
           <label class="label">
             <span class="label-text">Amount</span>
           </label>
-          <input type="number" placeholder="20" class="input input-bordered w-full bg-base-300"/>
+          <input type="number" placeholder="20" class="input input-bordered w-full bg-base-300" v-model="amount"/>
         </div>
         <div class="form-control w-full">
           <label class="label">
             <span class="label-text">Receiver</span>
           </label>
-          <input type="text" placeholder="Enter wallet address, @username or e-mail address " class="input input-bordered w-full bg-base-300"/>
+          <input type="text" placeholder="Enter e-mail address " class="input input-bordered w-full bg-base-300" v-model="receiver"/>
         </div>
         <div class="modal-action">
-          <button class="btn btn-success">Send</button>
+          <button class="btn btn-success" @click="transfer(token, receiver, amount)">Send</button>
           <!-- if there is a button in form, it will close the modal -->
           <button class="btn">Close</button>
         </div>

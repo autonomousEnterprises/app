@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@auth0/auth0-vue": "^2.2.0",
     "@dicebear/collection": "^6.0.4",
     "@dicebear/core": "^6.0.4",
     "@enjine/session": "^0.0.1-alpha.29",

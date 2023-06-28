@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-// import { useUserStore } from '../stores/user'
+import { auth0 } from '../utils/auth';
 
-// const userStore = useUserStore()
+const { authGuard } = auth0
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: Home,
+    beforeEnter: authGuard
     // beforeEnter: () => {
     //   if (!userStore.authenticated) {
     //     return false
@@ -18,22 +19,26 @@ const routes = [
   {
     path: '/b/:business',
     name: 'business',
-    component: () => import('../views/b/Business.vue')
+    component: () => import('../views/b/Business.vue'),
+    beforeEnter: authGuard
   },
   {
     path: '/deployer',
     name: 'deployer',
-    component: () => import('../views/Deployer.vue')
+    component: () => import('../views/Deployer.vue'),
+    beforeEnter: authGuard
   },
   {
     path: '/wallet',
     name: 'wallet',
-    component: () => import('../views/Wallet.vue')
+    component: () => import('../views/Wallet.vue'),
+    beforeEnter: authGuard
   },
   {
     path: '/settings',
     name: 'settings',
-    component: () => import('../views/Settings.vue')
+    component: () => import('../views/Settings.vue'),
+    beforeEnter: authGuard
   },
   {
     path: '/login',
