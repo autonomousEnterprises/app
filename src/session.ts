@@ -5,7 +5,7 @@ const API_BASE_URL = 'http://localhost:3000'; // Replace with your actual API ba
 export const instance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 20000,
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 console.log(document.cookie);
@@ -52,9 +52,9 @@ export const signin = async (email, password) => {
 };
 
 // Get tokens for authenticated user
-export const getTokens = async () => {
+export const getTokens = async (user) => {
   try {
-    const response = await instance.get(`/tokens`, { withCredentials: true });
+    const response = await instance.get(`/tokens/${user}`); // TODO { withCredentials: true }
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -62,10 +62,10 @@ export const getTokens = async () => {
 };
 
 // Create a new token
-export const deployToken = async (name, symbol, totalSupply, transactionFee) => {
+export const deployToken = async (user, name, symbol, totalSupply, transactionFee) => {
   try {
     const tokenData = { name, symbol, totalSupply, transactionFee };
-    const response = await instance.post(`/tokens/deploy`, tokenData, { withCredentials: true });
+    const response = await instance.post(`/tokens/deploy/${user}`, tokenData); // TODO { withCredentials: true }
     return response.data;
   } catch (error) {
     handleApiError(error);
@@ -82,6 +82,13 @@ export const getAllTokens = async () => {
   }
 };
 
+export const sendFeeback = async (feedback) => {
+  try {
+    await instance.post('/feedback', feedback)
+  } catch (error) {
+    handleApiError(error);
+  };
+};
 // // Example usage
 // signup('user@example.com', 'password');
 // signin('user@example.com', 'password');

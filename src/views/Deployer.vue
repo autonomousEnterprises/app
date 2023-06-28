@@ -42,12 +42,12 @@ const router = useRouter()
                 <div class="">
                   <div class="flex flex-wrap">
                     <div class="md:w-1/2">
-                      <div class="form-control w-full max-w-xs">
+                      <!-- <div class="form-control w-full max-w-xs">
                         <label class="label">
                           <span class="label-text">Project URL</span>
                         </label>
                         <input type="text" placeholder="https://yourproject.url" class="input input-bordered w-full max-w-xs bg-base-300" v-model="deployerStore.token.url" />
-                      </div>
+                      </div> -->
 
                       <div class="form-control w-full max-w-xs">
                         <label class="label">
@@ -143,7 +143,7 @@ const router = useRouter()
           <div class="form-control tooltip w-full" data-tip="Coming soon">
             <label class="label cursor-pointer">
               <span class="label-text">Custom Smart Contract</span>
-              <input type="checkbox" class="toggle ml-2" v-model="customSmartContract" disabled/>
+              <input type="checkbox" class="toggle ml-2" v-model="customSmartContract"/>
             </label>
           </div>
         </div>
@@ -161,16 +161,19 @@ const router = useRouter()
     </div>
 
 
-    <!-- <div class="w-full pt-8" v-if="customSmartContract">
+    <div class="w-full pt-8" v-if="customSmartContract">
       <div class="w-full flex justify-center">
         <FileEdit class="mr-2 mt-4"/>
         <h2>Smart Contract Code Editor</h2>
       </div>
       <CodeEditor/>
-    </div> -->
+    </div>
 
-    <div class="flex justify-center p-4 w-full">
+    <div class="flex justify-center p-4 w-full" v-if="!customSmartContract">
       <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()">Deploy</button>
+    </div>
+    <div class="flex justify-center p-4 w-full tooltip" v-else data-tip="Coming soon">
+      <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()" disabled>Deploy</button>
     </div>
   </main>
 </template>

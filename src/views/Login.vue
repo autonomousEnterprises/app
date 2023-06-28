@@ -5,10 +5,12 @@ import {
   LogIn
 } from 'lucide-vue-next';
 import { useUserStore } from '../stores/user';
+import { useWalletStore } from '../stores/wallet';
 import { useNotificationStore } from '../stores/notifications';
 
 const router = useRouter()
 const userStore = useUserStore()
+const walletStore = useWalletStore()
 const notificationStore = useNotificationStore()
 
 const email = ref('')
@@ -25,6 +27,7 @@ const login = async () => {
   try {
     if (validEmail(email.value)) {
       await userStore.login(email.value, password.value)
+      await walletStore.fetchWallets(email.value)
       router.push('/')
     } else {
       notificationStore.addNotification({
@@ -68,7 +71,7 @@ const register = async () => {
         <p class="py-6">Welcome</p>
         <div class="divider"></div>
         <div class="" v-if="!registration">
-          <button class="w-full hover:bg-neutral rounded pb-4" @click="registration = true">
+          <button class="w-full rounded pb-4" @click="registration = true">
             <h1>Login</h1>
             <p class="underline">Register</p>
           </button>
@@ -82,7 +85,7 @@ const register = async () => {
           <button class="btn btn-primary" @click="login()"><LogIn/>Login</button>
         </div>
         <div class="" v-else>
-          <button class="w-full hover:bg-neutral rounded pb-4" @click="registration = false">
+          <button class="w-full rounded pb-4" @click="registration = false">
             <h1>Register</h1>
             <p class="underline">Login</p>
           </button>

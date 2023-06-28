@@ -1,18 +1,21 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useNotificationStore } from './notifications';
+// import { useUserStore } from './user';
+import { getTokens } from '../session';
 
 const notificationStore = useNotificationStore()
+// const userStore = useUserStore()
 
 export const useWalletStore = defineStore('wallet', () => {
-  const wallets = ref([])
+  const tokens = ref([])
 
-  function fetchWallets() {
-    // TODO
+  async function fetchWallets(user) {
+    tokens.value = await getTokens(user)
   }
 
   function addWallet(wallet) {
-    wallets.value.push(wallet)
+    tokens.value.push(wallet)
     notificationStore.addNotification({
       type: 'info',
       msg: 'New wallet added'
@@ -27,5 +30,5 @@ export const useWalletStore = defineStore('wallet', () => {
     // TODO
   }
 
-  return { wallets, addWallet }
+  return { tokens, addWallet, fetchWallets }
 })

@@ -39,7 +39,7 @@ const getNotifcationType = (notificationType) => {
 
 onBeforeMount(() => {
   if (!userStore.authenticated) {
-    router.push('/login')
+    return router.push('/login')
   }
 })
 </script>

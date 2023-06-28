@@ -32,22 +32,22 @@ const formatCurrency = (number: number) => {
 
         <div class="stat flex flex-col justify-center">
           <div class="stat-title">Total balance</div>
-          <div class="stat-value">$89,400</div>
+          <div class="stat-value">$0.000</div>
 
-          <div class="stat-title">Total assets: <span class="bold">{{ walletStore.wallets.length }}</span></div>
+          <div class="stat-title">Total assets: <span class="bold">{{ walletStore.tokens.length }}</span></div>
           <div class="stat-actions">
-            <button class="btn btn-sm btn-success">Add funds</button>
+            <button class="btn btn-sm btn-success" disabled>Add Token</button>
           </div>
         </div>
 
         <div class="stats stats-vertical overflow-scroll">
 
-          <div class="stat" v-for="wallet in walletStore.wallets">
+          <div class="stat" v-for="wallet in walletStore.tokens">
             <div class="stat-title">Current balance</div>
-            <div class="stat-value"><span>{{ wallet.tokenSymbol }}</span>{{ formatCurrency(wallet.balance) }}</div>
+            <div class="stat-value"><span class="!text-gray-300 mr-2 !font-normal">{{ wallet.tokenSymbol }}</span>{{ formatCurrency(wallet.balance) }}</div>
             <div class="stat-actions">
-              <button class="btn btn-sm">Withdrawal</button>
-              <button class="btn btn-sm">deposit</button>
+              <!-- <button class="btn btn-sm">Withdrawal</button>
+              <button class="btn btn-sm">deposit</button> -->
               <div class="stat-actions">
                 <button class="btn btn-sm btn-primary w-full" onclick="my_modal_5.showModal()">Send</button>
               </div>

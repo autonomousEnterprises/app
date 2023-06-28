@@ -24,7 +24,8 @@ export const useDeployerStore = defineStore('deployer', () => {
         throw new Error('Please fill all token parameter!')
       }
 
-      const res = await deployToken(token.value.name, token.value.symbol, token.value.totalSupply, token.value.transactionFee)
+      const data = await deployToken(userStore.user, token.value.name, token.value.symbol, token.value.supply, token.value.fee)
+      console.log(data);
 
       notificationStore.addNotification({
         type: 'success',
@@ -32,11 +33,12 @@ export const useDeployerStore = defineStore('deployer', () => {
       })
 
       walletStore.addWallet({
-        tokenName: res.data.tokenName,
-        tokenSymbol: res.data.tokenSymbol,
-        balance: res.data.balance,
-        address: res.data.publicKey,
-        key: res.data.privateKey,
+        tokenId: data.tokenId,
+        tokenName: data.tokenName,
+        tokenSymbol: data.tokenSymbol,
+        balance: data.balance,
+        publicKey: data.publicKey,
+        privateKey: data.privateKey, // TODO Crypto Store & Export Option
       })
     } catch (error) {
       console.log(error);
