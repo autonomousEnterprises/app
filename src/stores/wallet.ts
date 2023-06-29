@@ -42,9 +42,9 @@ export const useWalletStore = defineStore('wallet', () => {
     // TODO
   }
 
-  async function transfer(email: string, amount: number) {
+  async function transfer(email: string, amount: number, token: any) {
     try {
-      return await sendTokens(user.value.email, email, amount)
+      return await sendTokens(user.value.email, email, amount, token)
       notificationStore.addNotification({
         type: 'success',
         msg: `Token transferred to ${email}`

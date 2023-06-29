@@ -13,12 +13,17 @@ const validEmail = (email) => {
   );
 };
 
-
 const walletStore = useWalletStore()
 
-const transfer = (token) => {
+const selectToken = (selectedToken) => {
+  token.value = selectedToken
+}
+
+const transfer = () => {
+  console.log(token.value);
+
   if (validEmail(receiver.value)) {
-    walletStore.transfer(receiver.value, amount, token)
+    walletStore.transfer(receiver.value, amount.value, token.value)
   }
 }
 
@@ -70,7 +75,7 @@ onBeforeMount(async () => {
               <!-- <button class="btn btn-sm">Withdrawal</button>
               <button class="btn btn-sm">deposit</button> -->
               <div class="stat-actions">
-                <button class="btn btn-sm btn-primary w-full" onclick="my_modal_5.showModal()">Send</button>
+                <button class="btn btn-sm btn-primary w-full" onclick="my_modal_5.showModal()" @click="selectToken(wallet)">Send</button>
               </div>
             </div>
           </div>
@@ -94,7 +99,7 @@ onBeforeMount(async () => {
           <input type="text" placeholder="Enter e-mail address " class="input input-bordered w-full bg-base-300" v-model="receiver"/>
         </div>
         <div class="modal-action">
-          <button class="btn btn-success" @click="transfer(token, receiver, amount)">Send</button>
+          <button class="btn btn-success" @click="transfer(token, receiver, amount)" disabled>Send</button>
           <!-- if there is a button in form, it will close the modal -->
           <button class="btn">Close</button>
         </div>

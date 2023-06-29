@@ -74,9 +74,9 @@ export const deployToken = async (user, name, symbol, totalSupply, transactionFe
   }
 };
 
-export const sendTokens = async (user: string, email: string, amount: string) => {
+export const sendTokens = async (user: string, email: string, amount: string, token: any) => {
   try {
-    return await instance.post(`/tokens/transfer/${user}`, { email, amount })
+    return await instance.post(`/tokens/transfer/${user}`, { email, amount, token })
   } catch (error) {
     handleApiError(error);
   }
