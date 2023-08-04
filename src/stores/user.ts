@@ -7,15 +7,15 @@ import { signup, signin } from '../session';
 
 export const useUserStore = defineStore('user', () => {
 
-  // const authenticated = ref(false)
-  const authenticated = ref(false)
+  // const isAuthenticated = ref(false)
+  const isAuthenticated = ref(false)
   const user = ref('')
 
   // const userMail = localStorage.getItem('user_mail')
   //
   // if (userMail) {
   //   user.value = userMail
-  //   authenticated.value = true
+  //   isAuthenticated.value = true
   // }
 
   async function register(email: string, password: string) {
@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', () => {
       await signup(email, password)
       // localStorage.setItem('user_mail', mail)
       user.value = email
-      authenticated.value = true
+      isAuthenticated.value = true
     } catch (error) {
       console.log(error)
       throw new Error(error)
@@ -34,12 +34,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  async function login(email: string, password: string) {
+  async function login(email: string, password?: string) {
     try {
-      await signin(email, password)
+      // await signin(email, password)
       // localStorage.setItem('user_mail', mail)
       user.value = email
-      authenticated.value = true
+      isAuthenticated.value = true
     } catch (error) {
       console.log(error)
       throw new Error(error)
@@ -60,8 +60,8 @@ export const useUserStore = defineStore('user', () => {
 
   function logout(wallet) {
     // localStorage.removeItem('user_mail')
-    authenticated.value = false
+    isAuthenticated.value = false
   }
 
-  return { authenticated, login, register, logout, user }
+  return { isAuthenticated, login, register, logout, user }
 })

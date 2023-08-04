@@ -67,16 +67,16 @@ export const deployToken = async (user, name, symbol, totalSupply, transactionFe
     console.log(user);
 
     const tokenData = { name, symbol, totalSupply, transactionFee };
-    const response = await instance.post(`/tokens/deploy/${user}`, tokenData); // TODO { withCredentials: true }
+    const response = await instance.post(`/tokens/deploy`, { user, tokenData }); // TODO { withCredentials: true }
     return response.data;
   } catch (error) {
     handleApiError(error);
   }
 };
 
-export const sendTokens = async (user: string, email: string, amount: string, token: any) => {
+export const sendTokens = async (sender: string, receiver: string, amount: string, token: any) => {
   try {
-    return await instance.post(`/tokens/transfer/${user}`, { email, amount, token })
+    return await instance.post(`/tokens/transfer`, { user: sender, email: receiver, amount, token })
   } catch (error) {
     handleApiError(error);
   }
@@ -94,6 +94,8 @@ export const getAllTokens = async () => {
 
 export const sendFeeback = async (feedback) => {
   try {
+    console.log(feedback);
+
     await instance.post('/feedback', feedback)
   } catch (error) {
     handleApiError(error);

@@ -21,6 +21,8 @@ const governance = ref(false)
 const treasury = ref(false)
 
 const customSmartContract = ref(false)
+const tokeniseData = ref(false)
+const dedicatedWallet = ref(false)
 const dedicatedVirtualMachine = ref(false)
 const listing = ref(false)
 
@@ -149,6 +151,24 @@ const router = useRouter()
         </div>
 
         <div class="card shadow bg-base-100 p-4 m-2">
+          <div class="form-control tooltip w-full" data-tip="Coming soon">
+            <label class="label cursor-pointer">
+              <span class="label-text">Tokenise Data</span>
+              <input type="checkbox" class="toggle ml-2" v-model="tokeniseData" disabled/>
+            </label>
+          </div>
+        </div>
+
+        <div class="card shadow bg-base-100 p-4 m-2">
+          <div class="form-control tooltip w-full" data-tip="Coming soon">
+            <label class="label cursor-pointer">
+              <span class="label-text">Dedicated Wallet</span>
+              <input type="checkbox" class="toggle ml-2" v-model="dedicatedWallet" disabled/>
+            </label>
+          </div>
+        </div>
+
+        <div class="card shadow bg-base-100 p-4 m-2">
           <div class="form-control tooltip w-full" data-tip="You need to have at least 10 Nomics in your Wallet">
             <label class="label cursor-pointer">
               <span class="label-text">List at the Marketplace</span>
@@ -172,7 +192,7 @@ const router = useRouter()
     <div class="flex justify-center p-4 w-full" v-if="!customSmartContract">
       <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()">Deploy</button>
     </div>
-    <div class="flex justify-center p-4 w-full tooltip" v-else data-tip="Coming soon">
+    <div class="flex justify-center p-4 w-full tooltip" v-else data-tip="Custom Smart Contracts available soon">
       <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()" disabled>Deploy</button>
     </div>
   </main>

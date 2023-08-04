@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useWalletStore } from '../stores/wallet';
+import { formatCurrency } from '../utils/numbers';
 
 const amount = ref(0)
 const receiver = ref('')
@@ -20,31 +21,10 @@ const selectToken = (selectedToken) => {
 }
 
 const transfer = () => {
-  console.log(token.value);
-
   if (validEmail(receiver.value)) {
     walletStore.transfer(receiver.value, amount.value, token.value)
   }
 }
-
-const formatCurrency = (number: number) => {
-  if (number) {
-    const formattedNumber = number.toString().replace(/\D/g, "");
-    const rest = formattedNumber.length % 3;
-    let currency = formattedNumber.substr(0, rest);
-    const thousand = formattedNumber.substr(rest).match(/\d{3}/g);
-    let separator;
-
-    if (thousand) {
-      separator = rest ? "," : "";
-      currency += separator + thousand.join(",");
-    }
-
-    return currency;
-  } else {
-    return "";
-  }
-};
 
 onBeforeMount(async () => {
   await walletStore.fetchWallets()
@@ -70,7 +50,7 @@ onBeforeMount(async () => {
 
           <div class="stat" v-for="wallet in walletStore.tokens">
             <div class="stat-title">Current balance</div>
-            <div class="stat-value"><span class="!text-gray-300 mr-2 !font-normal">{{ wallet.tokenSymbol }}</span>{{ formatCurrency(wallet.balance) }}</div>
+            <div class="stat-value w-full flex flex-wrap justify-between"><span class="!text-gray-300 mr-2 !font-normal">{{ wallet.symbol }}</span>{{ formatCurrency(wallet.balance.toFixed(3) || 0) }}</div>
             <div class="stat-actions">
               <!-- <button class="btn btn-sm">Withdrawal</button>
               <button class="btn btn-sm">deposit</button> -->
@@ -79,31 +59,36 @@ onBeforeMount(async () => {
               </div>
             </div>
           </div>
+          <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+            <form method="dialog" class="modal-box">
+              <div class="form-control w-full">
+                <label class="label">
+                  <span class="label-text">Amount</span>
+                </label>
+                <input type="number" placeholder="20" class="input input-bordered w-full bg-base-300" v-model="amount"/>
+              </div>
+              <div class="form-control w-full">
+                <label class="label">
+                  <span class="label-text">Receiver</span>
+                </label>
+                <input type="text" placeholder="Enter e-mail address " class="input input-bordered w-full bg-base-300" v-model="receiver"/>
+              </div>
+              <div class="flex flex-col w-full text-gray-500 italic pt-2">
+                <span>Transaction Fee: {{ token.fee }}</span>
+                <span>You are about to send {{ amount }} {{ token.name }} to {{ receiver }}</span>
+                <span>You will have {{ (token.balance - amount - token.fee).toFixed(3) }} left</span>
+              </div>
+              <div class="modal-action">
+                <button class="btn btn-success" @click="transfer()">Send</button>
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+              </div>
+            </form>
+          </dialog>
 
         </div>
 
       </div>
     </section>
-    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-      <form method="dialog" class="modal-box">
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">Amount</span>
-          </label>
-          <input type="number" placeholder="20" class="input input-bordered w-full bg-base-300" v-model="amount"/>
-        </div>
-        <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text">Receiver</span>
-          </label>
-          <input type="text" placeholder="Enter e-mail address " class="input input-bordered w-full bg-base-300" v-model="receiver"/>
-        </div>
-        <div class="modal-action">
-          <button class="btn btn-success" @click="transfer(token, receiver, amount)" disabled>Send</button>
-          <!-- if there is a button in form, it will close the modal -->
-          <button class="btn">Close</button>
-        </div>
-      </form>
-    </dialog>
   </main>
 </template>

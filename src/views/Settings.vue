@@ -8,19 +8,20 @@ import {
 } from 'lucide-vue-next';
 import { useNotificationStore } from '../stores/notifications';
 import ThemeSelect from '../components/ThemeSelect.vue';
+import { sendFeeback } from '../session';
 
 const notificationStore = useNotificationStore()
 
 const feedback = ref('')
 
-const sendFeeback = () => {
+const sendingFeedback = () => {
   if (!feedback.value) {
     return notificationStore.addNotification({
       type: 'error',
       msg: ' Please write something into the Textfield :)'
     })
   };
-
+  sendFeeback(feedback.value);
 }
 </script>
 
@@ -56,9 +57,9 @@ const sendFeeback = () => {
         <h1>Give Feedback</h1>
       </div>
       <div class="stats shadow stats-vertical lg:stats-horizontal hadow card w-full bg-base-100 p-4 flex">
-        <textarea class="textarea textarea-ghost h-64 mb-4" placeholder="Type here..."></textarea>
+        <textarea class="textarea textarea-ghost h-64 mb-4" placeholder="Type here..." v-model="feedback"></textarea>
         <p class="italic w-full text-center py-2">Anonymous</p>
-        <button class="btn btn-primary">Send</button>
+        <button class="btn btn-primary" @click="sendingFeedback()">Send</button>
       </div>
     </div>
   </main>

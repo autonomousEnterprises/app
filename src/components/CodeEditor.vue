@@ -29,7 +29,7 @@ export default {
     PrismEditor,
   },
   data: () => ({
-    code: `import { Token } from './token'; \n\nnew Token('${deployerStore.token.symbol}', '${deployerStore.token.name}', ${deployerStore.token.supply}, ${deployerStore.token.fee})`, // /\r?\n|\r/ https://bobbyhadz.com/blog/javascript-remove-all-line-breaks-from-string
+    code: `new Token('${deployerStore.token.symbol || 'CBR'}', '${deployerStore.token.name || 'Cyber'}', ${deployerStore.token.supply || 21000000}, ${deployerStore.token.fee || 0.1})`, // /\r?\n|\r/ https://bobbyhadz.com/blog/javascript-remove-all-line-breaks-from-string
   }),
   methods: {
     highlighter(code) {

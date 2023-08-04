@@ -72,10 +72,13 @@ const register = async () => {
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content text-center">
       <div class="max-w-md">
+        <div class="w-full flex justify-center">
+          <img class="w-64" src="@/assets/logo.svg">
+        </div>
         <h1 class="text-5xl font-bold">ecosis</h1>
         <p class="py-6">Welcome</p>
         <div class="divider"></div>
-        <!-- <div class="" v-if="!registration">
+        <div class="" v-if="!registration">
           <button class="w-full rounded pb-4" @click="registration = true">
             <h1>Login</h1>
             <p class="underline">Register</p>
@@ -102,11 +105,11 @@ const register = async () => {
             @keydown.enter="register()"
           />
           <button class="btn btn-primary" @click="register()"><LogIn/>Signup</button>
-        </div> -->
+        </div>
         <div class="flex flex-col">
-          <div class="">
+          <!-- <div class="">
             <button class="btn btn-success" @click="loginWithRedirect()"><LogIn/>Signin</button>
-          </div>
+          </div> -->
           <div
           class="mt-10 text-center intro-x xl:mt-24 xl:text-left"
           >
