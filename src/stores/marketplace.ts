@@ -19,6 +19,13 @@ export const useMarketplaceStore = defineStore('marketplace', () => {
       transactionFee: 0,
       vm: 'ELABS'
     },
+    {
+      name: 'ecosis Network',
+      symbol: 'NOMICS',
+      totalSupply: 128000,
+      transactionFee: 0.1,
+      vm: 'ELABS'
+    },
   ])
 
   const tokens = ref([])
