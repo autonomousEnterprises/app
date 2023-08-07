@@ -11,7 +11,8 @@ export default defineConfig({
     mkcert()
   ],
   define: {
-    global: {},
+    // global: '({})',
+    _global: '({})',
   },
   resolve: {
     alias: {
