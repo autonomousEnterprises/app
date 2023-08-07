@@ -7,7 +7,6 @@ import {
   FileEdit,
   FileCode
 } from 'lucide-vue-next';
-import BusinessList from '../components/BusinessList.vue'
 import CodeEditor from '../components/CodeEditor.vue'
 import { useDeployerStore } from '../stores/deployer';
 
@@ -21,6 +20,7 @@ const governance = ref(false)
 const treasury = ref(false)
 
 const customSmartContract = ref(false)
+const prompt = ref(false)
 const tokeniseData = ref(false)
 const dedicatedWallet = ref(false)
 const dedicatedVirtualMachine = ref(false)
@@ -185,6 +185,21 @@ const router = useRouter()
       <div class="w-full flex justify-center">
         <FileEdit class="mr-2 mt-4"/>
         <h2>Smart Contract Code Editor</h2>
+      </div>
+
+        <div class="flex justify-center">
+          <div class="card shadow bg-base-100 p-4 m-2 form-control tooltip w-64" data-tip="Coming soon">
+            <label class="label cursor-pointer">
+              <span class="label-text">Prompt</span>
+              <input type="checkbox" class="toggle ml-2" v-model="prompt"/>
+            </label>
+          </div>
+        </div>
+      <div class="w-full my-4" v-if="prompt">
+        <textarea class="textarea textarea-bordered w-full" placeholder="Ex: 'A treasury system to manage other tokens. The treasury is a token itself as well and needs to be mintable by depositing other tokens and burnable by withdrawing other tokens.'"></textarea>
+        <div class="flex justify-center p-4 w-full tooltip" data-tip="AI Coder available soon">
+          <button class="btn btn-wide btn-neutral" @click="deployerStore.deploy()" disabled>Code</button>
+        </div>
       </div>
       <CodeEditor/>
     </div>

@@ -18,7 +18,7 @@ export const handleApiError = (error) => {
   } else {
     console.log(error);
     throw new Error(error.message);
-  }
+  };
 };
 
 // Signup a new user
@@ -28,7 +28,7 @@ export const signup = async (email: string, password: string) => {
     return response.data;
   } catch (error) {
     handleApiError(error);
-  }
+  };
 };
 
 // Update user password
@@ -38,7 +38,7 @@ export const updatePassword = async (oldPassword: string, newPassword: string) =
     return response.data;
   } catch (error) {
     handleApiError(error);
-  }
+  };
 };
 
 // Signin an existing user
@@ -48,7 +48,7 @@ export const signin = async (email, password) => {
     return response.data;
   } catch (error) {
     handleApiError(error);
-  }
+  };
 };
 
 // Get tokens for authenticated user
@@ -58,28 +58,26 @@ export const getTokens = async (user) => {
     return response.data;
   } catch (error) {
     handleApiError(error);
-  }
+  };
 };
 
 // Create a new token
 export const deployToken = async (user, name, symbol, totalSupply, transactionFee) => {
   try {
-    console.log(user);
-
     const tokenData = { name, symbol, totalSupply, transactionFee };
     const response = await instance.post(`/tokens/deploy`, { user, tokenData }); // TODO { withCredentials: true }
     return response.data;
   } catch (error) {
     handleApiError(error);
-  }
+  };
 };
 
-export const sendTokens = async (sender: string, receiver: string, amount: string, token: any) => {
+export const sendTokens = async (sender: string, receiver: string, amount: number, token: any) => {
   try {
     return await instance.post(`/tokens/transfer`, { user: sender, email: receiver, amount, token })
   } catch (error) {
     handleApiError(error);
-  }
+  };
 }
 
 // Get all tokens
@@ -89,7 +87,7 @@ export const getAllTokens = async () => {
     return response.data;
   } catch (error) {
     handleApiError(error);
-  }
+  };
 };
 
 export const sendFeeback = async (feedback) => {

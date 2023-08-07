@@ -16,21 +16,19 @@ export const useDeployerStore = defineStore('deployer', () => {
   // const { user } = useAuth0();
 
   const token = ref({
-    // url: '',
-    // name: '',
-    // symbol: '',
-    // supply: '',
-    // fee: '',
+    name: '',
+    symbol: '',
+    supply: '',
+    fee: '',
   })
 
   async function deploy() {
     try {
-      if (!token.url, !token.value.name && !token.value.symbol && !token.value.supply && !token.value.fee) {
+      if (!token.value.name && !token.value.symbol && !token.value.supply && !token.value.fee) {
         throw new Error('Please fill all token parameter!')
       }
 
-      const data = await deployToken(userStore.user, token.value.name, token.value.symbol, token.value.supply, token.value.fee)
-      console.log(userStore.user);
+      const data = await deployToken(userStore.user.email, token.value.name, token.value.symbol, token.value.supply, token.value.fee)
 
       notificationStore.addNotification({
         type: 'success',
@@ -46,21 +44,20 @@ export const useDeployerStore = defineStore('deployer', () => {
         privateKey: data.privateKey, // TODO Crypto Store & Export Option
       })
     } catch (error) {
-      console.log(error);
-
-      if (error.response && error.response.status === 403) {
-        return notificationStore.addNotification({
+      if (error instanceof Error) {
+        notificationStore.addNotification({
           type: 'error',
-          msg: 'Token already exists'
-        })
-      }
-
-      notificationStore.addNotification({
-        type: 'error',
-        msg: error.message
-      })
-    }
-  }
+          msg: error.message
+        });
+        console.log(error.message);
+      } else {
+        notificationStore.addNotification({
+          type: 'error',
+          msg: error
+        });
+      };
+    };
+  };
 
   return { token, deploy }
-})
+});

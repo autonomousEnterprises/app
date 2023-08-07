@@ -6,7 +6,11 @@ import { formatCurrency } from '../utils/numbers';
 
 const amount = ref(0)
 const receiver = ref('')
-const token = ref('')
+const token = ref({
+  name: '',
+  fee: 0,
+  balance: 0,
+})
 
 const validEmail = (email) => {
   return email.match(
@@ -36,7 +40,7 @@ onBeforeMount(async () => {
     <section class="flex flex-col justify-start h-auto">
       <div class="stats stats-vertical lg:stats-horizontal bg-base-100 card text-primary-content shadow h-auto">
 
-        <div class="stat flex flex-col justify-center">
+        <!-- <div class="stat flex flex-col justify-center">
           <div class="stat-title">Total balance</div>
           <div class="stat-value">$0.000</div>
 
@@ -44,12 +48,12 @@ onBeforeMount(async () => {
           <div class="stat-actions">
             <button class="btn btn-sm btn-success" disabled>Add Token</button>
           </div>
-        </div>
+        </div> -->
 
         <div class="stats stats-vertical overflow-scroll">
 
           <div class="stat" v-for="wallet in walletStore.tokens">
-            <div class="stat-title">Current balance</div>
+            <div class="stat-title">Balance</div>
             <div class="stat-value w-full flex flex-wrap justify-between"><span class="!text-gray-300 mr-2 !font-normal">{{ wallet.symbol }}</span>{{ formatCurrency(wallet.balance.toFixed(3) || 0) }}</div>
             <div class="stat-actions">
               <!-- <button class="btn btn-sm">Withdrawal</button>
@@ -75,8 +79,8 @@ onBeforeMount(async () => {
               </div>
               <div class="flex flex-col w-full text-gray-500 italic pt-2">
                 <span>Transaction Fee: {{ token.fee }}</span>
-                <span>You are about to send {{ amount }} {{ token.name }} to {{ receiver }}</span>
-                <span>You will have {{ (token.balance - amount - token.fee).toFixed(3) }} left</span>
+                <span>You are about to send <b>{{ amount }} {{ token.name }}</b> to {{ receiver }}</span>
+                <span>You will have <b>{{ formatCurrency(token.balance - amount - token.fee) }} {{ token.name }}</b> left</span>
               </div>
               <div class="modal-action">
                 <button class="btn btn-success" @click="transfer()">Send</button>
