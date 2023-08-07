@@ -17,12 +17,6 @@ const routes = [
     // }
   },
   {
-    path: '/b/:business',
-    name: 'business',
-    component: () => import('../views/b/Business.vue'),
-    beforeEnter: authGuard
-  },
-  {
     path: '/deployer',
     name: 'deployer',
     component: () => import('../views/Deployer.vue'),

@@ -41,10 +41,6 @@ const getNotifcationType = (notificationType) => {
 }
 
 onBeforeMount(() => {
-  // if (!userStore.authenticated) {
-  //   return router.push('/login')
-  // }
-
   if (!isAuthenticated.value) {
     return router.push('/login')
   }
@@ -93,7 +89,7 @@ onBeforeMount(() => {
             <li><RouterLink to="/settings"><Settings/>Settings</RouterLink></li>
             <div class="divider"></div>
             <!-- <button class="btn btn-warning" @click="userStore.logout()" v-if="userStore.authenticated"><LogOut/>Logout</button> -->
-            <button class="btn btn-warning" @click="logout()" v-if="userStore.authenticated"><LogOut/>Logout</button>
+            <button class="btn btn-warning" @click="logout()" v-if="userStore.isAuthenticated"><LogOut/>Logout</button>
         </ul>
       </div>
 
